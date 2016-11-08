@@ -29,7 +29,7 @@ do_action( 'greenlight_before' );
 <div id="wrapper">
 	<div id="container">
 
-        <?php
+		<?php
 		/**
 		 * @hooked null
 		 */
@@ -50,14 +50,14 @@ do_action( 'greenlight_before' );
 			</div><!-- .wrap -->
 		</header><!-- #branding -->
 
-        <?php
+		<?php
 		/**
 		 * @hooked
 		 */
 		do_action( 'greenlight_header_after' );
 		?>
 
-        <div id="content" class="site-content">
+		<div id="content" class="site-content">
 			<div class="wrap clearfix">
 
 	            <?php

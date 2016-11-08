@@ -16,13 +16,13 @@ get_header(); ?>
 
 			<?php get_template_part( 'template-parts/content', get_post_format() ); ?>
 
-            <?php //primer_post_nav(); ?>
+			<?php //greenlight_post_nav(); ?>
 
-            <?php if ( comments_open() || get_comments_number() ) : ?>
+			<?php if ( comments_open() || get_comments_number() ) : ?>
 
-    		    <?php comments_template(); ?>
+				<?php comments_template(); ?>
 
-    	    <?php endif; ?>
+			<?php endif; ?>
 
 		<?php endwhile; ?>
 

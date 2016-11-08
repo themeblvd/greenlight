@@ -12,11 +12,11 @@
 ?>
 
                 <?php
-        		/**
-        		 * @hooked
-        		 */
-        		do_action( 'greenlight_content_end' );
-        		?>
+                /**
+                 * @hooked
+                 */
+                do_action( 'greenlight_content_end' );
+                ?>
 
             </div><!-- .wrap -->
         </div><!-- #content -->
@@ -31,12 +31,12 @@
         <footer id="colophon" class="site-footer">
 			<div class="wrap clearfix">
 
-				<?php
-        		/**
-        		 * @hooked
-        		 */
-        		do_action( 'greenlight_footer' );
-        		?>
+                <?php
+                /**
+                 * @hooked
+                 */
+                do_action( 'greenlight_footer' );
+                ?>
 
 			</div><!-- .wrap -->
 		</footer><!-- #colophon -->
