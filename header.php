@@ -60,9 +60,9 @@ do_action( 'greenlight_before' );
 		<div id="content" class="site-content">
 			<div class="wrap clearfix">
 
-	            <?php
-	    		/**
-	    		 * @hooked
-	    		 */
-	    		do_action( 'greenlight_content_start' );
-	    		?>
+				<?php
+				/**
+				 * @hooked
+				 */
+				do_action( 'greenlight_content_start' );
+				?>
