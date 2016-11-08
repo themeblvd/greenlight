@@ -36,6 +36,24 @@ Domain Path: /lang
 
 ----------------------------------------------- */
 
+/* =Viewport Guide
+----------------------------------------------- *
+
+Body Font: 16px
+
+MOBILE
+0 to (767px = 47.9375em)
+
+TABLETS
+(768px = 48em) to (991px = 61.9375em)
+
+SMALL DESKTOPS
+(992px = 62em) to (1199px = 74.9375em)
+
+LARGE DESKTOPS
+(1200px = 75em) and up
+
+----------------------------------------------- */
 
 /* =Normalize
 /* Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css

@@ -34,7 +34,7 @@ define( 'GREENLIGHT_VERSION', '1.0.0' );
  */
 if ( ! defined( 'GREENLIGHT_MIN_WP_VERSION' ) ) {
 
-	define( 'GREENLIGHT_MIN_WP_VERSION', '4.4' );
+	define( 'GREENLIGHT_MIN_WP_VERSION', '4.5' );
 
 }
 
@@ -392,20 +392,23 @@ add_action( 'widgets_init', 'greenlight_register_sidebars' );
  */
 function greenlight_scripts() {
 
-	// Add custom fonts, selected from the customizer.
-	wp_enqueue_style( 'greenlight-fonts', greenlight_get_fonts_url(), array(), null );
-
-    $stylesheet = get_stylesheet();
+	$stylesheet = get_stylesheet();
+	$rtl = is_rtl() ? '-rtl' : '';
 	$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-    wp_enqueue_style( $stylesheet, get_stylesheet_uri(), false, defined( 'GREENLIGHT_CHILD_VERSION' ) ? GREENLIGHT_CHILD_VERSION : GREENLIGHT_VERSION );
+	// Add custom fonts, selected from the customizer.
+	wp_enqueue_style( 'greenlight-fonts', esc_url( greenlight_get_fonts_url() ), array(), null );
 
-    wp_style_add_data( $stylesheet, 'rtl', 'replace' );
+	// Add grid system styles
+	wp_enqueue_style( 'greenlight-grid', esc_url( get_template_directory_uri() . "/assets/css/grid{$rtl}{$suffix}.css" ), array(), GREENLIGHT_VERSION );
+
+	// Add primary theme styles
+    wp_enqueue_style( $stylesheet, esc_url( get_stylesheet_uri() ), false, defined( 'GREENLIGHT_CHILD_VERSION' ) ? GREENLIGHT_CHILD_VERSION : GREENLIGHT_VERSION );
+	wp_style_add_data( $stylesheet, 'rtl', 'replace' );
+	wp_add_inline_style( $stylesheet, greenlight_inline_style() );
 
     // wp_enqueue_script( 'greenlight-navigation', get_template_directory_uri() . "/assets/js/navigation{$suffix}.js", array( 'jquery' ), PRIMER_VERSION, true );
 	// wp_enqueue_script( 'greenlight-skip-link-focus-fix', get_template_directory_uri() . "/assets/js/skip-link-focus-fix{$suffix}.js", array(), PRIMER_VERSION, true );
-
-	wp_add_inline_style( $stylesheet, greenlight_inline_style() );
 
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
