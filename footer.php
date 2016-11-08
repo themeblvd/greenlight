@@ -28,12 +28,12 @@
         do_action( 'greenlight_footer_before' );
         ?>
 
-        <footer id="colophon" class="site-footer">
+        <footer id="colophon" <?php greenlight_footer_class(); ?>>
 			<div class="wrap clearfix">
 
                 <?php
                 /**
-                 * @hooked
+                 * @hooked greenlight_add_footer_widgets - 10
                  */
                 do_action( 'greenlight_footer' );
                 ?>

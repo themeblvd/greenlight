@@ -326,9 +326,16 @@ template {
 
 /* Clear floated elements. */
 .clearfix:before,
-.clearfix:after {
+.clearfix:after,
+.row:before,
+.row:after {
     content: " ";
     display: table;
+}
+.clearfix:after,
+.container:after,
+.row:after {
+	clear: both;
 }
 
 /* =Typography
@@ -462,13 +469,13 @@ html {
 *,
 *:before,
 *:after {
-  /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+	/* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
     -webkit-box-sizing: inherit;
     -moz-box-sizing: inherit;
     box-sizing: inherit;
 }
 body {
-    background: #f5f5f5;
+    background: #ffffff;
     word-wrap: break-word;
 }
 blockquote,
@@ -663,6 +670,14 @@ form label {
 }
 
 /* Footer */
+.footer-widget-area.row {
+	margin-right: -1.875em; /* -30px */
+	margin-left: -1.875em; /* -30px */
+}
+.footer-widget.column {
+	padding-right: 1.875em; /* 30px */
+	padding-left: 1.875em; /* 30px */
+}
 
 /* =Header
 ----------------------------------------------- */

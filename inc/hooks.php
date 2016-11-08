@@ -58,3 +58,16 @@ function greenlight_add_site_nav() {
 
 }
 add_action( 'greenlight_site_nav', 'greenlight_add_site_nav' );
+
+/**
+ * Display widget area columns in footer.
+ *
+ * @action greenlight_footer
+ * @since  1.0.0
+ */
+function greenlight_add_footer_widgets() {
+
+	get_template_part( 'template-parts/footer/footer', 'widgets' );
+
+}
+add_action( 'greenlight_footer', 'greenlight_add_footer_widgets' );

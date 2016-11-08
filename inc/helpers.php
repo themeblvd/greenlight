@@ -248,3 +248,53 @@ function greenlight_is_200( $url ) {
 
 	return $code === 200;
 }
+
+/**
+ * Return an array of footer widget areas.
+ *
+ * @global array $wp_registered_sidebars
+ * @since  1.0.0
+ *
+ * @return array
+ */
+function greenlight_get_footer_sidebars() {
+
+    global $wp_registered_sidebars;
+
+    $sidebars = preg_grep( '/^footer-(.*)/', array_keys( $wp_registered_sidebars ) );
+
+    /**
+	 * Filter the array of footer widget areas.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
+	return apply_filters( 'greenlight_footer_sidebars', $sidebars );
+}
+
+/**
+ * Return an array of active footer widget areas.
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+function greenlight_get_active_footer_sidebars() {
+
+	return array_filter( greenlight_get_footer_sidebars(), 'is_active_sidebar' );
+
+}
+
+/**
+ * Check if there are active footer widget areas.
+ *
+ * @since 1.0.0
+ *
+ * @return bool
+ */
+function greenlight_has_active_footer_sidebars() {
+
+	return (bool) greenlight_get_active_footer_sidebars();
+
+}

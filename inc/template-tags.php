@@ -19,11 +19,25 @@ function greenlight_header_class() {
         $class[] = 'has-logo';
     }
 
-	if ( $class = apply_filters('themeblvd_header_class', $class ) ) {
+    /**
+	 * Filter the header class array.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
+	if ( $class = apply_filters( 'themeblvd_header_class', $class ) ) {
 
 		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
 
-        echo apply_filters('themeblvd_header_class_output', $output, $class);
+        /**
+    	 * Filter the final output of the header class HTML.
+    	 *
+    	 * @since 1.0.0
+    	 *
+    	 * @var string
+    	 */
+        echo apply_filters( 'themeblvd_header_class_output', $output, $class );
 
     }
 }
@@ -102,4 +116,72 @@ function greenlight_the_site_description() {
 	 */
 	echo apply_filters( 'greenlight_the_site_description', $html );
 
+}
+
+/**
+ * Display HTML class for site footer.
+ *
+ * @since 1.0.0
+ */
+function greenlight_footer_class() {
+
+    $class = array( 'site-footer' );
+
+    /**
+	 * Filter the footer class array.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
+	if ( $class = apply_filters( 'themeblvd_footer_class', $class ) ) {
+
+		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+
+        /**
+    	 * Filter the final output of the footer class HTML.
+    	 *
+    	 * @since 1.0.0
+    	 *
+    	 * @var string
+    	 */
+        echo apply_filters( 'themeblvd_footer_class_output', $output, $class );
+
+    }
+}
+
+/**
+ * Display HTML class for footer widget column.
+ *
+ * @since 1.0.0
+ *
+ * @var int $current Current column number being displayed
+ */
+function greenlight_footer_col_class( $current = 1 ) {
+
+    $total = count( greenlight_get_active_footer_sidebars() );
+
+    $class = array( 'footer-widget', 'column', 'col-md-' . strval( ( 12 / $total ) ) );
+
+    /**
+	 * Filter the footer column class array.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
+	if ( $class = apply_filters('themeblvd_footer_col_class', $class, $total, $current ) ) {
+
+		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+
+        /**
+    	 * Filter the final output of the footer column class HTML.
+    	 *
+    	 * @since 1.0.0
+    	 *
+    	 * @var string
+    	 */
+        echo apply_filters( 'themeblvd_footer_col_class_output', $output, $class, $total, $current );
+
+    }
 }
