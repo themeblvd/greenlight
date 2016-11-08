@@ -12,12 +12,12 @@
  * @action greenlight_header
  * @since  1.0.0
  */
-function greenlight_add_site_title() {
+function greenlight_add_site_branding() {
 
 	get_template_part( 'template-parts/header/site', 'branding' );
 
 }
-add_action( 'greenlight_header', 'greenlight_add_site_title' );
+add_action( 'greenlight_header', 'greenlight_add_site_branding' );
 
 /**
  * Display site menu template in the header.

@@ -41,7 +41,7 @@ do_action( 'greenlight_before' );
 
 				<?php
 				/**
-				 * @hooked greenlight_add_site_title - 10
+				 * @hooked greenlight_add_site_branding - 10
 				 * @hooked greenlight_add_site_menu - 20
 				 */
 				do_action( 'greenlight_header' );
