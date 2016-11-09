@@ -78,6 +78,13 @@ require_once get_template_directory() . '/inc/template-tags.php';
 require_once get_template_directory() . '/inc/hooks.php';
 
 /**
+ * Load any custom menu functionality.
+ *
+ * @since 1.0.0
+ */
+require_once get_template_directory() . '/inc/menus.php';
+
+/**
  * Sets up theme defaults and registers support for various WordPress features.
  *
  * Note that this function is hooked into the 'after_setup_theme' hook at
@@ -398,6 +405,9 @@ function greenlight_scripts() {
 
 	// Add custom fonts, selected from the customizer.
 	wp_enqueue_style( 'greenlight-fonts', esc_url( greenlight_get_fonts_url() ), array(), null );
+
+	// Add FontAwesome
+	wp_enqueue_style( 'font-awesome', esc_url( get_template_directory_uri() . "/assets/css/font-awesome{$suffix}.css" ), array(), '4.7.0' );
 
 	// Add grid system styles
 	wp_enqueue_style( 'greenlight-grid', esc_url( get_template_directory_uri() . "/assets/css/grid{$rtl}{$suffix}.css" ), array(), GREENLIGHT_VERSION );

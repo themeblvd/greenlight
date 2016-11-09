@@ -79,6 +79,7 @@ LARGE DESKTOPS
 .col-sm-12,
 .col-md-12,
 .col-lg-12 {
+	margin-bottom: 2.142em;
 	position: relative;
 	min-height: 1px;
 	padding-left: 9375em; /* 15px */

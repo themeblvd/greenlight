@@ -121,17 +121,23 @@ function greenlight_get_font_types() {
      * @var array
      */
     return apply_filters( 'greenlight_font_types', array(
-        'primary_font' => array(
+        'primary_font'          => array(
             'label'         => esc_html__( 'Primary', 'greenlight' ),
             'description'   => esc_html__( 'Paragraphs, lists, links, quotes, and tables.', 'greenlight' ),
             'default'       => 'Lato - Light',
             'selector'      => "body"
 		),
-        'heading_font' => array(
+        'heading_font'          => array(
             'label'         => esc_html__( 'Headings', 'greenlight' ),
-            'description'   => esc_html__( 'Post titles, widget titles, form labels, and table headers.', 'greenlight' ),
+            'description'   => esc_html__( 'Post titles and header tags.', 'greenlight' ),
             'default'       => 'Hind - Semi-Bold',
             'selector'      => "h1,\nh2,\nh3,\nh4,\nh5,\nh6"
+		),
+        'small_heading_font'    => array(
+            'label'         => esc_html__( 'Small Headings', 'greenlight' ),
+            'description'   => esc_html__( 'Small headings, widget titles, form labels, and table headers.', 'greenlight' ),
+            'default'       => 'Lato - Bold',
+            'selector'      => ".widget-title,\nlabel,\ttable th"
 		)
     ));
 

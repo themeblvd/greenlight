@@ -33,6 +33,11 @@ Domain Path: /lang
 # Header
     # Logo
     # Menu
+# Footer
+	# Site Info
+	# Social Menu
+	# Footer Menu
+# Widgets
 
 ----------------------------------------------- */
 
@@ -716,4 +721,89 @@ form label {
 /* Menu */
 .main-navigation-container {
 	display: none;
+}
+
+/* =Footer
+----------------------------------------------- */
+
+.site-footer {
+	background: #222;
+	color: #fff;
+	font-size: .9375em;
+	padding: 60px 40px;
+}
+.site-footer h1,
+.site-footer h2,
+.site-footer h3,
+.site-footer h4,
+.site-footer h5,
+.site-footer h6 {
+	color: #fff;
+}
+
+/* Site Info */
+.site-info {
+	background: #1b1b1b;
+	color: rgba(255,255,255,0.6);
+	font-size: .875em;
+	padding: 30px;
+	text-align: center;
+}
+.site-info a {
+	color: inherit;
+	border-bottom: 1px solid rgba(255,255,255,.5);
+	padding-bottom: 1px;
+	text-decoration: none;
+}
+.site-info a:hover,
+.site-info a:focus {
+	border-color: #fff;
+	color: #fff;
+}
+
+/* Social Menu */
+.social-menu {
+	margin-bottom: 20px;
+}
+.social-menu > ul {
+	list-style: none;
+}
+.social-menu > ul > li {
+	display: inline-block;
+	padding: 0 2px;
+}
+.social-menu > ul > li > a {
+	color: #fff;
+	color: rgba(255,255,255,.8);
+	border-bottom: none;
+	font-size: 0;
+	padding: 5px;
+}
+.social-menu > ul > li > a:hover {
+	color: #fff;
+}
+.social-menu > ul > li > a:before {
+	display: inline-block;
+	font-size: 24px;
+	text-align: center;
+	width: 1.28571429em;
+}
+
+/* Footer Menu */
+.footer-menu {
+	padding-top: 5px;
+}
+.footer-menu > ul > li {
+	display: inline-block;
+	list-style: none;
+	padding: 0 5px;
+}
+
+/* =Widgets
+----------------------------------------------- */
+
+.widget-title {
+	font-size: 1em;
+	letter-spacing: 1px;
+	text-transform: uppercase;
 }
