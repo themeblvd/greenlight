@@ -144,7 +144,24 @@ function greenlight_get_fonts_url() {
 
             $font = explode( ' - ', $font );
 
-            $fonts[] = $font[0] . ':' . greenlight_get_font_weight( $font[1] );
+            if ( ! isset( $fonts[ $font[0] ] ) ) {
+                $fonts[ $font[0] ] = array();
+            }
+
+            $weight = greenlight_get_font_weight( $font[1] );
+
+            if ( ! in_array( $weight, $fonts[ $font[0] ] ) ) {
+                $fonts[ $font[0] ][] = $weight;
+            }
+
+        }
+    }
+
+    if ( $fonts ) {
+        foreach ( $fonts as $key => $val ) {
+
+            $fonts[$key] = $key . ':' . implode( ',', $val );
+            $fonts[$key] = str_replace( ' ', '+', $fonts[$key] );
 
         }
     }

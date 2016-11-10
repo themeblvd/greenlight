@@ -42,9 +42,8 @@ function greenlight_customize_register( $wp_customize ) {
      * Fonts
      */
     $font_types = greenlight_get_font_types();
-    $fonts = greenlight_get_fonts();
 
-    if ( $font_types && $fonts ) {
+    if ( $font_types ) {
 
         $wp_customize->add_section( 'fonts', array(
     		'title' => __( 'Fonts', 'greenlight' ),
@@ -60,6 +59,7 @@ function greenlight_customize_register( $wp_customize ) {
         		'sanitize_callback' => 'greenlight_sanitize_font'
         	));
 
+            $fonts = greenlight_get_fonts();
             $font_names = array();
 
             foreach ( $fonts as $name ) {
@@ -121,23 +121,29 @@ function greenlight_get_font_types() {
      * @var array
      */
     return apply_filters( 'greenlight_font_types', array(
-        'primary_font'          => array(
+        'primary_font' => array(
             'label'         => esc_html__( 'Primary', 'greenlight' ),
             'description'   => esc_html__( 'Paragraphs, lists, links, quotes, and tables.', 'greenlight' ),
             'default'       => 'Lato - Light',
             'selector'      => "body"
 		),
-        'heading_font'          => array(
+        'heading_font' => array(
             'label'         => esc_html__( 'Headings', 'greenlight' ),
             'description'   => esc_html__( 'Post titles and header tags.', 'greenlight' ),
             'default'       => 'Hind - Semi-Bold',
             'selector'      => "h1,\nh2,\nh3,\nh4,\nh5,\nh6"
 		),
-        'small_heading_font'    => array(
+        'small_heading_font' => array(
             'label'         => esc_html__( 'Small Headings', 'greenlight' ),
             'description'   => esc_html__( 'Small headings, widget titles, form labels, and table headers.', 'greenlight' ),
             'default'       => 'Lato - Bold',
-            'selector'      => ".widget-title,\nlabel,\ttable th"
+            'selector'      => ".widget-title,\nlabel,\ntable th"
+		),
+        'menu_font' => array(
+            'label'         => esc_html__( 'Main Menu', 'greenlight' ),
+            'description'   => esc_html__( 'Main menu top-level items.', 'greenlight' ),
+            'default'       => 'Lato - Bold',
+            'selector'      => ".site-menu > ul > li > a"
 		)
     ));
 
@@ -229,9 +235,9 @@ function greenlight_get_fonts() {
         'Ubuntu - Bold'
     ));
 
-    return $fonts;
+    sort( array_unique( $fonts ) );
 
-    return sort( array_unique( $fonts ) );
+    return $fonts;
 
 }
 
