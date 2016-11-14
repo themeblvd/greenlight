@@ -672,13 +672,18 @@ form label {
 	padding-bottom: 60px;
 }
 #primary {
-	float: left;
-	padding: 0 60px 0 0;
-    width: 75%;
+	padding: 0 0 50px 0;
 }
-#secondary {
-	float: right;
-    width: 25%;
+@media (min-width: 62em) {
+	#primary {
+		float: left;
+		padding: 0 60px 0 0;
+	    width: 75%;
+	}
+	#secondary {
+		float: right;
+	    width: 25%;
+	}
 }
 
 /* Footer */
