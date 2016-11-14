@@ -7,7 +7,7 @@
  */
 ?>
 
-<div class="main-navigation-container">
+<div class="site-menu-container">
 
 	<?php
 	/**
@@ -16,7 +16,7 @@
 	do_action( 'greenlight_site_nav_before' );
 	?>
 
-	<nav id="site-navigation" class="main-navigation">
+	<nav class="site-menu">
 
 		<?php
 		/**
@@ -25,7 +25,7 @@
 		do_action( 'greenlight_site_nav' );
 		?>
 
-	</nav><!-- #site-navigation -->
+	</nav><!-- .site-menu -->
 
 	<?php
 	/**

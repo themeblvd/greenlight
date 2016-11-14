@@ -362,7 +362,7 @@ textarea {
     font-size: 1rem;
     line-height: 1.8;
 }
-@media only screen and (max-width: 40.063em) {
+@media (max-width: 40.063em) {
     body,
     button,
     input,
@@ -688,19 +688,35 @@ form label {
 ----------------------------------------------- */
 
 .site-header {
-    background-color: #101010;
+    background-color: #2c3e50; /* primary color */
 	color: #fff;
 	padding-top: 30px;
 	padding-bottom: 30px;
+	position: relative;
+}
+.site-header > .wrap { /* @TODO toggle with class, this would be not full-width */
+	position: relative;
 }
 .site-header.has-logo {
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
+@media (min-width: 62em) {
+	.site-branding {
+		float: left;
+	}
+	.site-menu-container {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		-webkit-transform: translate(0, -50%);
+		transform: translate(0, -50%);
+	}
+}
 
 /* Logo */
 .site-title {
-	font-size: 1.8rem;
+	font-size: 1.5rem;
 	line-height: 1;
 	margin: 0;
 }
@@ -709,7 +725,7 @@ form label {
 	text-decoration: none;
 }
 .site-description {
-	font-size: .92rem;
+	font-size: .85rem;
 	line-height: 1;
 	margin-top: 5px;
 }
@@ -719,7 +735,85 @@ form label {
 }
 
 /* Menu */
-.main-navigation-container {
+.site-menu ul {
+	margin: 0;
+	padding: 0;
+}
+.site-menu li {
+	list-style: none;
+}
+.site-menu a {
+	color: rgba(255,255,255,.85);
+}
+.site-menu a:hover,
+.site-menu a:focus {
+	color: #fff;
+}
+.site-menu > ul > li {
+	float: left;
+	padding: 0 5px;
+	position: relative;
+}
+.site-menu > ul > li > a {
+	font-size: 12px;
+	display: block;
+	letter-spacing: .0625em;
+	line-height: 1.25em;
+	padding: 20px 10px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.site-menu > ul > li > a > .sub-indicator {
+	margin-left: .8em;
+}
+.site-menu ul ul {
+	display: block;
+	left: -999em;
+	margin: 0;
+	position: absolute;
+	z-index: 99999;
+}
+.site-menu li:hover > ul,
+.site-menu li.focus > ul {
+    left: auto;
+    right: 0;
+}
+.site-menu ul ul li:hover > ul,
+.site-menu ul ul li.focus > ul {
+    left: 100%;
+    right: auto;
+}
+.site-menu ul ul {
+	background-color: #374e65; /* secondary color */
+	box-shadow: 0 0 4px rgba(0,0,0,.1);
+	padding: 13px 0;
+	width: 200px;
+}
+.site-menu ul ul ul {
+	top: 0;
+}
+.site-menu ul ul a {
+	display: block;
+	font-size: 12px;
+	line-height: 1.4;
+	padding: 8px 22px;
+	text-decoration: none;
+}
+.site-menu ul ul .sub-indicator {
+	float: right;
+}
+.site-menu ul ul:before {
+	content: "";
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 8px solid #374e65; /* secondary color */
+	position: absolute;
+	top: -8px;
+	right: 20px;
+	width: 0;
+	height: 0;
+}
+.site-menu ul ul ul:before {
 	display: none;
 }
 
@@ -727,7 +821,7 @@ form label {
 ----------------------------------------------- */
 
 .site-footer {
-	background: #222;
+	background: #374e65; /* secondary color */
 	color: #fff;
 	font-size: .9375em;
 	padding: 60px 40px;
@@ -743,10 +837,10 @@ form label {
 
 /* Site Info */
 .site-info {
-	background: #1b1b1b;
+	background: #2c3e50; /* primary color */
 	color: rgba(255,255,255,0.6);
 	font-size: .875em;
-	padding: 30px;
+	padding: 40px 30px;
 	text-align: center;
 }
 .site-info a {
@@ -792,6 +886,9 @@ form label {
 /* Footer Menu */
 .footer-menu {
 	padding-top: 5px;
+}
+.footer-menu > ul {
+	margin: 0;
 }
 .footer-menu > ul > li {
 	display: inline-block;

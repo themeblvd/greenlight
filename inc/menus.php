@@ -7,6 +7,72 @@
  */
 
 /**
+ * Add dropdown indicators to main menu.
+ *
+ * @filter walker_nav_menu_start_el
+ * @since 1.0.0
+ *
+ * @param string $html Initial menu item like <a href="URL">Title</a>
+ * @param string $item Object for menu item post
+ * @param int $depth Depth of the menu item, i.e 0 for top level, 1 for second level, etc
+ * @param array $args Arguments for call to wp_nav_menu, NOT individiaul menu item
+ * @return string $item_output Modified menu item
+ */
+function greenlight_primary_menu_icons( $html, $item, $depth, $args ) {
+
+    if ( $args->theme_location != 'primary' ) {
+
+        return $html;
+
+    }
+
+    $parent = false;
+
+    foreach ( $item->classes as $class ) {
+
+        if ( $class == 'menu-item-has-children' ) {
+
+            $parent = true;
+            break;
+
+        }
+    }
+
+    if ( $parent ) {
+
+        if ( $depth > 0 ) {
+
+            if ( is_rtl() ) {
+                $icon = 'angle-left';
+            } else {
+                $icon = 'angle-right';
+            }
+
+        } else {
+
+            $icon = 'angle-down';
+
+        }
+
+        /**
+         * Filter the submenu indciator icon in main menu.
+         *
+         * @since 1.0.0
+         *
+         * @var str
+         */
+        $icon = apply_filters( 'greenlight_sub_indicator', '<i class="sub-indicator fa fa-' . $icon . '"></i>', $item, $depth, $args );
+
+        $html = str_replace( '</a>', $icon . '</a>', $html );
+
+    }
+
+    return $html;
+
+}
+add_filter( 'walker_nav_menu_start_el', 'greenlight_primary_menu_icons', 10, 4 );
+
+/**
  * Add icon classes to social menu links.
  *
  * @filter nav_menu_link_attributes

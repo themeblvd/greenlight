@@ -50,8 +50,9 @@ function greenlight_add_site_nav() {
 		 * @var array
 		 */
 		wp_nav_menu( apply_filters( 'greenlight_site_nav_args', array(
-			'theme_location' => 'primary'
-			// ... @TODO
+			'theme_location'	=> 'primary',
+			'container'			=> 'ul',
+			'depth'     		=> 3
 		)));
 
 	} else {
@@ -64,8 +65,11 @@ function greenlight_add_site_nav() {
 		 * @var array
 		 */
 		wp_page_menu( apply_filters( 'greenlight_site_nav_fallback_args', array(
-			'depth'     => 1, // Top-level only
-			'show_home' => true,
+			'container'			=> 'ul',
+			'depth'     		=> 1, // Top-level only
+			'show_home' 		=> true,
+			'before'			=> '',
+			'after'				=> ''
 		)));
 
 	}
