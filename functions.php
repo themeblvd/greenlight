@@ -457,16 +457,29 @@ function greenlight_inline_style() {
 		foreach ( $types as $key => $args ) {
 
 			$font = get_theme_mod( $key, $args['default'] );
+			$uppercase = get_theme_mod( $key . '_uppercase', $args['uppercase'] );
 
-			if ( ! $font || $font == 'None' ) {
-                continue;
-            }
+			if ( $font && $font != 'None' ) {
 
-			$font = explode( ' - ', $font );
+				$font = explode( ' - ', $font );
 
-			$css .= $args['selector'] . " {\n";
-			$css .= sprintf( "\tfont-family: \"%s\";\n", $font[0] );
-			$css .= sprintf( "\tfont-weight: %s;\n", greenlight_get_font_weight( $font[1] ) );
+				$css .= $args['selector'] . " {\n";
+
+				$css .= sprintf( "\tfont-family: \"%s\";\n", $font[0] );
+				$css .= sprintf( "\tfont-weight: %s;\n", greenlight_get_font_weight( $font[1] ) );
+
+			}
+
+			if ( $uppercase ) {
+
+				$css .= "\ttext-transform: uppercase;\n";
+
+			} else {
+
+				$css .= "\ttext-transform: none;\n";
+
+			}
+
 			$css .= "}\n";
 
 		}

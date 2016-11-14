@@ -59,6 +59,15 @@ function greenlight_customize_register( $wp_customize ) {
         		'sanitize_callback' => 'greenlight_sanitize_font'
         	));
 
+            if ( $args['uppercase'] !== NULL ) {
+
+                $wp_customize->add_setting( $key . '_uppercase', array(
+            		'default'           => $args['uppercase'],
+            		'sanitize_callback' => 'greenlight_sanitize_checkbox'
+            	));
+
+            }
+
             $fonts = greenlight_get_fonts();
             $font_names = array();
 
@@ -74,13 +83,24 @@ function greenlight_customize_register( $wp_customize ) {
             $fonts = array_combine( $fonts, $font_names );
 
             $wp_customize->add_control( $key, array(
-        		'label'       => ! empty( $args['label'] ) ? $args['label'] : $name,
-				'description' => ! empty( $args['description'] ) ? $args['description'] : null,
-				'section'     => ! empty( $args['section'] ) ? $args['section'] : 'fonts',
-				'priority'    => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
-				'type'        => ! empty( $args['type'] ) ? $args['type'] : 'select',
-				'choices'     => $fonts,
+                'label'         => ! empty( $args['label'] ) ? $args['label'] : $name,
+                'description'   => ! empty( $args['description'] ) ? $args['description'] : null,
+                'section'       => ! empty( $args['section'] ) ? $args['section'] : 'fonts',
+                'priority'      => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
+                'type'          => ! empty( $args['type'] ) ? $args['type'] : 'select',
+                'choices'       => $fonts
         	));
+
+            if ( $args['uppercase'] !== NULL ) {
+
+                $wp_customize->add_control( $key . '_uppercase', array(
+                    'label'     => __( 'Display with uppercase letters?', 'greenlight' ),
+                    'section'   => ! empty( $args['section'] ) ? $args['section'] : 'fonts',
+                    'priority'  => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
+                    'type'      => 'checkbox'
+                ));
+
+            }
 
         }
 
@@ -125,24 +145,28 @@ function greenlight_get_font_types() {
             'label'         => esc_html__( 'Primary', 'greenlight' ),
             'description'   => esc_html__( 'Paragraphs, lists, links, quotes, and tables.', 'greenlight' ),
             'default'       => 'Lato - Light',
+            'uppercase'     => NULL, // option won't exist
             'selector'      => "body"
 		),
         'heading_font' => array(
             'label'         => esc_html__( 'Headings', 'greenlight' ),
             'description'   => esc_html__( 'Post titles and header tags.', 'greenlight' ),
             'default'       => 'Hind - Semi-Bold',
+            'uppercase'     => 0,
             'selector'      => "h1,\nh2,\nh3,\nh4,\nh5,\nh6"
 		),
         'small_heading_font' => array(
             'label'         => esc_html__( 'Small Headings', 'greenlight' ),
             'description'   => esc_html__( 'Small headings, widget titles, form labels, and table headers.', 'greenlight' ),
-            'default'       => 'Lato - Bold',
+            'default'       => 'Hind - Bold',
+            'uppercase'     => 1,
             'selector'      => ".widget-title,\nlabel,\ntable th"
 		),
         'menu_font' => array(
             'label'         => esc_html__( 'Main Menu', 'greenlight' ),
             'description'   => esc_html__( 'Main menu top-level items.', 'greenlight' ),
-            'default'       => 'Lato - Bold',
+            'default'       => 'Hind - Bold',
+            'uppercase'     => 1,
             'selector'      => ".site-menu > ul > li > a"
 		)
     ));
@@ -256,5 +280,21 @@ function greenlight_sanitize_font( $font ) {
     }
 
     return $font;
+
+}
+
+/**
+ * Sanitize checkbox.
+ *
+ * @since 1.0.0
+ *
+ * @param str $input Passed value
+ * @return str $output Sanitized value
+ */
+function greenlight_sanitize_checkbox( $input ) {
+
+    return ( 1 === absint( $input ) ) ? 1 : 0;
+
+    return $input; // ...
 
 }
