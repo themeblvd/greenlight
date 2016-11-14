@@ -356,11 +356,11 @@ input,
 select,
 textarea {
     color: #252525;
-    font-family: "Open Sans", sans-serif;
+    font-family: sans-serif;
     font-weight: normal;
     font-size: 16px;
     font-size: 1rem;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 @media (max-width: 40.063em) {
     body,
@@ -401,7 +401,14 @@ h5 {
 h6 {
     font-size: 1em;
 }
-
+a {
+	color: #2980b9;
+	text-decoration: none;
+}
+a:hover,
+a:focus {
+	color: #3498db;
+}
 p {
     margin-bottom: 1.5em;
 }

@@ -41,16 +41,14 @@ function greenlight_customize_register( $wp_customize ) {
     /**
      * Fonts
      */
-    $font_types = greenlight_get_font_types();
-
-    if ( $font_types ) {
+    if ( $types = greenlight_get_font_types() ) {
 
         $wp_customize->add_section( 'fonts', array(
     		'title' => __( 'Fonts', 'greenlight' ),
     		'priority' => 50,
     	));
 
-        foreach ( $font_types as $key => $args ) {
+        foreach ( $types as $key => $args ) {
 
             $key = sanitize_key( $key );
 
@@ -106,6 +104,32 @@ function greenlight_customize_register( $wp_customize ) {
 
     }
 
+    /**
+     * Colors
+     */
+    if ( $types = greenlight_get_color_types() ) {
+
+        foreach ( $types as $key => $args ) {
+
+            $key = sanitize_key( $key );
+
+            $wp_customize->add_setting( $key, array(
+        		'default'           => $args['default'],
+        		'sanitize_callback' => 'sanitize_hex_color'
+        	));
+
+            $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $key, array(
+                //'settings'      => $key,
+                'label'         => ! empty( $args['label'] ) ? $args['label'] : null,
+                'description'   => ! empty( $args['description'] ) ? $args['description'] : null,
+                'section'       => ! empty( $args['section'] ) ? $args['section'] : 'colors',
+                'priority'      => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
+            )));
+
+        }
+
+    }
+
 }
 add_action( 'customize_register', 'greenlight_customize_register' );
 
@@ -146,7 +170,7 @@ function greenlight_get_font_types() {
             'description'   => esc_html__( 'Paragraphs, lists, links, quotes, and tables.', 'greenlight' ),
             'default'       => 'Lato - Light',
             'uppercase'     => NULL, // option won't exist
-            'selector'      => "body"
+            'selector'      => "body,\nbutton,\ninput,\nselect,\ntextarea"
 		),
         'heading_font' => array(
             'label'         => esc_html__( 'Headings', 'greenlight' ),
@@ -262,6 +286,47 @@ function greenlight_get_fonts() {
     sort( array_unique( $fonts ) );
 
     return $fonts;
+
+}
+
+/**
+ * Color types to create options.
+ *
+ * @since 1.0.0
+ *
+ * @return array Color types
+ */
+function greenlight_get_color_types() {
+
+    /**
+     * Filter color types.
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    return apply_filters( 'greenlight_color_types', array(
+        'primary_color' => array(
+            'label'         => esc_html__( 'Primary', 'greenlight' ),
+            'description'   => esc_html__( 'Header and site info.', 'greenlight' ),
+            'default'       => '#2c3e50'
+		),
+        'secondary_color' => array(
+            'label'         => esc_html__( 'Secondary', 'greenlight' ),
+            'description'   => esc_html__( 'Main menu dropdowns and footer columns.', 'greenlight' ),
+            'default'       => '#374e65'
+		),
+        'link_color' => array(
+            'label'         => esc_html__( 'Links', 'greenlight' ),
+            'description'   => esc_html__( 'Links in main content area.', 'greenlight' ),
+            'default'       => '#2980b9'
+		),
+        'link_hover_color' => array(
+            'label'         => esc_html__( 'Link Hover', 'greenlight' ),
+            'description'   => esc_html__( 'Links in main content area, when hovered or focused.', 'greenlight' ),
+            'default'       => '#3498db'
+		)
+    ));
 
 }
 

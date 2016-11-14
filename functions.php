@@ -451,9 +451,8 @@ function greenlight_inline_style() {
 	/**
 	 * Fonts
 	 */
-	$types = greenlight_get_font_types();
+	if ( $types = greenlight_get_font_types() ) {
 
-	if ( $types ) {
 		foreach ( $types as $key => $args ) {
 
 			$font = get_theme_mod( $key, $args['default'] );
@@ -465,7 +464,7 @@ function greenlight_inline_style() {
 
 				$css .= $args['selector'] . " {\n";
 
-				$css .= sprintf( "\tfont-family: \"%s\";\n", $font[0] );
+				$css .= sprintf( "\tfont-family: \"%s\";\n", esc_attr( $font[0] ) );
 				$css .= sprintf( "\tfont-weight: %s;\n", greenlight_get_font_weight( $font[1] ) );
 
 			}
@@ -483,6 +482,62 @@ function greenlight_inline_style() {
 			$css .= "}\n";
 
 		}
+
+	}
+
+	/**
+	 * Colors
+	 */
+	if ( $types = greenlight_get_color_types() ) {
+
+		if ( ! empty( $types['primary_color'] ) ) {
+
+			$default = ! empty( $types['primary_color']['default'] ) ? $types['primary_color']['default'] : null;
+
+			$css .= ".site-header,\n";
+			$css .= ".site-info {\n";
+			$css .= sprintf( "\tbackground-color: %s;\n", sanitize_hex_color( get_theme_mod( 'primary_color', $default ) ) );
+			$css .= "}\n";
+
+		}
+
+		if ( ! empty( $types['secondary_color'] ) ) {
+
+			$default = ! empty( $types['secondary_color']['default'] ) ? $types['secondary_color']['default'] : null;
+			$value = sanitize_hex_color( get_theme_mod( 'secondary_color', $default ) );
+
+			$css .= ".site-menu ul ul,\n";
+			$css .= ".site-footer {\n";
+			$css .= sprintf( "\tbackground-color: %s;\n", $value );
+			$css .= "}\n";
+
+			$css .= ".site-menu ul ul:before {\n";
+			$css .= sprintf( "\tborder-bottom-color: %s;\n", $value );
+			$css .= "}\n";
+
+		}
+
+		if ( ! empty( $types['link_color'] ) ) {
+
+			$default = ! empty( $types['link_color']['default'] ) ? $types['link_color']['default'] : null;
+
+			$css .= "a {\n";
+			$css .= sprintf( "\tcolor: %s;\n", sanitize_hex_color( get_theme_mod( 'link_color', $default ) ) );
+			$css .= "}\n";
+
+		}
+
+		if ( ! empty( $types['link_hover_color'] ) ) {
+
+			$default = ! empty( $types['link_hover_color']['default'] ) ? $types['link_hover_color']['default'] : null;
+
+			$css .= "a:hover,\n";
+			$css .= "a:focus {\n";
+			$css .= sprintf( "\tcolor: %s;\n", sanitize_hex_color( get_theme_mod( 'link_hover_color', $default ) ) );
+			$css .= "}\n";
+
+		}
+
 	}
 
 	/**
