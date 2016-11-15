@@ -1,6 +1,6 @@
 # Greenlight WordPress Theme
 
-An awesome, highly extendable, and free WordPress theme. More to come.
+An awesome, highly extendable, and free WordPress theme built for wordpress.org. Coming soon.
 
 ## Frequently Asked Questions
 
