@@ -75,7 +75,7 @@ function greenlight_add_site_nav() {
 	}
 
 }
-add_action( 'greenlight_site_nav', 'greenlight_add_site_nav' );
+add_action( 'greenlight_site_nav', 'greenlight_add_site_nav', 20 );
 
 /**
  * Display widget area columns in footer.

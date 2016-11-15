@@ -119,6 +119,32 @@ function greenlight_the_site_description() {
 }
 
 /**
+ * Display the site description.
+ *
+ * @since 1.0.0
+ */
+function greenlight_the_site_menu_toggle() {
+
+    $html  = "<a href=\"#\" class=\"site-menu-toggle hamburger\">\n";
+    $html .= "\t<span class=\"wrap\">\n";
+    $html .= "\t\t<span class=\"top\"></span>\n";
+    $html .= "\t\t<span class=\"middle\"></span>\n";
+    $html .= "\t\t<span class=\"bottom\"></span>\n";
+    $html .= "\t</span>\n";
+    $html .= "</a>";
+
+    /**
+	 * Filter the site description HTML.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	echo apply_filters( 'greenlight_the_site_menu_toggle', $html );
+
+}
+
+/**
  * Display HTML class for site footer.
  *
  * @since 1.0.0

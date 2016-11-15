@@ -3,7 +3,7 @@
  * Displays the primary navigation.
  *
  * @package Greenlight
- * @since   1.0.0
+ * @since 1.0.0
  */
 ?>
 
