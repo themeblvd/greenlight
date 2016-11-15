@@ -119,7 +119,7 @@ function greenlight_the_site_description() {
 }
 
 /**
- * Display the site description.
+ * Display toggle for the mobile main menu.
  *
  * @since 1.0.0
  */
