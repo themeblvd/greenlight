@@ -30,7 +30,7 @@ function greenlight_header_class() {
 	 *
 	 * @var array
 	 */
-	if ( $class = apply_filters( 'themeblvd_header_class', $class ) ) {
+	if ( $class = apply_filters( 'greenlight_header_class', $class ) ) {
 
 		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
 
@@ -41,7 +41,7 @@ function greenlight_header_class() {
     	 *
     	 * @var string
     	 */
-        echo apply_filters( 'themeblvd_header_class_output', $output, $class );
+        echo apply_filters( 'greenlight_header_class_output', $output, $class );
 
     }
 }
@@ -164,7 +164,7 @@ function greenlight_footer_class() {
 	 *
 	 * @var array
 	 */
-	if ( $class = apply_filters( 'themeblvd_footer_class', $class ) ) {
+	if ( $class = apply_filters( 'greenlight_footer_class', $class ) ) {
 
 		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
 
@@ -175,7 +175,7 @@ function greenlight_footer_class() {
     	 *
     	 * @var string
     	 */
-        echo apply_filters( 'themeblvd_footer_class_output', $output, $class );
+        echo apply_filters( 'greenlight_footer_class_output', $output, $class );
 
     }
 }
@@ -185,7 +185,7 @@ function greenlight_footer_class() {
  *
  * @since 1.0.0
  *
- * @var int $current Current column number being displayed
+ * @param int $current Current column number being displayed
  */
 function greenlight_footer_col_class( $current = 1 ) {
 
@@ -200,7 +200,7 @@ function greenlight_footer_col_class( $current = 1 ) {
 	 *
 	 * @var array
 	 */
-	if ( $class = apply_filters('themeblvd_footer_col_class', $class, $total, $current ) ) {
+	if ( $class = apply_filters('greenlight_footer_col_class', $class, $total, $current ) ) {
 
 		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
 
@@ -211,7 +211,127 @@ function greenlight_footer_col_class( $current = 1 ) {
     	 *
     	 * @var string
     	 */
-        echo apply_filters( 'themeblvd_footer_col_class_output', $output, $class, $total, $current );
+        echo apply_filters( 'greenlight_footer_col_class_output', $output, $class, $total, $current );
 
     }
+}
+
+/**
+ * Display pagination.
+ *
+ * @link https://codex.wordpress.org/Function_Reference/paginate_links
+ * @since 1.0.0
+ */
+function greenlight_paginate_links() {
+
+    global $wp_query, $wp_rewrite;
+
+	if ( $wp_query->max_num_pages < 2 ) {
+
+		return;
+
+    }
+
+    $html = "";
+
+	$paged = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
+	$pagenum_link = html_entity_decode( get_pagenum_link() );
+	$query_args = array();
+	$url_parts = explode( '?', $pagenum_link );
+
+	if ( isset( $url_parts[1] ) ) {
+
+		wp_parse_str( $url_parts[1], $query_args );
+
+    }
+
+	$pagenum_link = remove_query_arg( array_keys( $query_args ), $pagenum_link );
+	$pagenum_link = trailingslashit( $pagenum_link ) . '%_%';
+
+	$format  = $wp_rewrite->using_index_permalinks() && ! strpos( $pagenum_link, 'index.php' ) ? 'index.php/' : '';
+	$format .= $wp_rewrite->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
+
+    /**
+     * Filter arguments passed into WP's paginate_links().
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    $links = paginate_links( apply_filters( 'greenlight_paginate_links_args', array(
+        'base'          => $pagenum_link,
+        'format'        => $format,
+        'total'         => $wp_query->max_num_pages,
+        'current'       => $paged,
+        'mid_size'      => 3,
+        'add_args'      => array_map( 'urlencode', $query_args ),
+        'prev_next'     => false,
+        'type'          => 'array'
+        )));
+
+    if ( $links ) {
+
+        $html .= "<nav class=\"paging-nav\" role=\"navigation\">\n";
+        $html .= sprintf( "\t<h2 class=\"screen-reader-text\">%s</h2>", esc_html__( 'Posts navigation', 'greenlight' ) );
+        $html .= "\t<ol>\n";
+
+        foreach ( $links as $link ) {
+
+            $link = str_replace( 'page-numbers', 'btn btn-sm btn-light page-numbers', $link );
+            $html .= sprintf( "\t\t<li>%s</li>\n", $link );
+
+        }
+
+        $html .= "\t</ol>\n";
+        $html .= "</nav><!-- .paging-nav -->\n";
+
+    }
+
+    /**
+     * Filter the final output of the post pagination.
+     *
+     * @since 1.0.0
+     *
+     * @var string
+     */
+    echo apply_filters( 'greenlight_paginate_links', $html, $links );
+
+}
+
+/**
+ * Display page links.
+ *
+ * @link https://codex.wordpress.org/Function_Reference/wp_link_pages
+ * @since 1.0.0
+ */
+function greenlight_link_pages() {
+
+    $html = "";
+
+    $links = wp_link_pages( array(
+        'before'        => '<div class="page-links">',
+        'after'         => '</div>',
+        'link_before'   => '<span class="btn btn-light btn-sm">',
+        'link_after'    => '</span>',
+        'echo'          => false
+	));
+
+    if ( $links ) {
+
+        // Find the <span> with a space before and designate that as the current
+        $links = str_replace( ' <span class="btn btn-light btn-sm">', ' <span class="btn btn-light btn-sm current">', $links );
+
+        $html = $links;
+
+    }
+
+    /**
+     * Filter the final output of page links.
+     *
+     * @since 1.0.0
+     *
+     * @var string
+     */
+    echo apply_filters( 'greenlight_link_pages', $html, $links );
+
 }

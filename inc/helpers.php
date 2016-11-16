@@ -358,3 +358,41 @@ function greenlight_primary_menu_location() {
 	return apply_filters( 'greenlight_primary_menu_location', 'primary' );
 
 }
+
+/**
+ * Whether commetns templat should display.
+ *
+ * @since 1.0.0
+ *
+ * @return bool $show
+ */
+function greenlight_show_comments() {
+
+    $show = true;
+
+    // If the current post's type doesn't support comments, comments
+	// presence should be hidden.
+	if ( $show && ! post_type_supports( get_post_type(), 'comments' ) ) {
+
+    	$show = false;
+
+    }
+
+	// If comments are closed AND no comments exist, then it doesn't
+	// make sense to have any comments presence.
+	if ( $show && ! comments_open() && ! have_comments() ) {
+
+    	$show = false;
+
+    }
+
+    /**
+	 * Filter if comments template should display
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	return apply_filters( 'greenlight_show_comments', $show );
+
+}

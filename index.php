@@ -25,7 +25,7 @@ get_header(); ?>
 
     		<?php endwhile; ?>
 
-    		<?php //primer_paging_nav(); ?>
+    		<?php greenlight_paginate_links(); ?>
 
     	<?php else : ?>
 

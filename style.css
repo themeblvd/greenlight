@@ -21,13 +21,19 @@ Domain Path: /lang
 # Utilities
 # Typography
 # Elements
+# Media
 	# Images
-	# Searchform
+	# Captions
+	# Galleries
 # Lists
 # Tables
 # Forms
 # Buttons
+	# Colors
 	# Hamburger
+# Parts
+	# Searchform
+	# Pagination
 # Layout
 	# Shared
 	# Header
@@ -42,6 +48,7 @@ Domain Path: /lang
 	# Site Info
 	# Social Menu
 	# Footer Menu
+# Comments
 # Widgets
 	# Sidebar
 
@@ -517,49 +524,57 @@ hr {
     margin-bottom: 1.5em;
 }
 
+/* =Media
+----------------------------------------------- */
+
 /* Images */
 img {
     height: auto; /* Make sure images are scaled correctly. */
     max-width: 100%; /* Adhere to container width. */
 }
 
-/* Searchform */
-.searchform .search-wrap {
-	position: relative;
+/* Captions */
+.wp-caption {
+	max-width: 100%;
 }
-.searchform .search-wrap:before {
-	content: "\f002";
-	color: rgba(200,200,200,.7);
-	display: block;
-	font-family: "FontAwesome";
-	line-height: 1em;
-	position: absolute;
-	top: 50%;
-	left: 10px;
+/* @TODO */
+
+/* Galleries */
+.gallery {
+	margin-bottom: 1.5em;
+}
+.gallery-item {
+	display: inline-block;
 	text-align: center;
-	text-rendering: auto;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-transform: translate(0, -50%);
-	transform: translate(0, -50%);
-	width: 1em;
-	height: 1em;
+	vertical-align: top;
+	width: 100%;
 }
-.searchform .search-input {
-	outline: none;
-	padding: 6px 10px 6px 30px;
+.gallery-columns-2 .gallery-item {
+	max-width: 50%;
 }
-.searchform .search-input:focus {
-	border-color: rgba(37,37,37,.3);
+.gallery-columns-3 .gallery-item {
+	max-width: 33.33%;
 }
-.searchform .search-input::-webkit-input-placeholder {
-	color: rgba(0,0,0,.2);
+.gallery-columns-4 .gallery-item {
+	max-width: 25%;
 }
-.searchform .search-input:-ms-input-placeholder {
-	color: rgba(0,0,0,.2);
+.gallery-columns-5 .gallery-item {
+	max-width: 20%;
 }
-.searchform .search-submit {
-	display: none;
+.gallery-columns-6 .gallery-item {
+	max-width: 16.66%;
+}
+.gallery-columns-7 .gallery-item {
+	max-width: 14.28%;
+}
+.gallery-columns-8 .gallery-item {
+	max-width: 12.5%;
+}
+.gallery-columns-9 .gallery-item {
+	max-width: 11.11%;
+}
+.gallery-caption {
+	display: block;
 }
 
 /* =Lists
@@ -698,6 +713,74 @@ form label {
 /* =Buttons
 ----------------------------------------------- */
 
+.btn {
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    padding: 1em 2em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.btn-xs {
+	font-size: 10px;
+	padding: .6em 1em;
+}
+.btn-sm {
+	font-size: 10px;
+	padding: .9em 1.5em;
+}
+.btn-lg {
+	font-size: 12px;
+	padding: 1.5em 2.5em;
+}
+.btn-xl {
+	font-size: 14px;
+	padding: 1.42857em 2.85714em;
+}
+.btn-xxl {
+	font-size: 15px;
+	padding: 1.46666em 3.33333em;
+}
+.btn-xxxl {
+	font-size: 16px;
+	padding: 1.7em 4em;
+}
+@media (max-width: 480px) {
+	.btn+.btn {
+		margin-top: 5px;
+	}
+}
+.btn > .fa.before {
+	margin-right: 0.5em;
+}
+.btn > .fa.after {
+	margin-left: 0.5em;
+}
+
+/* Colors */
+.btn-default {
+	background-color: #1b1b1b;
+	color: #fff;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.current,
+.btn-default.active {
+	background-color: #2980b9;
+	color: #fff;
+}
+.btn-light {
+	background-color: #f2f2f2;
+	color: #222;
+}
+.btn-light:hover,
+.btn-light:focus,
+.btn-light.current,
+.btn-light.active {
+	background-color: #ddd;
+	color: #222;
+}
+
 /* Hamburger */
 .hamburger {
 	display: block;
@@ -752,6 +835,65 @@ form label {
 }
 .hamburger.close .bottom {
 	opacity: 0;
+}
+
+/* =Parts
+----------------------------------------------- */
+
+/* Searchform */
+.searchform .search-wrap {
+	position: relative;
+}
+.searchform .search-wrap:before {
+	content: "\f002";
+	color: rgba(200,200,200,.7);
+	display: block;
+	font-family: "FontAwesome";
+	line-height: 1em;
+	position: absolute;
+	top: 50%;
+	left: 10px;
+	text-align: center;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	width: 1em;
+	height: 1em;
+}
+.searchform .search-input {
+	outline: none;
+	padding: 6px 10px 6px 30px;
+}
+.searchform .search-input:focus {
+	border-color: rgba(37,37,37,.3);
+}
+.searchform .search-input::-webkit-input-placeholder {
+	color: rgba(0,0,0,.2);
+}
+.searchform .search-input:-ms-input-placeholder {
+	color: rgba(0,0,0,.2);
+}
+.searchform .search-submit {
+	display: none;
+}
+
+/* Pagination */
+.paging-nav {
+	margin-top: 50px;
+}
+.paging-nav ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.paging-nav li {
+	float: left;
+	padding-right: 2px;
+}
+.paging-nav li:lst-child {
+	padding-right: 0;
 }
 
 /* =Layout
@@ -1198,6 +1340,173 @@ form label {
 	display: inline-block;
 	list-style: none;
 	padding: 0 .3125rem;
+}
+
+/* =Comments
+----------------------------------------------- */
+
+/* Comment List */
+#comments ol,
+#comments ul {
+	list-style: none;
+	padding: 0;
+}
+#comments ol.commentlist {
+	border-bottom: 2px solid #f2f2f2;
+	border-color: rgba(220,220,220,.4);
+	margin: 0 0 30px 0;
+	padding: 0 0 30px 0;
+}
+#comments li {
+	padding-bottom: 30px;
+}
+#comments li:last-child {
+	padding-bottom: 0;
+}
+#comments-title {
+	margin: 0 0 30px 0;
+}
+#comments .comment-body {
+	font-size: 15px;
+	padding: 0 0 0 80px;
+	position: relative;
+}
+#comments .comment-body .avatar {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#comments .comment-author {
+	line-height: 1;
+	padding-top: 15px;
+}
+#comments .comment-body .says {
+	display: none;
+}
+#comments .comment-body .comment-meta {
+	margin-bottom: 10px;
+}
+#comments .comment-body .comment-meta a:not(:hover) {
+	color: inherit;
+}
+#comments .comment-body .comment-metadata {
+	color: #999999;
+	color: rgba(26,26,26,.4);
+	font-size: 12px;
+}
+#comments .comment-body .fn {
+	display: block;
+	font-size: 15px;
+}
+
+/* Admin Comment */
+#comments .bypostauthor > .comment-body,
+#comments .bypostauthor > .comment-body .reply a {
+	/* None in this theme */
+}
+#comments .bypostauthor > .comment-body .reply a:hover {
+	/* None in this theme */
+}
+
+/* Children */
+#comments ul.children {
+	border-left: 1px solid #eeeeee;
+	border-color: rgba(220,220,220,.4);
+	margin: 40px 0 20px 70px;
+	padding: 0 0 0 20px;
+}
+#comments ul.children .comment-body {
+	padding-left: 20px;
+}
+#comments ul.children li:last-child > .comment-body {
+	padding-bottom: 0;
+}
+#comments ul.children .comment-body .avatar {
+	border: 5px solid #ffffff;
+	top: -5px;
+	left: -45px;
+	width: 50px;
+	height: 50px;
+}
+#comments ul.children .comment-author {
+	padding-top: 5px;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+	#comments {
+		padding: 30px;
+	}
+	#comments .comment-body {
+		padding: 0;
+	}
+	#comments .comment-meta {
+		min-height: 60px;
+		padding-left: 75px;
+		position: relative;
+	}
+	#comments ul.children {
+		margin-left: 10px;
+	}
+	#comments ul.children .comment-body {
+		padding-left: 0;
+	}
+	#comments ul.children .comment-body .comment-meta {
+		padding-left: 60px;
+	}
+	#comments ul.children .comment-body .avatar {
+		border: none;
+		top: -5px;
+		left: 0;
+	}
+}
+
+/* No Comments */
+.nocomments {
+	font-style: italic;
+}
+
+/* Comment Form */
+#respond .comment-reply-title {
+	font-size: 20px;
+	margin: 0 0 20px 0;
+}
+#respond label {
+	display: block;
+}
+#respond input[type="email"],
+#respond input[type="text"],
+#respond input[type="url"] {
+	width: 50%;
+}
+@media (max-width: 767px) {
+	#respond input[type="email"],
+	#respond input[type="text"],
+	#respond input[type="url"] {
+		width: 100%;
+	}
+}
+#respond .comment-form-comment textarea {
+	margin: 0;
+}
+
+/* Comment Form (in reply) */
+.comment #respond {
+	font-size: 13px;
+	margin-top: 20px;
+	margin-left: 80px;
+}
+.comment .children #respond {
+	margin-left: 20px;
+}
+.comment #respond .comment-reply-title {
+	font-size: 15px;
+}
+@media (max-width: 767px) {
+	.comment #respond,
+	.comment .children #respond {
+		margin-left: 0;
+	}
 }
 
 /* =Widgets

@@ -9,14 +9,8 @@
 
 <div class="entry-content">
 
-	<?php
-	the_content( __( 'Read More <span class="meta-nav">&rarr;</span>', 'greenlight' ) );
-	wp_link_pages(
-		array(
-			'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'greenlight' ),
-			'after'  => '</div>',
-		)
-	);
-	?>
+	<?php /* @TODO // ... this should be Read More button somehow, filtered in maybe? */ the_content( __( 'Read More <span class="meta-nav">&rarr;</span>', 'greenlight' ) ); ?>
+
+	<?php greenlight_link_pages(); ?>
 
 </div><!-- .entry-content -->
