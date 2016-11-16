@@ -19,6 +19,10 @@ function greenlight_header_class() {
         $class[] = 'has-logo';
     }
 
+    if ( greenlight_do_menu_search() ) {
+        $class[] = 'has-search';
+    }
+
     /**
 	 * Filter the header class array.
 	 *

@@ -20,6 +20,20 @@ function greenlight_add_site_branding() {
 add_action( 'greenlight_header', 'greenlight_add_site_branding' );
 
 /**
+ * Display header search, displayed from icon added to
+ * main navigation.
+ *
+ * @action greenlight_header
+ * @since 1.0.0
+ */
+function greenlight_add_site_search() {
+
+	get_template_part( 'template-parts/header/site', 'search' );
+
+}
+add_action( 'greenlight_header', 'greenlight_add_site_search', 20 );
+
+/**
  * Display site menu template in the header.
  *
  * @action greenlight_header
@@ -30,7 +44,7 @@ function greenlight_add_site_menu() {
 	get_template_part( 'template-parts/header/site', 'menu' );
 
 }
-add_action( 'greenlight_header', 'greenlight_add_site_menu', 20 );
+add_action( 'greenlight_header', 'greenlight_add_site_menu', 30 );
 
 /**
  * Display site menu within the menu template.
@@ -40,7 +54,7 @@ add_action( 'greenlight_header', 'greenlight_add_site_menu', 20 );
  */
 function greenlight_add_site_nav() {
 
-	if ( has_nav_menu( 'primary' ) ) {
+	if ( has_nav_menu( greenlight_primary_menu_location() ) ) {
 
 		/**
 		 * Filter arguments used for main menu.
@@ -50,7 +64,7 @@ function greenlight_add_site_nav() {
 		 * @var array
 		 */
 		wp_nav_menu( apply_filters( 'greenlight_site_nav_args', array(
-			'theme_location'	=> 'primary',
+			'theme_location'	=> greenlight_primary_menu_location(),
 			'container'			=> 'ul',
 			'depth'     		=> 3
 		)));
@@ -75,7 +89,7 @@ function greenlight_add_site_nav() {
 	}
 
 }
-add_action( 'greenlight_site_nav', 'greenlight_add_site_nav', 20 );
+add_action( 'greenlight_site_nav', 'greenlight_add_site_nav' );
 
 /**
  * Display widget area columns in footer.

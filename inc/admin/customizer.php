@@ -335,8 +335,8 @@ function greenlight_get_color_types() {
  *
  * @since 1.0.0
  *
- * @param str $font Selected font
- * @return str $font Selected font, if valid
+ * @param string $font Selected font
+ * @return string $font Selected font, if valid
  */
 function greenlight_sanitize_font( $font ) {
 
@@ -353,8 +353,8 @@ function greenlight_sanitize_font( $font ) {
  *
  * @since 1.0.0
  *
- * @param str $input Passed value
- * @return str $output Sanitized value
+ * @param string $input Passed value
+ * @return string $output Sanitized value
  */
 function greenlight_sanitize_checkbox( $input ) {
 

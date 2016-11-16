@@ -315,3 +315,46 @@ function greenlight_has_active_footer_sidebars() {
 	return (bool) greenlight_get_active_footer_sidebars();
 
 }
+
+/**
+ * Whether to display the floating search
+ * in the main menu.
+ *
+ * @since 1.0.0
+ *
+ * @return bool
+ */
+function greenlight_do_menu_search() {
+
+    /**
+	 * Filter if search gets applied to main menu.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var bool
+	 */
+	return apply_filters( 'themeblvd_do_menu_search', true );
+
+}
+
+/**
+ * Theme location for primary menu.
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+function greenlight_primary_menu_location() {
+
+    /**
+	 * Filter if search gets added to main menu. Useful for
+     * filtering in an alternate registed nav menu for different
+     * scenarios, like special pages, mobile-specific, etc.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	return apply_filters( 'greenlight_primary_menu_location', 'primary' );
+
+}

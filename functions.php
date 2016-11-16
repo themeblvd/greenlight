@@ -43,7 +43,7 @@ if ( ! defined( 'GREENLIGHT_MIN_WP_VERSION' ) ) {
  *
  * @since 1.0.0
  */
-if ( version_compare( get_bloginfo( 'version' ), PRIMER_MIN_WP_VERSION, '<' ) ) {
+if ( version_compare( get_bloginfo( 'version' ), GREENLIGHT_MIN_WP_VERSION, '<' ) ) {
 
 	require_once get_template_directory() . '/inc/compat/wordpress.php';
 
@@ -496,7 +496,7 @@ function greenlight_inline_style() {
 
 			$css .= ".site-header,\n";
 			$css .= ".site-info {\n";
-			$css .= sprintf( "\tbackground-color: %s;\n", sanitize_hex_color( get_theme_mod( 'primary_color', $default ) ) );
+			$css .= sprintf( "\tbackground-color: %s; /* primary color */\n", sanitize_hex_color( get_theme_mod( 'primary_color', $default ) ) );
 			$css .= "}\n";
 
 		}
@@ -508,11 +508,17 @@ function greenlight_inline_style() {
 
 			$css .= ".site-menu ul ul,\n";
 			$css .= ".site-footer {\n";
-			$css .= sprintf( "\tbackground-color: %s;\n", $value );
+			$css .= sprintf( "\tbackground-color: %s; /* secondary color */\n", $value );
 			$css .= "}\n";
 
 			$css .= ".site-menu ul ul:before {\n";
-			$css .= sprintf( "\tborder-bottom-color: %s;\n", $value );
+			$css .= sprintf( "\tborder-bottom-color: %s; /* secondary color */\n", $value );
+			$css .= "}\n";
+
+			$css .= "@media (min-width: 68.8125em) {\n";
+			$css .= "\t.site-header.search-on {\n";
+			$css .= sprintf( "\t\tbackground-color: %s; /* secondary color */\n", $value );
+			$css .= "\t}\n";
 			$css .= "}\n";
 
 		}

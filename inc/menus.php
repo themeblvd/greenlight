@@ -20,7 +20,7 @@
  */
 function greenlight_primary_menu_icons( $html, $item, $depth, $args ) {
 
-    if ( $args->theme_location != 'primary' ) {
+    if ( $args->theme_location != greenlight_primary_menu_location() ) {
 
         return $html;
 
@@ -77,6 +77,11 @@ add_filter( 'walker_nav_menu_start_el', 'greenlight_primary_menu_icons', 10, 4 )
  *
  * @filter nav_menu_link_attributes
  * @since 1.0.0
+ *
+ * @param array $atts The HTML attributes applied to the menu item's `<a>` element, empty strings are ignored.
+ * @param WP_Post $item The current menu item.
+ * @param stdClass $args An object of wp_nav_menu() arguments.
+ * @return array $atts The HTML attributes applied to the menu item's `<a>` element, empty strings are ignored.
  */
 function greenlight_social_menu_link_attribute( $atts, $item, $args ) {
 
@@ -180,5 +185,39 @@ function greenlight_social_menu_link_attribute( $atts, $item, $args ) {
     $atts['class'] = apply_filters( 'greenlight_social_menu_link_class', 'fa fa-' . $icon, $atts, $icons );
 
     return $atts;
+
 }
 add_filter( 'nav_menu_link_attributes', 'greenlight_social_menu_link_attribute', 10, 3 );
+
+/**
+ * Add search icon to main menu.
+ *
+ * @filter wp_nav_menu_items
+ * @since 1.0.0
+ *
+ * @param array $items The HTML list content for the menu items.
+ * @param stdClass $args An object containing wp_nav_menu() arguments.
+ * @return array $items The HTML list content for the menu items.
+ */
+function greenlight_nav_search( $items, $args ) {
+
+    if ( $args->theme_location != greenlight_primary_menu_location() ) {
+
+        return $items;
+
+    }
+
+    if ( ! greenlight_do_menu_search() ) {
+
+        return $items;
+
+    }
+
+    $items .= '<li class="menu-item menu-item-search">';
+    $items .= '<a href="#" class="site-search-toggle" title="' . esc_attr__( 'Search the site', 'greenlight' ) . '"><i class="fa fa-fw fa-search"></i></a>';
+    $items .= '</li>';
+
+    return $items;
+
+}
+add_filter( 'wp_nav_menu_items', 'greenlight_nav_search', 10, 2 );

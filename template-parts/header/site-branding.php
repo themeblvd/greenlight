@@ -23,4 +23,4 @@
 
     <?php greenlight_the_site_menu_toggle(); ?>
 
-</div><!-- .site-title -->
+</div><!-- .site-branding -->

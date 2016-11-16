@@ -11,7 +11,7 @@
 
 <?php if ( greenlight_has_sidebar() ) : ?>
 
-    <div id="secondary" class="widget-area" role="complementary">
+    <div id="secondary" class="site-sidebar widget-area" role="complementary">
 
     	<?php dynamic_sidebar( 'sidebar' ); ?>
 
