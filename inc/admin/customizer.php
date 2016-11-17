@@ -181,10 +181,10 @@ function greenlight_get_font_types() {
 		),
         'small_heading_font' => array(
             'label'         => esc_html__( 'Small Headings', 'greenlight' ),
-            'description'   => esc_html__( 'Small headings, widget titles, form labels, and table headers.', 'greenlight' ),
+            'description'   => esc_html__( 'Small headings, buttons, widget titles, form labels, and table headers.', 'greenlight' ),
             'default'       => 'Hind - Bold',
             'uppercase'     => 1,
-            'selector'      => ".widget-title,\nlabel,\ntable th"
+            'selector'      => ".widget-title,\nlabel,\ntable th,\n.btn"
 		),
         'menu_font' => array(
             'label'         => esc_html__( 'Main Menu', 'greenlight' ),
@@ -283,7 +283,9 @@ function greenlight_get_fonts() {
         'Ubuntu - Bold'
     ));
 
-    sort( array_unique( $fonts ) );
+    $fonts = array_unique( $fonts );
+
+    sort( $fonts );
 
     return $fonts;
 
@@ -309,22 +311,22 @@ function greenlight_get_color_types() {
         'primary_color' => array(
             'label'         => esc_html__( 'Primary', 'greenlight' ),
             'description'   => esc_html__( 'Header and site info.', 'greenlight' ),
-            'default'       => '#2c3e50'
+            'default'       => '#26393d'
 		),
         'secondary_color' => array(
             'label'         => esc_html__( 'Secondary', 'greenlight' ),
             'description'   => esc_html__( 'Main menu dropdowns and footer columns.', 'greenlight' ),
-            'default'       => '#374e65'
+            'default'       => '#59928c'
 		),
         'link_color' => array(
             'label'         => esc_html__( 'Links', 'greenlight' ),
             'description'   => esc_html__( 'Links in main content area.', 'greenlight' ),
-            'default'       => '#2980b9'
+            'default'       => '#1abc9c'
 		),
         'link_hover_color' => array(
             'label'         => esc_html__( 'Link Hover', 'greenlight' ),
             'description'   => esc_html__( 'Links in main content area, when hovered or focused.', 'greenlight' ),
-            'default'       => '#3498db'
+            'default'       => '#16a085'
 		)
     ));
 

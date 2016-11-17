@@ -419,12 +419,12 @@ h6 {
     font-size: 1em;
 }
 a {
-	color: #2980b9;
+	color: #1abc9c;
 	text-decoration: none;
 }
 a:hover,
 a:focus {
-	color: #3498db;
+	color: #16a085;
 }
 p {
     margin-bottom: 1.5em;
@@ -714,10 +714,11 @@ form label {
 ----------------------------------------------- */
 
 .btn {
-    font-size: 12px;
+	display: inline-block;
+    font-size: 11px;
     letter-spacing: 1px;
     line-height: 1.42857143;
-    padding: 1em 2em;
+    padding: 1.1em 2.2em;
     text-decoration: none;
     text-transform: uppercase;
 }
@@ -759,14 +760,14 @@ form label {
 
 /* Colors */
 .btn-default {
-	background-color: #1b1b1b;
+	background-color: #26393d; /* primary color */
 	color: #fff;
 }
 .btn-default:hover,
 .btn-default:focus,
 .btn-default.current,
 .btn-default.active {
-	background-color: #2980b9;
+	background-color: #59928c; /* secondary color */
 	color: #fff;
 }
 .btn-light {
@@ -950,7 +951,7 @@ form label {
 ----------------------------------------------- */
 
 .site-header {
-    background-color: #2c3e50; /* primary color */
+    background-color: #26393d; /* primary color */
 	color: #fff;
 	min-height: 100px;
 	padding-top: 30px;
@@ -961,7 +962,7 @@ form label {
 }
 @media (min-width: 68.8125em) {
 	.site-header.search-on {
-		background-color: #374e65; /* secondary color */
+		background-color: #59928c; /* secondary color */
 	}
 }
 .site-header > .wrap { /* @TODO toggle with class, this would be not full-width */
@@ -1148,7 +1149,7 @@ form label {
 	}
 }
 .site-menu ul ul {
-	background-color: #374e65; /* secondary color */
+	background-color: #59928c; /* secondary color */
 	display: none;
 	margin: 0;
 	padding: 13px 0;
@@ -1207,7 +1208,7 @@ form label {
 		content: "";
 		border-left: 8px solid transparent;
 		border-right: 8px solid transparent;
-		border-bottom: 8px solid #374e65; /* secondary color */
+		border-bottom: 8px solid #59928c; /* secondary color */
 		position: absolute;
 		top: -8px;
 		right: 20px;
@@ -1267,7 +1268,7 @@ form label {
 ----------------------------------------------- */
 
 .site-footer {
-	background: #374e65; /* secondary color */
+	background: #59928c; /* secondary color */
 	color: #fff;
 	font-size: .9375rem;
 	padding: 60px 40px;
@@ -1283,7 +1284,7 @@ form label {
 
 /* Site Info */
 .site-info {
-	background: #2c3e50; /* primary color */
+	background: #26393d; /* primary color */
 	color: rgba(255,255,255,0.6);
 	font-size: .875rem;
 	padding: 40px 30px;
