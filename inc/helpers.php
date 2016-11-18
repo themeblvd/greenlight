@@ -396,3 +396,62 @@ function greenlight_show_comments() {
 	return apply_filters( 'greenlight_show_comments', $show );
 
 }
+
+/**
+ * Get an rgb or rgba value based on color hex value.
+ *
+ * @since 2.5.0
+ *
+ * @param string $hex Color hex - ex: #000 or 000
+ * @param string $opacity Opacity value to determine rgb vs rgba - ex: 0.5
+ * @return array $classes Classes for element.
+ */
+function themeblvd_get_rgb( $color, $opacity = '' ) {
+
+	$default = 'rgb(0,0,0)';
+
+	if ( ! $color ) {
+
+		return $default;
+
+	}
+
+	// Sanitize $color if "#" is provided
+	$color = str_replace( '#', '', $color );
+
+    // Check if color has 6 or 3 characters and get values
+    if ( strlen( $color ) == 6 ) {
+
+        $hex = array( $color[0].$color[1], $color[2].$color[3], $color[4].$color[5] );
+
+    } else if ( strlen($color) == 3 ) {
+
+        $hex = array( $color[0].$color[0], $color[1].$color[1], $color[2].$color[2] );
+
+    } else {
+
+    	return $default;
+
+    }
+
+    // Convert hexadec to rgb
+    $rgb =  array_map( 'hexdec', $hex );
+
+    // Check if opacity is set(rgba or rgb)
+    if ( $opacity ) {
+
+		if ( abs( $opacity ) > 1 ) {
+    		$opacity = '1.0';
+    	}
+
+        $output = sprintf( 'rgba(%s,%s)', implode( ',', $rgb ), $opacity );
+
+    } else {
+
+    	$output = sprintf( 'rgb(%s)', implode( ',', $rgb ) );
+
+    }
+
+    return $output;
+
+}

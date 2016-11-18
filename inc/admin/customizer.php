@@ -14,30 +14,6 @@
  */
 function greenlight_customize_register( $wp_customize ) {
 
-    /*
-    $wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
-	$wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
-
-    $wp_customize->selective_refresh->add_partial( 'blogname', array(
-		'selector'        => '.site-branding',
-        'render_callback' => 'greenlight_customize_partial_branding'
-	));
-
-	$wp_customize->selective_refresh->add_partial( 'blogdescription', array(
-		'selector'        => '.site-branding',
-		'render_callback' => 'greenlight_customize_partial_branding'
-	));
-    */
-
-    if ( isset( $wp_customize->selective_refresh ) ) { // backwards compat
-
-        $wp_customize->selective_refresh->add_partial( 'custom_logo', array(
-    		'selector'        => '.site-branding',
-    		'render_callback' => 'greenlight_customize_partial_branding'
-    	));
-
-    }
-
     /**
      * Fonts
      */
@@ -76,6 +52,7 @@ function greenlight_customize_register( $wp_customize ) {
                 }
 
                 $font_names[] = $name;
+
             }
 
             $fonts = array_combine( $fonts, $font_names );
@@ -109,26 +86,115 @@ function greenlight_customize_register( $wp_customize ) {
      */
     if ( $types = greenlight_get_color_types() ) {
 
+        $wp_customize->add_panel( 'colors', array(
+            'title'     => esc_html__( 'Colors', 'greenlight' ),
+            // 'description' => 'Get what you need.',
+            'priority'  => 40
+        ));
+
+        $wp_customize->add_section( 'colors-header', array(
+            'title'     => esc_html__( 'Header', 'greenlight' ),
+            'panel'     => 'colors',
+        ));
+
+        $wp_customize->add_section( 'colors-buttons', array(
+            'title'     => esc_html__( 'Buttons', 'greenlight' ),
+            'panel'     => 'colors',
+        ));
+
+        $wp_customize->add_section( 'colors-content', array(
+            'title'     => esc_html__( 'Content', 'greenlight' ),
+            'panel'     => 'colors',
+        ));
+
+        $wp_customize->add_section( 'colors-footer', array(
+            'title'     => esc_html__( 'Footer', 'greenlight' ),
+            'panel'     => 'colors',
+        ));
+
         foreach ( $types as $key => $args ) {
 
             $key = sanitize_key( $key );
 
             $wp_customize->add_setting( $key, array(
         		'default'           => $args['default'],
-        		'sanitize_callback' => 'sanitize_hex_color'
+        		'sanitize_callback' => ! empty( $args['sanitize_callback'] ) ? $args['sanitize_callback'] : 'sanitize_hex_color',
+                // @TODO 'transport'         => ! empty( $args['transport'] ) ? $args['transport'] : 'refresh'
         	));
 
-            $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $key, array(
-                //'settings'      => $key,
-                'label'         => ! empty( $args['label'] ) ? $args['label'] : null,
-                'description'   => ! empty( $args['description'] ) ? $args['description'] : null,
-                'section'       => ! empty( $args['section'] ) ? $args['section'] : 'colors',
-                'priority'      => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
-            )));
+            if ( ! empty( $args['type'] ) && $args['type'] == 'color' ) {
+
+                $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $key, array(
+                    'label'         => ! empty( $args['label'] ) ? $args['label'] : null,
+                    'description'   => ! empty( $args['description'] ) ? $args['description'] : null,
+                    'section'       => ! empty( $args['section'] ) ? $args['section'] : 'colors',
+                    'priority'      => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
+                )));
+
+            } else {
+
+                $wp_customize->add_control( $key, array(
+                    'label'         => ! empty( $args['label'] ) ? $args['label'] : $name,
+                    'description'   => ! empty( $args['description'] ) ? $args['description'] : null,
+                    'section'       => ! empty( $args['section'] ) ? $args['section'] : 'fonts',
+                    'priority'      => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
+                    'type'          => ! empty( $args['type'] ) ? $args['type'] : 'select',
+                    'choices'       => ! empty( $args['choices'] ) ? $args['choices'] : array(),
+                    'input_attrs'   => ! empty( $args['input_attrs'] ) ? $args['input_attrs'] : array()
+            	));
+
+            }
 
         }
 
     }
+
+    /**
+     * Layout
+     */
+    $wp_customize->add_section( 'layout', array(
+        'title' => __( 'Layout', 'greenlight' ),
+        'priority' => 60,
+    ));
+
+    // ...
+
+    /**
+     * Add selective refresh, where relevent, to speed things up.
+     */
+    if ( isset( $wp_customize->selective_refresh ) ) { // backwards compat
+
+        // Site Identity
+        $wp_customize->selective_refresh->add_partial( 'custom_logo', array(
+    		'selector'        => '.site-branding',
+    		'render_callback' => 'greenlight_customize_partial_branding'
+    	));
+
+        // Colors
+        /*
+        @TODO -- This method currently seems a little slow, as it give
+        the uer no indication that markup are being re-established.
+        if ( $types = greenlight_get_color_types() ) {
+
+            foreach ( $types as $key => $args ) {
+
+                if ( ! empty( $args['transport'] ) && $args['transport'] == 'postMessage' ) {
+
+                    $wp_customize->selective_refresh->add_partial( $key, array(
+                		'selector'        => sprintf( '#%s-inline-css', get_stylesheet() ),
+                		'render_callback' => 'greenlight_customize_partial_inline_style'
+                	));
+
+                }
+
+            }
+
+        }
+        */
+
+    }
+
+
 
 }
 add_action( 'customize_register', 'greenlight_customize_register' );
@@ -146,6 +212,19 @@ function greenlight_customize_partial_branding() {
     get_template_part( 'template-parts/header/site', 'branding' );
 
     return ob_get_clean();
+
+}
+
+/**
+ * Display inline CSS in <head> on a customizer
+ * selective refresh.
+ *
+ * @since 1.0.0
+ */
+function greenlight_customize_partial_inline_style() {
+
+    return sprintf( '<style id="%s-inline-css">%s</style>', get_stylesheet(), greenlight_inline_style() );
+
 }
 
 /**
@@ -153,7 +232,7 @@ function greenlight_customize_partial_branding() {
  *
  * @since 1.0.0
  *
- * @return array Font types
+ * @return array Font types.
  */
 function greenlight_get_font_types() {
 
@@ -202,7 +281,7 @@ function greenlight_get_font_types() {
  *
  * @since 1.0.0
  *
- * @return array Fonts availble to be selected
+ * @return array $fonts Fonts availble to be selected.
  */
 function greenlight_get_fonts() {
 
@@ -296,7 +375,7 @@ function greenlight_get_fonts() {
  *
  * @since 1.0.0
  *
- * @return array Color types
+ * @return array Color types.
  */
 function greenlight_get_color_types() {
 
@@ -308,27 +387,228 @@ function greenlight_get_color_types() {
      * @var array
      */
     return apply_filters( 'greenlight_color_types', array(
-        'primary_color' => array(
-            'label'         => esc_html__( 'Primary', 'greenlight' ),
-            'description'   => esc_html__( 'Header and site info.', 'greenlight' ),
-            'default'       => '#26393d'
+
+        /**
+         * Header
+         */
+        'header_color' => array(
+            'label'             => esc_html__( 'Header Background', 'greenlight' ),
+            'section'           => 'colors-header',
+            'default'           => '#26393d',
+            'type'              => 'color',
+            'transport'         => 'postMessage'
 		),
-        'secondary_color' => array(
-            'label'         => esc_html__( 'Secondary', 'greenlight' ),
-            'description'   => esc_html__( 'Main menu dropdowns and footer columns.', 'greenlight' ),
-            'default'       => '#59928c'
+        'menu_text' => array(
+            'label'             => esc_html__( 'Header Text', 'greenlight' ),
+            'section'           => 'colors-header',
+            'default'           => '#ffffff',
+            'type'              => 'color',
+            'transport'         => 'postMessage'
+		),
+        'menu_dropdown_color' => array(
+            'label'             => esc_html__( 'Main Menu Dropdowns', 'greenlight' ),
+            'section'           => 'colors-header',
+            'default'           => '#59928c',
+            'type'              => 'color',
+            'transport'         => 'postMessage'
+		),
+        'menu_dropdown_text' => array(
+            'label'             => esc_html__( 'Main Menu Dropdown Text', 'greenlight' ),
+            'section'           => 'colors-header',
+            'default'           => '#ffffff',
+            'type'              => 'color',
+            'transport'         => 'postMessage'
+		),
+        'header_opacity' => array(
+            'label'             => esc_html__( 'Header Opacity', 'greenlight' ),
+            'description'       => esc_html__( 'Applies when hero image is applied to current page.', 'greenlight' ),
+            'section'           => 'colors-header',
+            'default'           => '10',
+            'type'              => 'range',
+            'input_attrs'       => array(
+                'min'  => 0,
+                'max'  => 100,
+                'step' => 1,
+            ),
+            'transport'         => 'postMessage',
+            'sanitize_callback' => 'greenlight_sanitize_range'
+		),
+
+        /**
+         * Buttons
+         */
+        'btn_color' => array(
+            'label'             => esc_html__( 'Button Background', 'greenlight' ),
+            'section'           => 'colors-buttons',
+            'default'           => '#26393d',
+            'type'              => 'color'
+		),
+        'btn_text' => array(
+            'label'             => esc_html__( 'Button Text', 'greenlight' ),
+            'section'           => 'colors-buttons',
+            'default'           => '#ffffff',
+            'type'              => 'color'
+		),
+        'btn_hover_color' => array(
+            'label'             => esc_html__( 'Button Hover Background', 'greenlight' ),
+            'section'           => 'colors-buttons',
+            'default'           => '#59928c',
+            'type'              => 'color'
+		),
+        'btn_hover_text' => array(
+            'label'             => esc_html__( 'Button Hover Text', 'greenlight' ),
+            'section'           => 'colors-buttons',
+            'default'           => '#ffffff',
+            'type'              => 'color'
+		),
+
+        /**
+         * Content
+         */
+        'heading_text' => array(
+            'label'             => esc_html__( 'Heading Text', 'greenlight' ),
+            'description'       => esc_html__( 'Post titles, widget titles, form labels, table headers and buttons.', 'greenlight' ),
+            'section'           => 'colors-content',
+            'default'           => '#353535',
+            'type'              => 'color'
+		),
+        'primary_text' => array(
+            'label'             => esc_html__( 'Primary Text', 'greenlight' ),
+            'description'       => esc_html__( 'Paragraphs, lists, menu links, quotes and tables.', 'greenlight' ),
+            'section'           => 'colors-content',
+            'default'           => '#252525',
+            'type'              => 'color'
+		),
+        'secondary_text' => array(
+            'label'             => esc_html__( 'Secondary Text', 'greenlight' ),
+            'description'       => esc_html__( 'Post bylines, comment counts, post footers and quote footers.', 'greenlight' ),
+            'section'           => 'colors-content',
+            'default'           => '#686868',
+            'type'              => 'color'
 		),
         'link_color' => array(
-            'label'         => esc_html__( 'Links', 'greenlight' ),
-            'description'   => esc_html__( 'Links in main content area.', 'greenlight' ),
-            'default'       => '#1abc9c'
+            'label'             => esc_html__( 'Links', 'greenlight' ),
+            'section'           => 'colors-content',
+            'default'           => '#1abc9c',
+            'type'              => 'color'
 		),
         'link_hover_color' => array(
-            'label'         => esc_html__( 'Link Hover', 'greenlight' ),
-            'description'   => esc_html__( 'Links in main content area, when hovered or focused.', 'greenlight' ),
-            'default'       => '#16a085'
+            'label'             => esc_html__( 'Link Hover', 'greenlight' ),
+            'section'           => 'colors-content',
+            'default'           => '#16a085',
+            'type'              => 'color'
+		),
+        'content_color' => array(
+            'label'             => esc_html__( 'Content Background', 'greenlight' ),
+            'section'           => 'colors-content',
+            'default'           => '#ffffff',
+            'type'              => 'color'
+		),
+
+        /**
+         * Footer
+         */
+        'footer_color' => array(
+            'label'             => esc_html__( 'Footer Background', 'greenlight' ),
+            'section'           => 'colors-footer',
+            'default'           => '#59928c',
+            'type'              => 'color'
+		),
+        'footer_text' => array(
+            'label'             => esc_html__( 'Footer Text', 'greenlight' ),
+            'section'           => 'colors-footer',
+            'default'           => '#ffffff',
+            'type'              => 'color'
+		),
+        'info_color' => array(
+            'label'             => esc_html__( 'Site Info Background', 'greenlight' ),
+            'section'           => 'colors-footer',
+            'default'           => '#26393d',
+            'type'              => 'color'
+		),
+        'info_text' => array(
+            'label'             => esc_html__( 'Site Info Text', 'greenlight' ),
+            'section'           => 'colors-footer',
+            'default'           => '#ffffff',
+            'type'              => 'color'
 		)
     ));
+
+}
+
+/**
+ * Layouts types to create options.
+ *
+ * @since 1.0.0
+ *
+ * @return array Layout types.
+ */
+function greenlight_get_layout_types() {
+
+    /**
+     * Filter layout types.
+     *
+     * Note: Except for the "default", array keys match
+     * post type IDs. If a post type key exists, an overriding
+     * meta box will get added when editing that post type.
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    return apply_filters( 'greenlight_layout_types', array(
+        'default' => array(
+            'label'         => esc_html__( 'Website Default', 'greenlight' ),
+            'default'       => 'sidebar-right'
+		),
+        'page' => array(
+            'label'         => esc_html__( 'Website Default', 'greenlight' ),
+            'default'       => 'sidebar-right'
+		),
+        'post' => array(
+            'label'         => esc_html__( 'Website Default', 'greenlight' ),
+            'default'       => 'narrow'
+		)
+    ));
+
+}
+
+/**
+ * Available sidebar layouts.
+ *
+ * @since 1.0.0
+ *
+ * @return array $layouts Sidebar layouts.
+ */
+function greenlight_get_layouts() {
+
+    /**
+     * Filter sidebar layouts.
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    $layouts = apply_filters( 'greenlight_layouts', array(
+        'sidebar-right' => array(
+            'name'  => esc_html__( 'Sidebar Right', 'greenlight' ),
+            'img'   => esc_url('')
+        ),
+        'sidebar-left' => array(
+            'name'  => esc_html__( 'Sidebar Left', 'greenlight' ),
+            'img'   => esc_url('')
+        ),
+        'narrow' => array(
+            'name'  => esc_html__( 'Narrow', 'greenlight' ),
+            'img'   => esc_url('')
+        ),
+        'wide' => array(
+            'name'  => esc_html__( 'Wide', 'greenlight' ),
+            'img'   => esc_url('')
+        )
+    ));
+
+    return array_unique( $layouts );
 
 }
 
@@ -356,12 +636,24 @@ function greenlight_sanitize_font( $font ) {
  * @since 1.0.0
  *
  * @param string $input Passed value
- * @return string $output Sanitized value
+ * @return string Sanitized value
  */
 function greenlight_sanitize_checkbox( $input ) {
 
     return ( 1 === absint( $input ) ) ? 1 : 0;
 
-    return $input; // ...
+}
+
+/**
+ * Sanitize range value.
+ *
+ * @since 1.0.0
+ *
+ * @param string|int $input Passed value
+ * @return int Sanitized value
+ */
+function greenlight_sanitize_range( $input ) {
+
+    return intval( $input );
 
 }

@@ -48,6 +48,7 @@ Domain Path: /lang
 	# Site Info
 	# Social Menu
 	# Footer Menu
+# Content
 # Comments
 # Widgets
 	# Sidebar
@@ -390,13 +391,12 @@ textarea {
     }
 }
 h1, h2, h3, h4, h5, h6 {
-  clear: both;
-  color: #353535;
-  font-weight: bold;
-  line-height: 1.4;
-  margin-top: 0.2rem;
-  margin-bottom: 0.8rem;
-  text-rendering: optimizeLegibility;
+	clear: both;
+	font-weight: bold;
+	line-height: 1.4;
+	margin-top: 0.2rem;
+	margin-bottom: 0.8rem;
+	text-rendering: optimizeLegibility;
 }
 h1 {
     font-size: 2.5em;
@@ -681,7 +681,7 @@ input[type="datetime-local"]:focus,
 input[type="color"]:focus,
 textarea:focus {
     background-color: rgba(255, 255, 255, 0.75);
-    color: #252525;
+    color: rgba(37, 37, 37, 0.7);
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -1011,7 +1011,7 @@ form label {
 }
 .site-title a:hover,
 .site-title a:focus {
-	color: rgba(255,255,255,.8);
+	color: rgba(255,255,255,.85);
 }
 .site-description {
 	font-size: .85rem;
@@ -1239,6 +1239,8 @@ form label {
 		right: 0;
 		-webkit-transform: translate(0, -50%);
 		transform: translate(0, -50%);
+		width: 22px;
+		height: 16px;
 	}
 }
 
@@ -1269,7 +1271,7 @@ form label {
 
 .site-footer {
 	background: #59928c; /* secondary color */
-	color: #fff;
+	color: rgba(255,255,255,0.8);
 	font-size: .9375rem;
 	padding: 60px 40px;
 }
@@ -1281,6 +1283,23 @@ form label {
 .site-footer h6 {
 	color: #fff;
 }
+.site-footer a,
+.site-info a {
+	color: inherit;
+	border-bottom: 1px solid rgba(255,255,255,0.8);
+	padding-bottom: 1px;
+	text-decoration: none;
+}
+.site-info a {
+	border-bottom-color: rgba(255,255,255,0.6);
+}
+.site-footer a:hover,
+.site-footer a:focus,
+.site-info a:hover,
+.site-info a:focus {
+	border-color: #fff;
+	color: #fff;
+}
 
 /* Site Info */
 .site-info {
@@ -1289,17 +1308,6 @@ form label {
 	font-size: .875rem;
 	padding: 40px 30px;
 	text-align: center;
-}
-.site-info a {
-	color: inherit;
-	border-bottom: 1px solid rgba(255,255,255,.5);
-	padding-bottom: 1px;
-	text-decoration: none;
-}
-.site-info a:hover,
-.site-info a:focus {
-	border-color: #fff;
-	color: #fff;
 }
 
 /* Social Menu */
@@ -1341,6 +1349,19 @@ form label {
 	display: inline-block;
 	list-style: none;
 	padding: 0 .3125rem;
+}
+
+/* =Content
+----------------------------------------------- */
+
+.site-content h1,
+.site-content h2,
+.site-content h3,
+.site-content h4,
+.site-content h5,
+.site-content h6,
+.site-content .entry-title a:not(:hover) {
+	color: #353535;
 }
 
 /* =Comments

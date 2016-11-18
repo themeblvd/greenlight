@@ -297,6 +297,10 @@ function greenlight_content_width() {
 
     // $layout        = greenlight_get_layout();
 	// $content_width = ( 'one-column-wide' === $layout ) ? 1068 : 688;
+	// 840
+
+	$layout = null;
+	$content_width = 840; // that's with sidebar. come back after implementing dynamic layouts.
 
     /**
 	 * Filter the content width in pixels.
@@ -307,7 +311,7 @@ function greenlight_content_width() {
 	 *
 	 * @var int
 	 */
-	// $GLOBALS['content_width'] = (int) apply_filters( 'greenlight_content_width', $content_width, $layout );
+	 $GLOBALS['content_width'] = apply_filters( 'greenlight_content_width', $content_width, $layout );
 
 }
 add_action( 'after_setup_theme', 'greenlight_content_width', 0 );
@@ -415,7 +419,21 @@ function greenlight_scripts() {
 	// Add primary theme styles
     wp_enqueue_style( $stylesheet, esc_url( get_stylesheet_uri() ), false, defined( 'GREENLIGHT_CHILD_VERSION' ) ? GREENLIGHT_CHILD_VERSION : GREENLIGHT_VERSION );
 	wp_style_add_data( $stylesheet, 'rtl', 'replace' );
-	wp_add_inline_style( $stylesheet, greenlight_inline_style() );
+
+	/**
+     * Filter whether inline styles get processed. If you're wanting
+	 * to do all your style adjustments via your child theme,
+	 * disabling this can make things a bit cleaner and more efficient.
+     *
+     * @since 1.0.0
+     *
+     * @var bool
+     */
+	if ( apply_filters( 'greenlight_do_inline_style', true ) ) {
+
+		wp_add_inline_style( $stylesheet, greenlight_inline_style() );
+
+	}
 
 	// Add primary theme JavaScript
 	wp_enqueue_script( 'greenlight', esc_url( get_template_directory_uri() . "/assets/js/greenlight{$suffix}.js" ), array( 'jquery' ), GREENLIGHT_VERSION, true );
@@ -446,12 +464,15 @@ add_action( 'wp_enqueue_scripts', 'greenlight_scripts' );
  */
 function greenlight_inline_style() {
 
-	$css = "/* Greenlight CSS */\n";
+	$css  = "\n/* =Greenlight CSS\n";
+	$css .= "----------------------------------------------- */\n";
 
 	/**
 	 * Fonts
 	 */
 	if ( $types = greenlight_get_font_types() ) {
+
+		$css .= "\n/* Fonts */\n";
 
 		foreach ( $types as $key => $args ) {
 
@@ -490,36 +511,150 @@ function greenlight_inline_style() {
 	 */
 	if ( $types = greenlight_get_color_types() ) {
 
-		if ( ! empty( $types['primary_color'] ) ) {
+		$css .= "\n/* Colors */\n";
 
-			$default = ! empty( $types['primary_color']['default'] ) ? $types['primary_color']['default'] : null;
+		// Header
+		if ( ! empty( $types['header_color'] ) ) {
 
-			$css .= ".site-header,\n";
-			$css .= ".site-info {\n";
-			$css .= sprintf( "\tbackground-color: %s; /* primary color */\n", sanitize_hex_color( get_theme_mod( 'primary_color', $default ) ) );
+			$default = ! empty( $types['header_color']['default'] ) ? $types['header_color']['default'] : null;
+
+			$css .= ".site-header {\n";
+			$css .= sprintf( "\tbackground-color: %s; /* primary color */\n", sanitize_hex_color( get_theme_mod( 'header_color', $default ) ) );
 			$css .= "}\n";
 
 		}
 
-		if ( ! empty( $types['secondary_color'] ) ) {
+		if ( ! empty( $types['menu_text'] ) ) {
 
-			$default = ! empty( $types['secondary_color']['default'] ) ? $types['secondary_color']['default'] : null;
-			$value = sanitize_hex_color( get_theme_mod( 'secondary_color', $default ) );
+			$default = ! empty( $types['menu_text']['default'] ) ? $types['menu_text']['default'] : null;
+			$color = sanitize_hex_color( get_theme_mod( 'menu_text', $default ) );
 
-			$css .= ".site-menu ul ul,\n";
-			$css .= ".site-footer {\n";
-			$css .= sprintf( "\tbackground-color: %s; /* secondary color */\n", $value );
+			$css .= ".site-menu a {\n";
+			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.85' ) );
 			$css .= "}\n";
 
-			$css .= ".site-menu ul ul:before {\n";
-			$css .= sprintf( "\tborder-bottom-color: %s; /* secondary color */\n", $value );
+			$css .= ".site-header,\n";
+			$css .= ".site-menu a:hover,\n";
+			$css .= ".site-menu a:focus {\n";
+			$css .= sprintf( "\tcolor: %s;\n", $color );
+			$css .= "}\n";
+
+			if ( ! greenlight_has_custom_logo() ) {
+
+				$css .= ".site-title a {\n";
+				$css .= sprintf( "\tcolor: %s;\n", $color );
+				$css .= "}\n";
+
+				$css .= ".site-title a:hover,\n";
+				$css .= ".site-title a:focus {\n";
+				$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.85' ) );
+				$css .= "}\n";
+
+			}
+
+		}
+
+		if ( ! empty( $types['menu_dropdown_color'] ) ) {
+
+			$default = ! empty( $types['menu_dropdown_color']['default'] ) ? $types['menu_dropdown_color']['default'] : null;
+			$color = sanitize_hex_color( get_theme_mod( 'menu_dropdown_color', $default ) );
+
+			$css .= ".site-menu ul ul {\n";
+			$css .= sprintf( "\tbackground-color: %s; /* secondary color */\n", $color );
 			$css .= "}\n";
 
 			$css .= "@media (min-width: 68.8125em) {\n";
-			$css .= "\t.site-header.search-on {\n";
-			$css .= sprintf( "\t\tbackground-color: %s; /* secondary color */\n", $value );
+
+			$css .= "\t.site-menu ul ul:before {\n";
+			$css .= sprintf( "\t\tborder-bottom-color: %s; /* secondary color */\n", $color );
 			$css .= "\t}\n";
+
+			$css .= "\t.site-header.search-on {\n";
+			$css .= sprintf( "\t\tbackground-color: %s; /* secondary color */\n", $color );
+			$css .= "\t}\n";
+
 			$css .= "}\n";
+
+		}
+
+		if ( ! empty( $types['menu_dropdown_text'] ) ) {
+
+			$default = ! empty( $types['menu_dropdown_text']['default'] ) ? $types['menu_dropdown_text']['default'] : null;
+			$color = sanitize_hex_color( get_theme_mod( 'menu_dropdown_text', $default ) );
+
+			$css .= ".site-menu ul ul a {\n";
+			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.85' ) );
+			$css .= "}\n";
+
+			$css .= ".site-menu ul ul a:hover,\n";
+			$css .= ".site-menu ul ul a:focus {\n";
+			$css .= sprintf( "\tcolor: %s;\n", $color );
+			$css .= "}\n";
+
+			$css .= "@media (min-width: 68.8125em) {\n";
+
+			$css .= "\t.site-search .searchform .search-wrap:before,\n";
+			$css .= "\t.site-search .search-input,\n";
+			$css .= "\t.site-search .search-input:focus {\n";
+			$css .= sprintf( "\t\tcolor: %s;\n", $color );
+			$css .= "\t}\n";
+
+			$css .= "\t.site-search .searchform .search-input::-webkit-input-placeholder {\n";
+			$css .= sprintf( "\t\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.50' ) );
+			$css .= "\t}\n";
+
+			$css .= "\t.site-search .searchform .search-input:-ms-input-placeholder {\n";
+			$css .= sprintf( "\t\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.50' ) );
+			$css .= "\t}\n";
+
+			$css .= "}\n";
+
+		}
+
+		if ( ! empty( $types['header_opacity'] ) ) {
+
+			// ... @TODO Come back to this after we've setup hero images
+
+		}
+
+		// Buttons
+		if ( ! empty( $types['btn_color'] ) ) {
+
+			$default_bg = ! empty( $types['btn_color']['default'] ) ? $types['btn_color']['default'] : null;
+			$default_text = ! empty( $types['btn_text']['default'] ) ? $types['btn_text']['default'] : null;
+
+			$css .= ".btn-default {\n";
+			$css .= sprintf( "\tbackground-color: %s;\n", sanitize_hex_color( get_theme_mod( 'btn_color', $default_bg ) ) );
+			$css .= sprintf( "\tcolor: %s;\n", sanitize_hex_color( get_theme_mod( 'btn_text', $default_text ) ) );
+			$css .= "}\n";
+
+			$default_bg = ! empty( $types['btn_hover_color']['default'] ) ? $types['btn_color']['default'] : null;
+			$default_text = ! empty( $types['btn_hover_text']['default'] ) ? $types['btn_text']['default'] : null;
+
+			$css .= ".btn-default:hover,\n";
+			$css .= ".btn-default:focus {\n";
+			$css .= sprintf( "\tbackground-color: %s;\n", sanitize_hex_color( get_theme_mod( 'btn_hover_color', $default_bg ) ) );
+			$css .= sprintf( "\tcolor: %s;\n", sanitize_hex_color( get_theme_mod( 'btn_hover_text', $default_text ) ) );
+			$css .= "}\n";
+
+		}
+
+		// Content
+		if ( ! empty( $types['heading_text'] ) ) {
+
+			// ... @TODO
+
+		}
+
+		if ( ! empty( $types['primary_text'] ) ) {
+
+			// ... @TODO
+
+		}
+
+		if ( ! empty( $types['secondary_text'] ) ) {
+
+			// ... @TODO
 
 		}
 
@@ -540,6 +675,86 @@ function greenlight_inline_style() {
 			$css .= "a:hover,\n";
 			$css .= "a:focus {\n";
 			$css .= sprintf( "\tcolor: %s;\n", sanitize_hex_color( get_theme_mod( 'link_hover_color', $default ) ) );
+			$css .= "}\n";
+
+		}
+
+		if ( ! empty( $types['content_color'] ) ) {
+
+			$default = ! empty( $types['content_color']['default'] ) ? $types['content_color']['default'] : null;
+
+			$css .= ".site-content {\n";
+			$css .= sprintf( "\tbackground-color: %s;\n", sanitize_hex_color( get_theme_mod( 'content_color', $default ) ) );
+			$css .= "}\n";
+
+		}
+
+		// Footer
+		if ( ! empty( $types['footer_color'] ) && ! empty( $types['footer_text'] ) ) {
+
+			$default_bg = ! empty( $types['footer_color']['default'] ) ? $types['footer_color']['default'] : null;
+			$bg = sanitize_hex_color( get_theme_mod( 'footer_color', $default_bg ) );
+
+			$default_text = ! empty( $types['footer_text']['default'] ) ? $types['footer_text']['default'] : null;
+			$text = sanitize_hex_color( get_theme_mod( 'footer_text', $default_text ) );
+
+			$css .= ".site-footer {\n";
+			$css .= sprintf( "\tbackground-color: %s; /* secondary color */\n", $bg );
+			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $text, '0.80' ) );
+			$css .= "}\n";
+
+			$css .= ".site-footer h1,\n";
+			$css .= ".site-footer h2,\n";
+			$css .= ".site-footer h3,\n";
+			$css .= ".site-footer h4,\n";
+			$css .= ".site-footer h5,\n";
+			$css .= ".site-footer h6 {\n";
+			$css .= sprintf( "\tcolor: %s;\n", $text );
+			$css .= "}\n";
+
+			$css .= ".site-footer a {\n";
+			$css .= sprintf( "\tborder-bottom-color: %s;\n", themeblvd_get_rgb( $text, '0.80' ) );
+			$css .= "}\n";
+
+			$css .= ".site-footer a:hover,\n";
+			$css .= ".site-footer a:focus {\n";
+			$css .= sprintf( "\tborder-bottom-color: %s;\n", $text );
+			$css .= sprintf( "\tcolor: %s;\n", $text );
+			$css .= "}\n";
+
+		}
+
+		// Site Info
+		if ( ! empty( $types['info_color'] ) && ! empty( $types['info_text'] ) ) {
+
+			$default_bg = ! empty( $types['info_color']['default'] ) ? $types['info_color']['default'] : null;
+			$bg = sanitize_hex_color( get_theme_mod( 'info_color', $default_bg ) );
+
+			$default_text = ! empty( $types['info_text']['default'] ) ? $types['info_text']['default'] : null;
+			$text = sanitize_hex_color( get_theme_mod( 'info_text', $default_text ) );
+
+			$css .= ".site-info {\n";
+			$css .= sprintf( "\tbackground-color: %s; /* primary color */\n", $bg );
+			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $text, '0.60' ) );
+			$css .= "}\n";
+
+			$css .= ".site-info a {\n";
+			$css .= sprintf( "\tborder-bottom-color: %s;\n", themeblvd_get_rgb( $text, '0.60' ) );
+			$css .= "}\n";
+
+			$css .= ".site-info a:hover,\n";
+			$css .= ".site-info a:focus {\n";
+			$css .= sprintf( "\tborder-bottom-color: %s;\n", $text );
+			$css .= sprintf( "\tcolor: %s;\n", $text );
+			$css .= "}\n";
+
+			$css .= ".social-menu > ul > li > a {\n";
+			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $text, '0.80' ) );
+			$css .= "}\n";
+
+			$css .= ".social-menu > ul > li > a:hover,\n";
+			$css .= ".social-menu > ul > li > a:focus {\n";
+			$css .= sprintf( "\tcolor: %s;\n", $text );
 			$css .= "}\n";
 
 		}
