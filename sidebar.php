@@ -5,7 +5,7 @@
  * @link https://developer.wordpress.org/themes/template-files-section/partial-and-miscellaneous-template-files/#sidebar-php
  *
  * @package Greenlight
- * @since   1.0.0
+ * @since 1.0.0
  */
 ?>
 

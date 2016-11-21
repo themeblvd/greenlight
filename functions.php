@@ -13,7 +13,7 @@
  * {@link https://codex.wordpress.org/Plugin_API}
  *
  * @package Greenlight
- * @since   1.0.0
+ * @since 1.0.0
  */
 
 /**
@@ -789,11 +789,13 @@ function greenlight_custom_logo( $html ) {
 	}
 
 	if ( $srcset ) {
+
 		$html = str_replace(
 			'itemprop="logo"',
 			sprintf( 'itemprop="logo" srcset="%s"', $srcset ),
 			$html
 		);
+
 	}
 
 	return $html;

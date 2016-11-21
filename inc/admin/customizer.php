@@ -261,7 +261,7 @@ function greenlight_get_font_types() {
         'small_heading_font' => array(
             'label'         => esc_html__( 'Small Headings', 'greenlight' ),
             'description'   => esc_html__( 'Small headings, buttons, widget titles, form labels, and table headers.', 'greenlight' ),
-            'default'       => 'Hind - Bold',
+            'default'       => 'Lato - Black',
             'uppercase'     => 1,
             'selector'      => ".widget-title,\nlabel,\ntable th,\n.btn"
 		),
@@ -316,6 +316,7 @@ function greenlight_get_fonts() {
         'Lato - Light',
         'Lato - Regular',
         'Lato - Bold',
+        'Lato - Black',
         'Merriweather - Light',
         'Merriweather - Regular',
         'Merriweather - Bold',
@@ -364,7 +365,7 @@ function greenlight_get_fonts() {
 
     $fonts = array_unique( $fonts );
 
-    sort( $fonts );
+    // sort( $fonts );
 
     return $fonts;
 

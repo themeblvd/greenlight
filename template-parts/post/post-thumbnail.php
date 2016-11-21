@@ -3,7 +3,7 @@
  * Template part for displaying the post thumbnail inside The Loop.
  *
  * @package Greenlight
- * @since   1.0.0
+ * @since 1.0.0
  */
 ?>
 

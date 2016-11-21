@@ -3,7 +3,7 @@
  * Custom Layouts functionality.
  *
  * @package Greenlight
- * @since   1.0.0
+ * @since 1.0.0
  */
 class Greenlight_Layouts {
 

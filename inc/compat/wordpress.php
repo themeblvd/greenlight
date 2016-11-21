@@ -7,7 +7,7 @@
  * major versions and relies on many newer functions and markup.
  *
  * @package Greenlight
- * @since   1.0.0
+ * @since 1.0.0
  */
 
 /**

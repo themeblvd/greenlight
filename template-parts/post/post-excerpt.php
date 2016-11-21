@@ -3,7 +3,7 @@
  * Template part for displaying the post excerpt inside The Loop.
  *
  * @package Greenlight
- * @since   1.0.0
+ * @since 1.0.0
  */
 ?>
 
@@ -11,6 +11,10 @@
 
 	<?php the_excerpt(); ?>
 
-	<p><a class="button" href="<?php the_permalink(); ?>"><?php printf( esc_html_x( 'Continue Reading %s', 'right arrow (LTR) / left arrow (RTL)', 'greenlight' ), is_rtl() ? '&larr;' : '&rarr;' ); ?></a></p>
+	<p>
+		<a class="btn btn-default" href="<?php echo esc_url( get_the_permalink() ); ?>" title="<?php the_title_attribute(); ?>">
+			<?php esc_html_e( 'Read More', 'greenlight' ); ?>
+		</a>
+	</p>
 
 </div><!-- .entry-summary -->
