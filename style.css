@@ -19,6 +19,8 @@ Domain Path: /lang
 # Accessibility
 # Alignments
 # Utilities
+	# Clearfix
+	# Inline List
 # Typography
 # Elements
 # Media
@@ -34,11 +36,16 @@ Domain Path: /lang
 # Parts
 	# Searchform
 	# Pagination
+	# Social Menu
 # Layout
 	# Shared
 	# Header
 	# Content
 	# Footer
+# Top Bar
+	# Top Text
+	# Top Social
+	# Top Menu
 # Header
     # Logo
 	# Search
@@ -346,7 +353,7 @@ template {
 /* =Utilities
 ----------------------------------------------- */
 
-/* Clear floated elements. */
+/* Clearfix */
 .clearfix:before,
 .clearfix:after,
 .row:before,
@@ -358,6 +365,17 @@ template {
 .container:after,
 .row:after {
 	clear: both;
+}
+
+/* Inline List */
+.list-inline {
+	list-style: none;
+	margin: 0 -5px;
+	padding-left: 0;
+}
+.list-inline > li {
+	display: inline-block;
+	padding: 0 5px;
 }
 
 /* =Typography
@@ -897,6 +915,33 @@ form label {
 	padding-right: 0;
 }
 
+/* Social Menu */
+.social-menu > ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.social-menu > ul > li {
+	display: inline-block;
+	padding: 0 2px;
+}
+.social-menu > ul > li > a {
+	color: #fff;
+	color: rgba(255,255,255,.8);
+	border-bottom: none;
+	font-size: 0;
+	padding: .3125rem;
+}
+.social-menu > ul > li > a:hover,
+.social-menu > ul > li > a:focus {
+	color: #fff;
+}
+.social-menu > ul > li > a:before {
+	display: inline-block;
+	text-align: center;
+	width: 1.28571429em;
+}
+
 /* =Layout
 ----------------------------------------------- */
 
@@ -907,6 +952,7 @@ form label {
 	padding-right: 40px;
 	padding-left: 40px;
 }
+.site-top-bar > .wrap,
 .site-header > .wrap,
 .site-content > .wrap,
 .site-footer > .wrap {
@@ -926,15 +972,39 @@ form label {
 	padding: 0 0 50px 0;
 }
 @media (min-width: 62em) {
-	#primary {
+
+	/* Sidebar Right */
+	.layout-sidebar-right #primary {
 		float: left;
 		padding: 0 60px 0 0;
-	    width: 75%;
+		width: 75%;
 	}
-	#secondary {
+	.layout-sidebar-right #secondary {
 		float: right;
-	    width: 25%;
+		width: 25%;
 	}
+
+	/* Sidebar Left */
+	.layout-sidebar-left #primary {
+		float: right;
+		padding: 0 0 0 60px;
+		width: 75%;
+	}
+	.layout-sidebar-left #secondary {
+		float: left;
+		width: 25%;
+	}
+
+	/* Narrow */
+	.layout-narrow #primary {
+		margin: 0 auto;
+		padding: 0 30px;
+		width: 75%;
+	}
+
+	/* Wide */
+	/* No styling */
+
 }
 
 /* Footer */
@@ -947,13 +1017,71 @@ form label {
 	padding-left: 1.875em; /* 30px */
 }
 
+/* =Top Bar
+----------------------------------------------- */
+
+.site-top-bar {
+	background-color: #182e30; /* darkenned primary color */
+	color: #fff;
+	font-size: 13px;
+	padding: .8em 40px;
+}
+
+/* Top Text */
+.site-top-bar .top-bar-text {
+	float: left;
+}
+.site-top-bar.has-top-menu .top-bar-text {
+	float: right;
+	margin-right: 20px;
+}
+
+/* Top Social */
+.site-top-bar .social-menu {
+	float: right;
+	padding-right: 5px;
+}
+.site-top-bar .social-menu > ul > li {
+	padding: 0;
+}
+.site-top-bar .social-menu > ul > li > a {
+	padding: 0 1px;
+}
+.site-top-bar .social-menu > ul > li > a:before {
+	font-size: 16px;
+}
+
+/* Top Menu */
+.top-bar-menu {
+	float: left;
+	margin: -.8em -.7em; /* counter .3m em top/bottom padding of .site-top-bar > .wrap and .7em left/right padding of .top-bar-menu a */
+}
+.top-bar-menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.top-bar-menu li {
+	float: left;
+}
+.top-bar-menu a,
+.top-bar-menu a:hover,
+.top-bar-menu a:focus {
+	color: inherit;
+	display: inline-block;
+	padding: .8em .7em; /* Matches top/bottom padding of .site-top-bar > .wrap */
+}
+.top-bar-menu a:hover,
+.top-bar-menu a:focus {
+	background-color: rgba(0,0,0,.2);
+}
+
 /* =Header
 ----------------------------------------------- */
 
 .site-header {
     background-color: #26393d; /* primary color */
 	color: #fff;
-	min-height: 100px;
 	padding-top: 30px;
 	padding-bottom: 30px;
 	position: relative;
@@ -1271,6 +1399,7 @@ form label {
 
 .site-footer {
 	background: #59928c; /* secondary color */
+	color: #fff;
 	color: rgba(255,255,255,0.8);
 	font-size: .9375rem;
 	padding: 60px 40px;
@@ -1311,31 +1440,11 @@ form label {
 }
 
 /* Social Menu */
-.social-menu {
+.site-info .social-menu {
 	margin-bottom: 20px;
 }
-.social-menu > ul {
-	list-style: none;
-}
-.social-menu > ul > li {
-	display: inline-block;
-	padding: 0 2px;
-}
-.social-menu > ul > li > a {
-	color: #fff;
-	color: rgba(255,255,255,.8);
-	border-bottom: none;
-	font-size: 0;
-	padding: .3125rem;
-}
-.social-menu > ul > li > a:hover {
-	color: #fff;
-}
-.social-menu > ul > li > a:before {
-	display: inline-block;
+.site-info .social-menu > ul > li > a:before {
 	font-size: 1.5rem;
-	text-align: center;
-	width: 1.28571429em;
 }
 
 /* Footer Menu */

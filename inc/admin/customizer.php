@@ -15,13 +15,101 @@
 function greenlight_customize_register( $wp_customize ) {
 
     /**
+     * Enqueue assets.
+     */
+    add_action( 'customize_controls_enqueue_scripts', 'greenlight_customize_scripts' );
+
+    /**
+     * Register any custom controls.
+     */
+    $wp_customize->register_control_type( 'Greenlight_Customize_Control_Grouped' );
+    $wp_customize->register_control_type( 'Greenlight_Customize_Control_Radio_Image' );
+
+    /**
+     * Top Bar
+     */
+    $wp_customize->add_section( 'top_bar', array(
+        'title'     => esc_html__( 'Top Bar', 'greenlight' ),
+        'priority'  => 20
+    ));
+
+    if ( $items = greenlight_get_top_bar_items() ) {
+
+        $wp_customize->add_setting( 'do_top_bar', array(
+            'default'           => 1,
+            'sanitize_callback' => 'greenlight_sanitize_checkbox',
+        ));
+
+        $wp_customize->add_control( new Greenlight_Customize_Control_Grouped( $wp_customize, 'do_top_bar', array(
+            'label'         => esc_html__( 'Display top bar.', 'greenlight' ),
+            'section'       => 'top_bar',
+            'type'          => 'checkbox',
+            'group-type'    => 'toggle',
+            'group-role'    => 'trigger'
+        )));
+
+        foreach ( $items as $key => $args ) {
+
+            $key = sanitize_key( $key );
+
+            $wp_customize->add_setting( $key, array(
+                'default'           => ! empty( $args['default'] ) ? $args['default'] : '',
+                'sanitize_callback' => ! empty( $args['sanitize_callback'] ) ? $args['sanitize_callback'] : 'greenlight_sanitize_checkbox'
+            ));
+
+            $wp_customize->add_control( new Greenlight_Customize_Control_Grouped( $wp_customize, $key, array(
+                'label'             => ! empty( $args['label'] ) ? $args['label'] : '',
+                'description'       => ! empty( $args['description'] ) ? $args['description'] : '',
+                'section'           => ! empty( $args['section'] ) ? $args['section'] : 'top_bar',
+                'type'              => ! empty( $args['type'] ) ? $args['type'] : 'checkbox',
+                'group-type'        => 'toggle',
+                'group-role'        => 'receiver',
+                'group-trigger'     => 'do_top_bar'
+            )));
+
+        }
+
+    }
+
+    /**
+     * Layouts
+     */
+    if ( $types = greenlight_get_layout_types() ) {
+
+        $wp_customize->add_section( 'layout', array(
+            'title'     => esc_html__( 'Layout', 'greenlight' ),
+            'priority'  => 30
+        ));
+
+        foreach ( $types as $key => $args ) {
+
+            $key = sanitize_key( 'layout-' . $key );
+
+            $wp_customize->add_setting( $key, array(
+                'default'           => $args['default'],
+                'sanitize_callback' => 'sanitize_key',
+            ));
+
+            $wp_customize->add_control( new Greenlight_Customize_Control_Radio_Image( $wp_customize, $key, array(
+                'label'         => ! empty( $args['label'] ) ? $args['label'] : '',
+                'description'   => ! empty( $args['description'] ) ? $args['description'] : null,
+                'section'       => ! empty( $args['section'] ) ? $args['section'] : 'layout',
+                'priority'      => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
+                'choices'       => greenlight_get_layouts()
+            )));
+
+        }
+
+    }
+
+    /**
      * Fonts
      */
     if ( $types = greenlight_get_font_types() ) {
 
         $wp_customize->add_section( 'fonts', array(
-    		'title' => __( 'Fonts', 'greenlight' ),
-    		'priority' => 50,
+    		'title'       => __( 'Fonts', 'greenlight' ),
+    		'priority'    => 50,
     	));
 
         foreach ( $types as $key => $args ) {
@@ -92,6 +180,11 @@ function greenlight_customize_register( $wp_customize ) {
             'priority'  => 40
         ));
 
+        $wp_customize->add_section( 'colors-top-bar', array(
+            'title'     => esc_html__( 'Top Bar', 'greenlight' ),
+            'panel'     => 'colors',
+        ));
+
         $wp_customize->add_section( 'colors-header', array(
             'title'     => esc_html__( 'Header', 'greenlight' ),
             'panel'     => 'colors',
@@ -150,16 +243,6 @@ function greenlight_customize_register( $wp_customize ) {
     }
 
     /**
-     * Layout
-     */
-    $wp_customize->add_section( 'layout', array(
-        'title' => __( 'Layout', 'greenlight' ),
-        'priority' => 60,
-    ));
-
-    // ...
-
-    /**
      * Add selective refresh, where relevent, to speed things up.
      */
     if ( isset( $wp_customize->selective_refresh ) ) { // backwards compat
@@ -170,34 +253,25 @@ function greenlight_customize_register( $wp_customize ) {
     		'render_callback' => 'greenlight_customize_partial_branding'
     	));
 
-        // Colors
-        /*
-        @TODO -- This method currently seems a little slow, as it give
-        the uer no indication that markup are being re-established.
-        if ( $types = greenlight_get_color_types() ) {
-
-            foreach ( $types as $key => $args ) {
-
-                if ( ! empty( $args['transport'] ) && $args['transport'] == 'postMessage' ) {
-
-                    $wp_customize->selective_refresh->add_partial( $key, array(
-                		'selector'        => sprintf( '#%s-inline-css', get_stylesheet() ),
-                		'render_callback' => 'greenlight_customize_partial_inline_style'
-                	));
-
-                }
-
-            }
-
-        }
-        */
-
     }
 
 
 
 }
 add_action( 'customize_register', 'greenlight_customize_register' );
+
+/**
+ * Enqueue assets for customizer.
+ *
+ * @action customize_controls_enqueue_scripts -- added in greenlight_customize_register()
+ * @since 1.0.0
+ */
+function greenlight_customize_scripts() {
+
+    wp_enqueue_script( 'greenlight-customize-controls', esc_url( get_template_directory_uri() . '/assets/js/customize-controls.js' ), array( 'jquery', 'customize-controls' ), GREENLIGHT_VERSION );
+    wp_enqueue_style( 'greenlight-customize-controls', esc_url( get_template_directory_uri() . '/assets/css/customize-controls.css' ), array(), GREENLIGHT_VERSION );
+
+}
 
 /**
  * Display site title or logo in the header on a
@@ -215,16 +289,42 @@ function greenlight_customize_partial_branding() {
 
 }
 
+
 /**
- * Display inline CSS in <head> on a customizer
- * selective refresh.
+ * Top bar items to create options.
  *
  * @since 1.0.0
+ *
+ * @return array Top bar items.
  */
-function greenlight_customize_partial_inline_style() {
+function greenlight_get_top_bar_items() {
 
-    return sprintf( '<style id="%s-inline-css">%s</style>', get_stylesheet(), greenlight_inline_style() );
-
+    /**
+     * Filter top bar items.
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    return apply_filters( 'greenlight_top_bar_items', array(
+        'top_text' => array(
+            'label'             => esc_html__( 'Top Bar Text', 'greenlight' ),
+            'description'       => sprintf( esc_html__( 'Use any %s icon like %s.', 'greenlight' ), '<a href="http://fontawesome.io/icons/" target="_blank">FontAwesome</a>', '<code>%%icon_name%%</code>' ),
+            'default'           => '%%phone%% 1-800-555-5555 %%envelope%% admin@yoursite.com',
+            'type'              => 'textarea',
+            'sanitize_callback' => 'greenlight_sanitize_html'
+        ),
+        'do_top_menu' => array(
+            'label'             => esc_html__( 'Display top bar menu.', 'greenlight' ),
+            'description'       => esc_html__( 'Uses "Top Menu" menu location.', 'greenlight' ),
+            'default'           => 0
+        ),
+        'do_top_social' => array(
+            'label'             => esc_html__( 'Display social menu in top bar.', 'greenlight' ),
+            'description'       => esc_html__( 'Uses "Social Menu" menu location.', 'greenlight' ),
+            'default'           => 1
+        )
+    ));
 }
 
 /**
@@ -392,6 +492,20 @@ function greenlight_get_color_types() {
         /**
          * Header
          */
+        'top_bar_color' => array(
+            'label'             => esc_html__( 'Top Bar Background', 'greenlight' ),
+            'section'           => 'colors-top-bar',
+            'default'           => '#182e30',
+            'type'              => 'color',
+            'transport'         => 'postMessage'
+		),
+        'top_bar_text' => array(
+            'label'             => esc_html__( 'Top Bar Text', 'greenlight' ),
+            'section'           => 'colors-top-bar',
+            'default'           => '#ffffff',
+            'type'              => 'color',
+            'transport'         => 'postMessage'
+		),
         'header_color' => array(
             'label'             => esc_html__( 'Header Background', 'greenlight' ),
             'section'           => 'colors-header',
@@ -563,11 +677,11 @@ function greenlight_get_layout_types() {
             'default'       => 'sidebar-right'
 		),
         'page' => array(
-            'label'         => esc_html__( 'Website Default', 'greenlight' ),
+            'label'         => esc_html__( 'Pages', 'greenlight' ),
             'default'       => 'sidebar-right'
 		),
         'post' => array(
-            'label'         => esc_html__( 'Website Default', 'greenlight' ),
+            'label'         => esc_html__( 'Blog Posts', 'greenlight' ),
             'default'       => 'narrow'
 		)
     ));
@@ -579,7 +693,7 @@ function greenlight_get_layout_types() {
  *
  * @since 1.0.0
  *
- * @return array $layouts Sidebar layouts.
+ * @return array Sidebar layouts.
  */
 function greenlight_get_layouts() {
 
@@ -590,71 +704,23 @@ function greenlight_get_layouts() {
      *
      * @var array
      */
-    $layouts = apply_filters( 'greenlight_layouts', array(
+    return apply_filters( 'greenlight_layouts', array(
         'sidebar-right' => array(
-            'name'  => esc_html__( 'Sidebar Right', 'greenlight' ),
-            'img'   => esc_url('')
+            'label' => esc_html__( 'Sidebar Right', 'greenlight' ),
+            'img'   => esc_url( get_template_directory_uri() . '/assets/svg/layout-sidebar-right.svg' )
         ),
         'sidebar-left' => array(
-            'name'  => esc_html__( 'Sidebar Left', 'greenlight' ),
-            'img'   => esc_url('')
+            'label' => esc_html__( 'Sidebar Left', 'greenlight' ),
+            'img'   => esc_url( get_template_directory_uri() . '/assets/svg/layout-sidebar-left.svg' )
         ),
         'narrow' => array(
-            'name'  => esc_html__( 'Narrow', 'greenlight' ),
-            'img'   => esc_url('')
+            'label' => esc_html__( 'Narrow', 'greenlight' ),
+            'img'   => esc_url( get_template_directory_uri() . '/assets/svg/layout-narrow.svg' )
         ),
         'wide' => array(
-            'name'  => esc_html__( 'Wide', 'greenlight' ),
-            'img'   => esc_url('')
+            'label' => esc_html__( 'Wide', 'greenlight' ),
+            'img'   => esc_url( get_template_directory_uri() . '/assets/svg/layout-wide.svg' )
         )
     ));
-
-    return array_unique( $layouts );
-
-}
-
-/**
- * Sanitize user font selection.
- *
- * @since 1.0.0
- *
- * @param string $font Selected font
- * @return string $font Selected font, if valid
- */
-function greenlight_sanitize_font( $font ) {
-
-    if ( ! in_array( $font, greenlight_get_fonts() ) ) {
-        return '';
-    }
-
-    return $font;
-
-}
-
-/**
- * Sanitize checkbox.
- *
- * @since 1.0.0
- *
- * @param string $input Passed value
- * @return string Sanitized value
- */
-function greenlight_sanitize_checkbox( $input ) {
-
-    return ( 1 === absint( $input ) ) ? 1 : 0;
-
-}
-
-/**
- * Sanitize range value.
- *
- * @since 1.0.0
- *
- * @param string|int $input Passed value
- * @return int Sanitized value
- */
-function greenlight_sanitize_range( $input ) {
-
-    return intval( $input );
 
 }

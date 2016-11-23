@@ -54,7 +54,17 @@ if ( version_compare( get_bloginfo( 'version' ), GREENLIGHT_MIN_WP_VERSION, '<' 
  *
  * @since 1.0.0
  */
+require_once get_template_directory() . '/inc/admin/sanitize.php';
+require_once get_template_directory() . '/inc/admin/customize/control-grouped.php';
+require_once get_template_directory() . '/inc/admin/customize/control-radio-image.php';
 require_once get_template_directory() . '/inc/admin/customizer.php';
+
+/**
+ * Load santization functions.
+ *
+ * @since 1.0.0
+ */
+require_once get_template_directory() . '/inc/admin/sanitize.php';
 
 /**
  * Load custom helper functions for this theme.
@@ -200,6 +210,7 @@ function greenlight_setup() {
 		 * @var array
 		 */
 		apply_filters( 'greenlight_nav_menus', array(
+			'top'   	=> esc_html__( 'Top Menu', 'greenlight' ),
 			'primary'   => esc_html__( 'Primary Menu', 'greenlight' ),
             'side'      => esc_html__( 'Side Menu', 'greenlight' ),
 			'social'    => esc_html__( 'Social Menu', 'greenlight' ),
@@ -293,25 +304,19 @@ function greenlight_image_size_names_choose( $sizes ) {
  */
 function greenlight_content_width() {
 
-    // ... @TODO
-
-    // $layout        = greenlight_get_layout();
-	// $content_width = ( 'one-column-wide' === $layout ) ? 1068 : 688;
-	// 840
-
-	$layout = null;
-	$content_width = 840; // that's with sidebar. come back after implementing dynamic layouts.
+    $layout = greenlight_get_layout();
+	$width = ( $layout === 'wide' ) ? 1200 : 840;
 
     /**
 	 * Filter the content width in pixels.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $layout
+	 * @param string $layout Current sidebar layout.
 	 *
 	 * @var int
 	 */
-	 $GLOBALS['content_width'] = apply_filters( 'greenlight_content_width', $content_width, $layout );
+	 $GLOBALS['content_width'] = apply_filters( 'greenlight_content_width', $width, $layout );
 
 }
 add_action( 'after_setup_theme', 'greenlight_content_width', 0 );
@@ -514,6 +519,43 @@ function greenlight_inline_style() {
 		$css .= "\n/* Colors */\n";
 
 		// Header
+		if ( ! empty( $types['top_bar_color'] ) ) {
+
+			$default = ! empty( $types['top_bar_color']['default'] ) ? $types['top_bar_color']['default'] : null;
+			$bg_color = sanitize_hex_color( get_theme_mod( 'top_bar_color', $default ) );
+
+			$css .= ".site-top-bar {\n";
+			$css .= sprintf( "\tbackground-color: %s; /* secondary color */\n", $bg_color );
+			$css .= "}\n";
+
+		}
+
+		if ( ! empty( $types['top_bar_text'] ) ) {
+
+			$default = ! empty( $types['top_bar_text']['default'] ) ? $types['top_bar_text']['default'] : null;
+			$text_color = sanitize_hex_color( get_theme_mod( 'top_bar_text', $default ) );
+
+			$css .= ".site-top-bar,\n";
+			$css .= ".site-top-bar .social-menu > ul > li > a:hover,\n";
+			$css .= ".site-top-bar .social-menu > ul > li > a:focus {\n";
+			$css .= sprintf( "\tcolor: %s;\n", $text_color );
+			$css .= "}\n";
+
+			$css .= ".site-top-bar .social-menu > ul > li > a {\n";
+			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $text_color, '0.8' ) );
+			$css .= "}\n";
+
+			if ( greenlight_is_light_color( $bg_color ) ) {
+
+				$css .= ".top-bar-menu a:hover,\n";
+				$css .= ".top-bar-menu a:focus {\n";
+				$css .= "\tbackground-color: rgba(170,170,170,.2);\n";
+				$css .= "}\n";
+
+			}
+
+		}
+
 		if ( ! empty( $types['header_color'] ) ) {
 
 			$default = ! empty( $types['header_color']['default'] ) ? $types['header_color']['default'] : null;
@@ -748,12 +790,12 @@ function greenlight_inline_style() {
 			$css .= sprintf( "\tcolor: %s;\n", $text );
 			$css .= "}\n";
 
-			$css .= ".social-menu > ul > li > a {\n";
+			$css .= ".site-info .social-menu > ul > li > a {\n";
 			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $text, '0.80' ) );
 			$css .= "}\n";
 
-			$css .= ".social-menu > ul > li > a:hover,\n";
-			$css .= ".social-menu > ul > li > a:focus {\n";
+			$css .= ".site-info .social-menu > ul > li > a:hover,\n";
+			$css .= ".site-info .social-menu > ul > li > a:focus {\n";
 			$css .= sprintf( "\tcolor: %s;\n", $text );
 			$css .= "}\n";
 
@@ -772,11 +814,32 @@ function greenlight_inline_style() {
 }
 
 /**
+ * Filter WP's body class.
+ *
+ * @filter body_class
+ * @since 1.0.0
+ */
+function greenlight_body_class( $class ) {
+
+	$class[] = 'layout-' . greenlight_get_layout();
+
+	if ( greenlight_do_top_bar() ) {
+
+		$class[] = 'has-top-bar';
+
+	}
+
+	return $class;
+
+}
+add_filter( 'body_class', 'greenlight_body_class' );
+
+/**
  * Filter WP's custom-logo output to add retina 2x logo
  * image, if exists.
  *
  * @filter get_custom_logo
- * @since  1.0.0
+ * @since 1.0.0
  */
 function greenlight_custom_logo( $html ) {
 

@@ -31,7 +31,7 @@ do_action( 'greenlight_before' );
 
 		<?php
 		/**
-		 * @hooked null
+		 * @hooked greenlight_add_top_bar - 10
 		 */
 		do_action( 'greenlight_header_before' );
 		?>

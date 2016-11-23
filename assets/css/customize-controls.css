@@ -1,0 +1,34 @@
+/* Grouped Controls */
+/*
+.greenlight-grouped-control.group-toggle.group-receiver {
+    background: #fff;
+    margin: 0;
+}
+.greenlight-grouped-control.group-toggle.group-receiver label {
+    display: block;
+    padding: 10px 20px;
+}
+*/
+
+/* Radio Images */
+.greenlight-radio-images input {
+    display: none;
+}
+.greenlight-radio-images label {
+    display: inline-block;
+}
+.greenlight-radio-images img {
+    border: 4px solid transparent;
+    box-sizing: border-box;
+    height: auto;
+    max-width: 100%;
+    padding: 1px;
+    width: 60px;
+}
+.greenlight-radio-images img:hover,
+.greenlight-radio-images img:focus {
+    border-color: #ddd;
+}
+.greenlight-radio-images .active img {
+    border-color: #adadad;
+}

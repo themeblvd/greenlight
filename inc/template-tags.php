@@ -7,6 +7,58 @@
  */
 
 /**
+ * Display HTML class for site top bar.
+ *
+ * @since 1.0.0
+ */
+function greenlight_top_bar_class() {
+
+    $class = array('site-top-bar');
+
+    $items = greenlight_get_top_bar_items();
+
+    if ( get_theme_mod( 'do_top_menu', $items['do_top_menu']['default'] ) ) {
+
+        $class[] = 'has-top-menu';
+
+    }
+
+    if ( get_theme_mod( 'top_text', $items['top_text']['default'] ) ) {
+
+        $class[] = 'has-top-text';
+
+    }
+
+    if ( get_theme_mod( 'do_top_social', $items['do_top_social']['default'] ) && has_nav_menu( 'social' ) ) {
+
+        $class[] = 'has-top-social';
+
+    }
+
+    /**
+	 * Filter the top bar class array.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
+	if ( $class = apply_filters( 'greenlight_top_bar_class', $class ) ) {
+
+		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+
+        /**
+    	 * Filter the final output of the top bar class HTML.
+    	 *
+    	 * @since 1.0.0
+    	 *
+    	 * @var string
+    	 */
+        echo apply_filters( 'greenlight_top_bar_class_output', $output, $class );
+
+    }
+}
+
+/**
  * Display HTML class for site header.
  *
  * @since 1.0.0
@@ -16,11 +68,15 @@ function greenlight_header_class() {
     $class = array('site-header');
 
     if ( greenlight_has_custom_logo() ) {
+
         $class[] = 'has-logo';
+
     }
 
     if ( greenlight_do_menu_search() ) {
+
         $class[] = 'has-search';
+
     }
 
     /**
@@ -44,6 +100,134 @@ function greenlight_header_class() {
         echo apply_filters( 'greenlight_header_class_output', $output, $class );
 
     }
+}
+
+/**
+ * Display HTML for top bar menu.
+ *
+ * @since 1.0.0
+ */
+function greenlight_the_top_menu() {
+
+    $items = greenlight_get_top_bar_items();
+
+    $html = '';
+
+    if ( get_theme_mod( 'do_top_menu', $items['do_top_menu']['default'] ) ) {
+
+        $html .= "<nav class=\"top-bar-menu\">\n";
+
+        ob_start();
+
+        if ( has_nav_menu( greenlight_top_menu_location() ) ) {
+
+    		/**
+    		 * Filter arguments used for main menu.
+    		 *
+    		 * @since 1.0.0
+    		 *
+    		 * @var array
+    		 */
+    		wp_nav_menu( apply_filters( 'greenlight_top_nav_args', array(
+    			'theme_location'	=> greenlight_top_menu_location(),
+    			'container'			=> 'ul',
+    			'depth'     		=> 1 // Top-level only
+    		)));
+
+    	} else {
+
+    		/**
+    		 * Filter arguments used for main menu fallback.
+    		 *
+    		 * @since 1.0.0
+    		 *
+    		 * @var array
+    		 */
+    		wp_page_menu( apply_filters( 'greenlight_top_nav_fallback_args', array(
+    			'container'			=> 'ul',
+    			'depth'     		=> 1, // Top-level only
+    			'show_home' 		=> false,
+    			'before'			=> '',
+    			'after'				=> ''
+    		)));
+
+    	}
+
+        $html .= ob_get_clean();
+
+        $html .= "</nav>\n";
+
+    }
+
+    /**
+	 * Filter the top menu output.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	echo apply_filters( 'greenlight_the_top_menu', $html );
+
+}
+
+/**
+ * Display HTML for top bar text.
+ *
+ * @since 1.0.0
+ */
+function greenlight_the_top_text() {
+
+    $items = greenlight_get_top_bar_items();
+
+    $html = '';
+
+    if ( $text = get_theme_mod( 'top_text', $items['top_text']['default'] ) ) {
+
+        $html .= sprintf( "<div class=\"top-bar-text\">%s</div>\n", greenlight_do_fa( $text ) );
+
+    }
+
+    /**
+	 * Filter the top menu output.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	echo apply_filters( 'greenlight_the_top_text', $html );
+
+}
+
+/**
+ * Display HTML for top bar social menu.
+ *
+ * @since 1.0.0
+ */
+function greenlight_the_top_social() {
+
+    $items = greenlight_get_top_bar_items();
+
+    $html = '';
+
+    if ( get_theme_mod( 'do_top_social', $items['do_top_social']['default'] ) ) {
+
+        ob_start();
+
+        get_template_part( 'template-parts/shared/social', 'menu' );
+
+        $html .= ob_get_clean();
+
+    }
+
+    /**
+	 * Filter the top menu output.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	echo apply_filters( 'greenlight_the_top_social', $html );
+
 }
 
 /**

@@ -7,6 +7,19 @@
  */
 
 /**
+ * Display top bar above header.
+ *
+ * @action greenlight_header_before
+ * @since 1.0.0
+ */
+function greenlight_add_top_bar() {
+
+	get_template_part( 'template-parts/header/top', 'bar' );
+
+}
+add_action( 'greenlight_header_before', 'greenlight_add_top_bar' );
+
+/**
  * Display site title or logo template in the header.
  *
  * @action greenlight_header
@@ -125,7 +138,7 @@ add_action( 'greenlight_footer_after', 'greenlight_add_site_info' );
  */
 function greenlight_add_social_menu() {
 
-	get_template_part( 'template-parts/footer/social', 'menu' );
+	get_template_part( 'template-parts/shared/social', 'menu' );
 
 }
 add_action( 'greenlight_site_info', 'greenlight_add_social_menu' );

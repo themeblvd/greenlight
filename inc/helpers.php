@@ -7,6 +7,44 @@
  */
 
 /**
+ * Get current sidebar layout for page.
+ *
+ * @since 1.0.0
+ *
+ * @return string $layout Current page's sidebar layout.
+ */
+function greenlight_get_layout() {
+
+    $types = greenlight_get_layout_types();
+
+    if ( is_singular( array('post') ) ) {
+
+        $layout = get_theme_mod( 'layout-post', $types['post']['default'] );
+
+    } else if ( is_page() ) {
+
+        $layout = get_theme_mod( 'layout-page', $types['page']['default'] );
+
+    } else {
+
+        $layout = get_theme_mod( 'layout-default', $types['default']['default'] );
+
+    }
+
+    /**
+	 * Filter current sidebar layout.
+	 *
+	 * @since 1.0.0
+	 *
+     * @param $types array Types of layouts
+     *
+	 * @var string
+	 */
+    return apply_filters( 'greenlight_layout', $layout, $types );
+
+}
+
+/**
  * Whether to display sidebar.
  *
  * @since 1.0.0
@@ -15,15 +53,25 @@
  */
 function greenlight_has_sidebar() {
 
-    // ... @TODO Incorporate checking the sidebar layout once we've created this feature.
+    $has = true;
 
-    $has = false;
-
-    if ( is_active_sidebar( 'sidebar' ) ) {
-        $has = true;
+    if ( strpos( greenlight_get_layout(), 'sidebar' ) === false ) {
+        $has = false;
     }
 
-    return apply_filters('greenlight_has_sidebar', $has);
+    if ( $has && ! is_active_sidebar( 'sidebar' ) ) {
+        $has = false;
+    }
+
+    /**
+	 * Filter whether to output sidebar.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var bool
+	 */
+    return (bool) apply_filters( 'greenlight_has_sidebar', $has );
+
 }
 
 /**
@@ -324,6 +372,29 @@ function greenlight_has_active_footer_sidebars() {
  *
  * @return bool
  */
+function greenlight_do_top_bar() {
+
+    $do = get_theme_mod( 'do_top_bar', 1 );
+
+    /**
+	 * Filter if top bar displays.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var bool
+	 */
+	return (bool) apply_filters( 'greenlight_do_top_bar', $do );
+
+}
+
+/**
+ * Whether to display the floating search
+ * in the main menu.
+ *
+ * @since 1.0.0
+ *
+ * @return bool
+ */
 function greenlight_do_menu_search() {
 
     /**
@@ -333,7 +404,7 @@ function greenlight_do_menu_search() {
 	 *
 	 * @var bool
 	 */
-	return apply_filters( 'themeblvd_do_menu_search', true );
+	return (bool) apply_filters( 'themeblvd_do_menu_search', true );
 
 }
 
@@ -347,7 +418,7 @@ function greenlight_do_menu_search() {
 function greenlight_primary_menu_location() {
 
     /**
-	 * Filter if search gets added to main menu. Useful for
+	 * Filter if primary menu theme location. Useful for
      * filtering in an alternate registed nav menu for different
      * scenarios, like special pages, mobile-specific, etc.
 	 *
@@ -356,6 +427,28 @@ function greenlight_primary_menu_location() {
 	 * @var string
 	 */
 	return apply_filters( 'greenlight_primary_menu_location', 'primary' );
+
+}
+
+/**
+ * Theme location for top menu.
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+function greenlight_top_menu_location() {
+
+    /**
+	 * Filter if top menu theme location. Useful for
+     * filtering in an alternate registed nav menu for different
+     * scenarios, like special pages, mobile-specific, etc.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	return apply_filters( 'greenlight_topy_menu_location', 'top' );
 
 }
 
@@ -454,4 +547,79 @@ function themeblvd_get_rgb( $color, $opacity = '' ) {
 
     return $output;
 
+}
+
+/**
+ * Determine if a color is considered "light" (subjective).
+ *
+ * Huge thank you to Oscar for providing this:
+ * http://stackoverflow.com/questions/3015116/hex-code-brightness-php
+ *
+ * @since 2.0.0
+ *
+ * @param string $color Color hex to determine if light. Ex: #ffffff
+ * @return bool $light Whether color is considered light.
+ */
+function greenlight_is_light_color( $color ) {
+
+    $light = false;
+
+	// Pop off '#' from start.
+	$color = explode( '#', $color );
+	$color = $color[1];
+
+	// Break up the color in its RGB components
+	$r = hexdec( substr( $color, 0, 2 ) );
+	$g = hexdec( substr( $color, 2, 2 ) );
+	$b = hexdec( substr( $color, 4, 2 ) );
+
+	// Simple weighted average
+	if ( $r + $g + $b > 382 ) {
+
+	    $light = true;
+
+    }
+
+	return (bool) apply_filters( 'greenlight_is_light_color', $light, $color );
+}
+
+/**
+ * Process any FontAwesome icons passed in as %icon%.
+ *
+ * @since 2.5.0
+ *
+ * @param string $str String to search
+ * @return string $str Filtered original string
+ */
+function greenlight_do_fa( $str ) {
+
+	preg_match_all( '/\%\%(.*?)\%\%/', $str, $icons );
+
+	if ( ! empty( $icons[0] ) ) {
+
+		$list = true;
+
+		if ( substr_count( trim( $str ), "\n") ) {
+			$list = false; // If text has more than one line, we won't make into an inline list
+		}
+
+		$total = count($icons[0]);
+
+		if ( $list ) {
+			$str = sprintf("<ul class=\"list-inline\">\n<li>%s</li>\n</ul>", $str);
+		}
+
+		foreach ( $icons[0] as $key => $val ) {
+
+			$html = apply_filters('themeblvd_do_fa_html', '<i class="fa fa-fw fa-%s"></i>', $str);
+
+			if ( $list && $key > 0 ) {
+				$html = "<li>\n".$html;
+			}
+
+			$str = str_replace( $val, sprintf( $html, $icons[1][$key] ), $str );
+		}
+	}
+
+	return $str;
 }
