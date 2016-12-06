@@ -10,7 +10,6 @@ jQuery(document).ready(function($) {
      * Grouped Controls
      */
 
-    // Toggle type recievers
     $controls.find('.greenlight-grouped-control.group-toggle.group-trigger').each( function() {
 
         var $control = $(this),
@@ -51,10 +50,6 @@ jQuery(document).ready(function($) {
 
             var $control = $(this);
 
-            console.log( 'ID: ' + id );
-            console.log( 'TRIGGER: ' + $control.data('group-trigger') );
-            console.log( '----------' );
-
             if ( $input.is(':checked') ) {
 
                 if ( $control.data('group-trigger') == id ) {
@@ -76,6 +71,7 @@ jQuery(document).ready(function($) {
     /**
      * Radio Images
      */
+
     $controls.on( 'click', '.greenlight-radio-images input', function() {
 
         var $el = $(this);
@@ -91,7 +87,7 @@ jQuery(document).ready(function($) {
         var image = $el.val();
 
         // Add active class.
-        $el.next('label').addClass('ui-state-active');
+        $el.next('label').addClass('active');
 
         // Set the new value.
         wp.customize( setting, function( obj ) {

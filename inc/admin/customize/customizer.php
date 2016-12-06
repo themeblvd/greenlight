@@ -693,18 +693,16 @@ function greenlight_get_layout_types() {
  *
  * @since 1.0.0
  *
+ * @param bool $def Whether to include default selection
  * @return array Sidebar layouts.
  */
-function greenlight_get_layouts() {
+function greenlight_get_layouts( $def = false ) {
 
-    /**
-     * Filter sidebar layouts.
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
-    return apply_filters( 'greenlight_layouts', array(
+    $layouts = array(
+        'default' => array(
+            'label' => esc_html__( 'Default', 'greenlight' ),
+            'img'   => esc_url( get_template_directory_uri() . '/assets/svg/layout-default.svg' )
+        ),
         'sidebar-right' => array(
             'label' => esc_html__( 'Sidebar Right', 'greenlight' ),
             'img'   => esc_url( get_template_directory_uri() . '/assets/svg/layout-sidebar-right.svg' )
@@ -721,6 +719,21 @@ function greenlight_get_layouts() {
             'label' => esc_html__( 'Wide', 'greenlight' ),
             'img'   => esc_url( get_template_directory_uri() . '/assets/svg/layout-wide.svg' )
         )
-    ));
+    );
+
+    if ( ! $def ) {
+
+        unset( $layouts['default'] );
+
+    }
+
+    /**
+     * Filter sidebar layouts.
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    return apply_filters( 'greenlight_layouts', $layouts, $def );
 
 }

@@ -67,6 +67,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
                         <span class="screen-reader-text">{{ data.choices[ key ]['label'] }}</span>
                         <img src="{{ data.choices[ key ]['img'] }}" alt="{{ data.choices[ key ]['label'] }}" />
                     </label>
+
                 <# } #>
 
             </div><!-- .greenlight-radio-images -->
