@@ -9,21 +9,49 @@
 /**
  * Get current sidebar layout for page.
  *
+ * @global $post
  * @since 1.0.0
  *
  * @return string $layout Current page's sidebar layout.
  */
 function greenlight_get_layout() {
 
+    global $post;
+
     $types = greenlight_get_layout_types();
 
-    if ( is_singular( array('post') ) ) {
+    /**
+	 * Filter which post types get the layout designated
+     * for "single posts."
+     *
+     * Note: Filtering more post types onto this array
+     * will also automatically add the cooresponding
+     * meta box for the layout override whene diting the
+     * post types (see greenlight_add_meta_boxes()).
+	 *
+	 * @since 1.0.0
+     *
+	 * @var array
+	 */
+    if ( is_singular( apply_filters( 'greenlight_apply_single_post_layout', array( 'post' ) ) ) ) {
 
-        $layout = get_theme_mod( 'layout-post', $types['post']['default'] );
+        $layout = get_post_meta( $post->ID, '_greenlight_layout', true );
+
+        if ( empty( $layout ) || $layout == 'default' ) {
+
+            $layout = get_theme_mod( 'layout-post', $types['post']['default'] );
+
+        }
 
     } else if ( is_page() ) {
 
-        $layout = get_theme_mod( 'layout-page', $types['page']['default'] );
+        $layout = get_post_meta( $post->ID, '_greenlight_layout', true );
+
+        if ( empty( $layout ) || $layout == 'default' ) {
+
+            $layout = get_theme_mod( 'layout-page', $types['page']['default'] );
+
+        }
 
     } else {
 
@@ -37,10 +65,11 @@ function greenlight_get_layout() {
 	 * @since 1.0.0
 	 *
      * @param $types array Types of layouts
+     * @param $post POST obj
      *
 	 * @var string
 	 */
-    return apply_filters( 'greenlight_layout', $layout, $types );
+    return apply_filters( 'greenlight_layout', $layout, $types, $post );
 
 }
 

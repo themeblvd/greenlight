@@ -50,21 +50,29 @@ if ( version_compare( get_bloginfo( 'version' ), GREENLIGHT_MIN_WP_VERSION, '<' 
 }
 
 /**
+ * Load santization functions. Used for customizer
+ * integration and custom meta boxes.
+ *
+ * @since 1.0.0
+ */
+require_once get_template_directory() . '/inc/admin/sanitize.php';
+
+/**
  * Load customizer integration.
  *
  * @since 1.0.0
  */
-require_once get_template_directory() . '/inc/admin/sanitize.php';
 require_once get_template_directory() . '/inc/admin/customize/control-grouped.php';
 require_once get_template_directory() . '/inc/admin/customize/control-radio-image.php';
-require_once get_template_directory() . '/inc/admin/customizer.php';
+require_once get_template_directory() . '/inc/admin/customize/customizer.php';
 
 /**
- * Load santization functions.
+ * Meta Boxes
  *
  * @since 1.0.0
  */
-require_once get_template_directory() . '/inc/admin/sanitize.php';
+require_once get_template_directory() . '/inc/admin/meta/meta-box.php';
+require_once get_template_directory() . '/inc/admin/meta/meta.php';
 
 /**
  * Load custom helper functions for this theme.
@@ -276,6 +284,7 @@ add_action( 'after_setup_theme', 'greenlight_setup' );
  * Register image size labels.
  *
  * @filter image_size_names_choose
+ * @global array $greenlight_image_sizes
  * @since  1.0.0
  *
  * @param  array $sizes
@@ -848,10 +857,12 @@ function greenlight_custom_logo( $html ) {
 	preg_match( "!^(.+?)(?:\.([^.]+))?$!", $src[0], $path );
 
 	if ( greenlight_is_200( $path[1] . '@2x.' . $path[2] ) ) {
+
 		$srcset = sprintf( '%s 1x, %s 2x', $src[0], $path[1] . '@2x.' . $path[2] );
+
 	}
 
-	if ( $srcset ) {
+	if ( ! empty ( $srcset ) ) {
 
 		$html = str_replace(
 			'itemprop="logo"',
@@ -862,6 +873,7 @@ function greenlight_custom_logo( $html ) {
 	}
 
 	return $html;
+
 }
 add_filter( 'get_custom_logo', 'greenlight_custom_logo' );
 
