@@ -33,14 +33,9 @@
             $theme = wp_get_theme();
 
             printf(
-        		esc_html_x( '%1$s theme by %2$s', '1. theme name link, 2. theme author link', 'primer' ),
-                sprintf(
-        			'<a href="%s">%s</a>',
-        			esc_url( $theme->get( 'ThemeURI' ) ),
-        			esc_html( $theme->get( 'Name' ) )
-        		),
+        		esc_html_x( 'Design by %1$s', 'theme author link', 'greenlight' ),
         		sprintf(
-        			'<a href="%s" rel="author">%s</a>',
+        			'<a href="%s" rel="author" target="_blank">%s</a>',
         			esc_url( $theme->get( 'AuthorURI' ) ),
         			esc_html( $theme->get( 'Author' ) )
         		)
