@@ -4,6 +4,13 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
+/* General */
+.greenlight-hide {
+    display: none;
+}
+
+/* Custom Meta Box */
 .greenlight-meta-box {
     margin: -6px -12px 0 -12px;
 }

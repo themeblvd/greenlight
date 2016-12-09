@@ -149,13 +149,13 @@ class Greenlight_Meta_Box {
 
                 case 'text' :
 
-                    printf( '<input name="%1$s" type="text" id="%1$s" value="%2$s">', $key, $val );
+                    printf( '<input name="%1$s" class="greenlight-text" type="text" id="%1$s" value="%2$s">', $key, $val );
 
                     break;
 
                 case 'select' :
 
-                    printf( '<select name="%1$s" id="%1$s">', $key );
+                    printf( '<select name="%1$s" class="greenlight-select" id="%1$s">', $key );
 
                     foreach ( $setting['choices'] as $choice => $name ) {
 
@@ -174,7 +174,7 @@ class Greenlight_Meta_Box {
                     $checked = $val === 1 ? 'checked' : '';
 
                     printf( '<label for="%s" class="checkbox-label">', $key );
-                    printf( '<input name="%1$s" type="checkbox" id="%1$s" value="%2$s" %3$s> %4$s', $key, $val, $checked, $setting['description'] );
+                    printf( '<input name="%1$s" class="greenlight-checkbox" type="checkbox" id="%1$s" value="%2$s" %3$s> %4$s', $key, $val, $checked, $setting['description'] );
                     echo '</label>';
 
                     break;

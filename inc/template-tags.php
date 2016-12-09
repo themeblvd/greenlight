@@ -59,50 +59,6 @@ function greenlight_top_bar_class() {
 }
 
 /**
- * Display HTML class for site header.
- *
- * @since 1.0.0
- */
-function greenlight_header_class() {
-
-    $class = array('site-header');
-
-    if ( greenlight_has_custom_logo() ) {
-
-        $class[] = 'has-logo';
-
-    }
-
-    if ( greenlight_do_menu_search() ) {
-
-        $class[] = 'has-search';
-
-    }
-
-    /**
-	 * Filter the header class array.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var array
-	 */
-	if ( $class = apply_filters( 'greenlight_header_class', $class ) ) {
-
-		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
-
-        /**
-    	 * Filter the final output of the header class HTML.
-    	 *
-    	 * @since 1.0.0
-    	 *
-    	 * @var string
-    	 */
-        echo apply_filters( 'greenlight_header_class_output', $output, $class );
-
-    }
-}
-
-/**
  * Display HTML for top bar menu.
  *
  * @since 1.0.0
@@ -330,6 +286,142 @@ function greenlight_the_site_menu_toggle() {
 	 */
 	echo apply_filters( 'greenlight_the_site_menu_toggle', $html );
 
+}
+
+/**
+ * Display HTML class for site header.
+ *
+ * @since 1.0.0
+ */
+function greenlight_header_class() {
+
+    $class = array('site-header');
+
+    if ( greenlight_has_custom_logo() ) {
+
+        $class[] = 'has-logo';
+
+    }
+
+    if ( greenlight_do_menu_search() ) {
+
+        $class[] = 'has-search';
+
+    }
+
+    /**
+	 * Filter the header class array.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
+	if ( $class = apply_filters( 'greenlight_header_class', $class ) ) {
+
+		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+
+        /**
+    	 * Filter the final output of the header class HTML.
+    	 *
+    	 * @since 1.0.0
+    	 *
+    	 * @var string
+    	 */
+        echo apply_filters( 'greenlight_header_class_output', $output, $class );
+
+    }
+}
+
+/**
+ * Display HTML class for site header media.
+ *
+ * @global $post WP_Post
+ * @since 1.0.0
+ */
+function greenlight_header_media_class() {
+
+    global $post;
+
+    $class = array('site-header-media');
+
+    if ( greenlight_has_header_thumb() ) {
+
+        $fs = get_post_meta( $post->ID, '_greenlight_apply_header_thumb_fs', true );
+
+    } else {
+
+        $fs = get_theme_mod( 'header_media_fs', 0 );
+
+    }
+
+    if ( $fs ) {
+
+        $class[] = 'fs';
+
+        if ( ! wp_is_mobile() ) {
+
+            $class[] = 'greenlight-parallax';
+
+        }
+
+    } else {
+
+        $class[] = 'fw';
+
+    }
+
+    if ( greenlight_has_header_thumb() ) {
+
+        $class[] = 'featured-image';
+
+    }
+
+    /**
+	 * Filter whether header image gets shaded for
+     * more readable text overlay.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var bool
+	 */
+    if ( apply_filters( 'greenlight_do_header_media_shade', true ) ) {
+
+        $types = greenlight_get_color_types();
+        $default = ! empty( $types['menu_text']['default'] ) ? $types['menu_text']['default'] : null;
+
+        if ( greenlight_is_light_color( sanitize_hex_color( get_theme_mod( 'menu_text', $default ) ) ) ) {
+
+            $class[] = 'darken';
+
+        } else {
+
+            $class[] = 'lighten';
+
+        }
+
+    }
+
+    /**
+	 * Filter the header media class array.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
+	if ( $class = apply_filters( 'greenlight_header_media_class', $class ) ) {
+
+		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+
+        /**
+    	 * Filter the final output of the header class HTML.
+    	 *
+    	 * @since 1.0.0
+    	 *
+    	 * @var string
+    	 */
+        echo apply_filters( 'greenlight_header_media_class_output', $output, $class );
+
+    }
 }
 
 /**

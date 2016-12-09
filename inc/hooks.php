@@ -144,6 +144,27 @@ function greenlight_add_social_menu() {
 add_action( 'greenlight_site_info', 'greenlight_add_social_menu' );
 
 /**
+ * Display header media or header thumbnail.
+ *
+ * @action greenlight_header_after
+ * @since 1.0.0
+ */
+function greenlight_add_header_media() {
+
+	if ( greenlight_has_header_thumb() ) {
+
+		get_template_part( 'template-parts/header/header', 'thumb' );
+
+	} else if ( greenlight_has_header_media() ) {
+
+		get_template_part( 'template-parts/header/header', 'media' );
+
+	}
+
+}
+add_action( 'greenlight_header_after', 'greenlight_add_header_media' );
+
+/**
  * Display social menu in footer.
  *
  * @action greenlight_site_info

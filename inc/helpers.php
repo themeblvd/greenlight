@@ -85,11 +85,15 @@ function greenlight_has_sidebar() {
     $has = true;
 
     if ( strpos( greenlight_get_layout(), 'sidebar' ) === false ) {
+
         $has = false;
+
     }
 
     if ( $has && ! is_active_sidebar( 'sidebar' ) ) {
+
         $has = false;
+
     }
 
     /**
@@ -117,15 +121,97 @@ function greenlight_get_featured_image_size() {
 
 /**
  * Whether the current post is displaying the featured image
- * as an "epic thumbnail" above the content.
+ * as an "header thumbnail" above the content.
+ *
+ * Note: The "header thumbnail" is differentiated from the
+ * standard "header image" in that the header thumbnail
+ * displaying will make it so the standard featured image
+ * doesn't display within the content. Alternatively, if the
+ * user has selected for a standard header image to display
+ * across the entire website, this will not effect the featured
+ * image displaying and thus greenlight_has_header_thumb() will
+ * return FALSE.
+ *
+ * @global WP_Post $post
+ * @since 1.0.0
+ *
+ * @param int $post_id
+ * @return bool
+ */
+function greenlight_has_header_thumb( $post_id = 0 ) {
+
+    global $post;
+
+    $has = false;
+
+    if ( is_single() || is_page() ) {
+
+        if ( ! $post_id ) {
+
+            $post_id = $post->ID;
+
+        }
+
+        if ( has_post_thumbnail( $post_id ) && get_post_meta( $post_id, '_greenlight_apply_header_thumb', true ) ) {
+
+            $has = true;
+
+        }
+
+    }
+
+    /**
+     * Filter whether current post has an
+     * header thumbnail set.
+     *
+     * @since 1.0.0
+     *
+     * @var bool
+     */
+    return (bool) apply_filters( 'greenlight_has_header_thumb', $has, $post_id );
+
+}
+
+/**
+ * Whether to display the standard header media.
  *
  * @since 1.0.0
+ *
+ * @param int $post_id
+ * @return bool
  */
-function greenlight_has_epic_thumb() {
+function greenlight_has_header_media() {
 
-    // ... @TODO
+    $has = false;
 
-    return false;
+    if ( ! greenlight_has_header_thumb() && has_header_image() ) { // header thumb (i.e. featured image set as header image) always overrides general header media
+
+        if ( get_theme_mod( 'header_media_on_archives_only', 1 ) ) {
+
+            if ( is_home() || is_archive() ) {
+
+                $has = true;
+
+            }
+
+        } else {
+
+            $has = true;
+
+        }
+
+    }
+
+    /**
+     * Filter whether current post has an
+     * header thumbnail set.
+     *
+     * @since 1.0.0
+     *
+     * @var bool
+     */
+    return (bool) apply_filters( 'greenlight_has_header_media', $has );
+
 }
 
 /**
@@ -155,7 +241,7 @@ function greenlight_has_custom_logo () {
 	 *
 	 * @var bool
 	 */
-	return apply_filters( 'greenlight_has_custom_logo', $enabled );
+	return (bool) apply_filters( 'greenlight_has_custom_logo', $enabled );
 
 }
 

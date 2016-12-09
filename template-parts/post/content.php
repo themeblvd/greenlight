@@ -18,7 +18,7 @@
     do_action( 'greenlight_post_content_start' );
     ?>
 
-    <?php if ( ! is_single() || ! greenlight_has_epic_thumb() ) : ?>
+    <?php if ( ! is_single() || ! greenlight_has_header_thumb() ) : ?>
 
         <?php get_template_part( 'template-parts/post/post', 'title' ); ?>
 

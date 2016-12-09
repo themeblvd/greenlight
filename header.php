@@ -53,7 +53,7 @@ do_action( 'greenlight_before' );
 
 		<?php
 		/**
-		 * @hooked
+		 * @hooked greenlight_add_header_media - 10
 		 */
 		do_action( 'greenlight_header_after' );
 		?>
@@ -63,7 +63,7 @@ do_action( 'greenlight_before' );
 
 				<?php
 				/**
-				 * @hooked
+				 * @hooked null
 				 */
 				do_action( 'greenlight_content_start' );
 				?>

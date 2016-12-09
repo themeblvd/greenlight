@@ -7,7 +7,6 @@ jQuery(document).ready(function($) {
     /**
      * Radio Images
      */
-
     $controls.on( 'click', '.greenlight-radio-images img', function() {
 
         var $img = $(this);
@@ -18,6 +17,26 @@ jQuery(document).ready(function($) {
 
         // Set the new value.
         $img.closest('label').prev('input').prop('checked', true);
+
+    });
+
+    /**
+     * Header thumbnail controls added to Featured
+     * Image meta box.
+     */
+    $('#postimagediv .greenlight-trigger .greenlight-checkbox').on( 'click', function() {
+
+        var $el = $(this);
+
+        if ( $el.is(':checked') ) {
+
+            $el.closest('.postbox').find('.greenlight-receiver').removeClass('greenlight-hide');
+
+        } else {
+
+            $el.closest('.postbox').find('.greenlight-receiver').addClass('greenlight-hide');
+
+        }
 
     });
 

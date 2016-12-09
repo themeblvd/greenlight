@@ -86,7 +86,7 @@ function greenlight_customize_register( $wp_customize ) {
             $key = sanitize_key( 'layout-' . $key );
 
             $wp_customize->add_setting( $key, array(
-                'default'           => $args['default'],
+                'default'           => ! empty( $args['default'] ) ? $args['default'] : null,
                 'sanitize_callback' => 'sanitize_key',
             ));
 
@@ -117,7 +117,7 @@ function greenlight_customize_register( $wp_customize ) {
             $key = sanitize_key( $key );
 
             $wp_customize->add_setting( $key, array(
-        		'default'           => $args['default'],
+        		'default'           => ! empty( $args['default'] ) ? $args['default'] : null,
         		'sanitize_callback' => 'greenlight_sanitize_font'
         	));
 
@@ -210,7 +210,7 @@ function greenlight_customize_register( $wp_customize ) {
             $key = sanitize_key( $key );
 
             $wp_customize->add_setting( $key, array(
-        		'default'           => $args['default'],
+        		'default'           => ! empty( $args['default'] ) ? $args['default'] : null,
         		'sanitize_callback' => ! empty( $args['sanitize_callback'] ) ? $args['sanitize_callback'] : 'sanitize_hex_color',
                 // @TODO 'transport'         => ! empty( $args['transport'] ) ? $args['transport'] : 'refresh'
         	));
@@ -227,7 +227,7 @@ function greenlight_customize_register( $wp_customize ) {
             } else {
 
                 $wp_customize->add_control( $key, array(
-                    'label'         => ! empty( $args['label'] ) ? $args['label'] : $name,
+                    'label'         => ! empty( $args['label'] ) ? $args['label'] : null,
                     'description'   => ! empty( $args['description'] ) ? $args['description'] : null,
                     'section'       => ! empty( $args['section'] ) ? $args['section'] : 'fonts',
                     'priority'      => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
@@ -240,6 +240,34 @@ function greenlight_customize_register( $wp_customize ) {
 
         }
 
+    }
+
+    /**
+     * Header Media
+     */
+
+    if ( $options = greenlight_get_header_media_options() ) {
+
+        foreach ( $options as $key => $args ) {
+
+            $key = sanitize_key( $key );
+
+            $wp_customize->add_setting( $key, array(
+                'default'           => ! empty( $args['default'] ) ? $args['default'] : null,
+                'sanitize_callback' => 'greenlight_sanitize_html'
+            ));
+
+            $wp_customize->add_control( $key, array(
+                'label'         => ! empty( $args['label'] ) ? $args['label'] : null,
+                'description'   => ! empty( $args['description'] ) ? $args['description'] : null,
+                'section'       => ! empty( $args['section'] ) ? $args['section'] : 'header_image',
+                'priority'      => ! empty( $args['priority'] ) ? absint( $args['priority'] ) : null,
+                'type'          => ! empty( $args['type'] ) ? $args['type'] : 'select',
+                'choices'       => ! empty( $args['choices'] ) ? $args['choices'] : array(),
+                'input_attrs'   => ! empty( $args['input_attrs'] ) ? $args['input_attrs'] : array()
+            ));
+
+        }
     }
 
     /**
@@ -360,10 +388,10 @@ function greenlight_get_font_types() {
 		),
         'small_heading_font' => array(
             'label'         => esc_html__( 'Small Headings', 'greenlight' ),
-            'description'   => esc_html__( 'Small headings, buttons, widget titles, form labels, and table headers.', 'greenlight' ),
+            'description'   => esc_html__( 'Small headings, post meta, buttons, widget titles, form labels, and table headers.', 'greenlight' ),
             'default'       => 'Lato - Black',
             'uppercase'     => 1,
-            'selector'      => ".widget-title,\nlabel,\ntable th,\n.btn"
+            'selector'      => ".widget-title,\n.entry-meta,\nlabel,\ntable th,\n.btn"
 		),
         'menu_font' => array(
             'label'         => esc_html__( 'Main Menu', 'greenlight' ),
@@ -371,7 +399,14 @@ function greenlight_get_font_types() {
             'default'       => 'Hind - Bold',
             'uppercase'     => 1,
             'selector'      => ".site-menu > ul > li > a"
-		)
+		),
+        'header_media_font' => array(
+            'label'         => esc_html__( 'Header Media', 'greenlight' ),
+            'description'   => esc_html__( 'Titles on top of header media.', 'greenlight' ),
+            'default'       => 'Hind - Bold',
+            'uppercase'     => 1,
+            'selector'      => ".site-header-media .entry-title"
+		),
     ));
 
 }
@@ -536,9 +571,9 @@ function greenlight_get_color_types() {
 		),
         'header_opacity' => array(
             'label'             => esc_html__( 'Header Opacity', 'greenlight' ),
-            'description'       => esc_html__( 'Applies when hero image is applied to current page.', 'greenlight' ),
+            'description'       => esc_html__( 'Applies when header image is applied to current page.', 'greenlight' ),
             'section'           => 'colors-header',
-            'default'           => '10',
+            'default'           => '40',
             'type'              => 'range',
             'input_attrs'       => array(
                 'min'  => 0,
@@ -735,5 +770,51 @@ function greenlight_get_layouts( $def = false ) {
      * @var array
      */
     return apply_filters( 'greenlight_layouts', $layouts, $def );
+
+}
+
+/**
+ * Header media options.
+ *
+ * @since 1.0.0
+ *
+ * @return array Header media options.
+ */
+function greenlight_get_header_media_options() {
+
+    /**
+     * Filter header media options.
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    return apply_filters( 'greenlight_header_media_options', array(
+        'header_media_title' => array(
+            'label'             => esc_html__( 'Header Image Title', 'greenlight' ),
+            'default'           => '',
+            'type'              => 'textarea',
+            'sanitize_callback' => 'greenlight_sanitize_html'
+		),
+        'header_media_tagline' => array(
+            'label'             => esc_html__( 'Header Image Tagline', 'greenlight' ),
+            'default'           => '',
+            'type'              => 'textarea',
+            'sanitize_callback' => 'greenlight_sanitize_html'
+		),
+        'header_media_fs' => array(
+            'label'             => esc_html__( 'Use full-screen parallax effect.', 'greenlight' ),
+            'default'           => 1,
+            'type'              => 'checkbox',
+            'sanitize_callback' => 'greenlight_sanitize_checkbox'
+		),
+        'header_media_on_archives_only' => array(
+            'label'             => esc_html__( 'Apply default header image to blog and archives only.', 'greenlight' ),
+            'description'       => esc_html__( 'Note: You can override custom header images for individual pages and posts when configuring their featured images.', 'greenlight' ),
+            'default'           => 1,
+            'type'              => 'checkbox',
+            'sanitize_callback' => 'greenlight_sanitize_checkbox'
+		)
+    ));
 
 }

@@ -82,6 +82,13 @@ require_once get_template_directory() . '/inc/admin/meta/meta.php';
 require_once get_template_directory() . '/inc/helpers.php';
 
 /**
+ * Load custom bits and parts for this theme.
+ *
+ * @since 1.0.0
+ */
+require_once get_template_directory() . '/inc/parts.php';
+
+/**
  * Load custom template tags for this theme.
  *
  * @since 1.0.0
@@ -168,8 +175,20 @@ function greenlight_setup() {
 	 * @since 1.0.0
 	 */
     if ( $greenlight_image_sizes ) {
+
 		add_filter( 'image_size_names_choose', 'greenlight_image_size_names_choose' );
+
 	}
+
+	/**
+	 * Enable support for the header image.
+	 *
+	 * @link https://codex.wordpress.org/Custom_Headers
+	 * @since 1.0.0
+	 */
+	add_theme_support( 'custom-header', array(
+		'header-text' => false
+	));
 
     /**
 	 * Enable support for Automatic Feed Links.
@@ -568,9 +587,23 @@ function greenlight_inline_style() {
 		if ( ! empty( $types['header_color'] ) ) {
 
 			$default = ! empty( $types['header_color']['default'] ) ? $types['header_color']['default'] : null;
+			$color = sanitize_hex_color( get_theme_mod( 'header_color', $default ) );
 
 			$css .= ".site-header {\n";
-			$css .= sprintf( "\tbackground-color: %s; /* primary color */\n", sanitize_hex_color( get_theme_mod( 'header_color', $default ) ) );
+			$css .= sprintf( "\tbackground-color: %s; /* primary color */\n", $color );
+			$css .= "}\n";
+
+		}
+
+		if ( ! empty( $types['header_opacity'] ) ) {
+
+			$default = ! empty( $types['header_opacity']['default'] ) ? $types['header_opacity']['default'] : null;
+			$opacity = greenlight_sanitize_range( get_theme_mod( 'header_opacity', $default ) );
+
+			$css .= "@media (min-width: 68.8125em) {\n";
+			$css .= "\t.has-trans-header .site-header {\n";
+			$css .= sprintf( "\t\tbackground-color: %s; /* primary color */\n", themeblvd_get_rgb( $color, $opacity / 100 ) ); // $color from previous header_color option
+			$css .= "\t}\n";
 			$css .= "}\n";
 
 		}
@@ -580,13 +613,15 @@ function greenlight_inline_style() {
 			$default = ! empty( $types['menu_text']['default'] ) ? $types['menu_text']['default'] : null;
 			$color = sanitize_hex_color( get_theme_mod( 'menu_text', $default ) );
 
-			$css .= ".site-menu a {\n";
+			$css .= ".site-menu a,\n";
+			$css .= ".site-header-media .greenlight-scroll-to {\n";
 			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.85' ) );
 			$css .= "}\n";
 
 			$css .= ".site-header,\n";
 			$css .= ".site-menu a:hover,\n";
-			$css .= ".site-menu a:focus {\n";
+			$css .= ".site-menu a:focus,\n";
+			$css .= ".site-header-media .greenlight-scroll-to:hover {\n";
 			$css .= sprintf( "\tcolor: %s;\n", $color );
 			$css .= "}\n";
 
@@ -659,12 +694,6 @@ function greenlight_inline_style() {
 			$css .= "\t}\n";
 
 			$css .= "}\n";
-
-		}
-
-		if ( ! empty( $types['header_opacity'] ) ) {
-
-			// ... @TODO Come back to this after we've setup hero images
 
 		}
 
@@ -832,9 +861,35 @@ function greenlight_body_class( $class ) {
 
 	$class[] = 'layout-' . greenlight_get_layout();
 
+	if ( wp_is_mobile() ) {
+
+		$class[] = 'mobile';
+
+	} else {
+
+		$class[] = 'desktop';
+
+	}
+
 	if ( greenlight_do_top_bar() ) {
 
 		$class[] = 'has-top-bar';
+
+	}
+
+	if ( greenlight_has_header_thumb() || greenlight_has_header_media() ) {
+
+		$class[] = 'has-header-media';
+
+		$types = greenlight_get_color_types();
+		$default = ! empty( $types['header_opacity']['default'] ) ? $types['header_opacity']['default'] : null;
+		$opacity = greenlight_sanitize_range( get_theme_mod( 'header_opacity', $default ) );
+
+		if ( $opacity < 100 ) {
+
+			$class[] = 'has-trans-header';
+
+		}
 
 	}
 
