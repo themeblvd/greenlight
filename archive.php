@@ -1,11 +1,13 @@
 <?php
 /**
- * The main template file.
+ * The template for displaying archive pages.
  *
- * This is the most generic template file in a WordPress theme and one
- * of the two required files for a theme (the other being style.css).
- * It is used to display a page when nothing more specific matches a query.
- * E.g., it puts together the home page when no home.php file exists.
+ * Used to display archive-type pages if nothing more specific matches a query.
+ * For example, puts together date-based pages if no date.php file exists.
+ *
+ * If you'd like to further customize these archive views, you may create a
+ * new template file for each one. For example, tag.php (Tag archives),
+ * category.php (Category archives), author.php (Author archives), etc.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -14,7 +16,7 @@
  */
 get_header(); ?>
 
-<div id="primary" class="content-area index">
+<div id="primary" class="content-area archives">
 
 	<main id="main" class="site-main" role="main">
 
