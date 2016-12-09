@@ -33,7 +33,7 @@ global $post;
 
             <?php if ( is_single() ) : // posts only ?>
 
-                <?php get_template_part( 'template-parts/post/post', 'meta' ); ?>
+                <?php get_template_part( 'template-parts/post', 'meta' ); ?>
 
             <?php endif; ?>
 

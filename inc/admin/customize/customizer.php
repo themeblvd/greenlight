@@ -311,7 +311,7 @@ function greenlight_customize_partial_branding() {
 
     ob_start();
 
-    get_template_part( 'template-parts/header/site', 'branding' );
+    get_template_part( 'template-parts/site', 'branding' );
 
     return ob_get_clean();
 

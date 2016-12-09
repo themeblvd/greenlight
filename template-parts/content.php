@@ -20,19 +20,19 @@
 
     <?php if ( ! is_single() || ! greenlight_has_header_thumb() ) : ?>
 
-        <?php get_template_part( 'template-parts/post/post', 'title' ); ?>
+        <?php get_template_part( 'template-parts/post', 'title' ); ?>
 
-        <?php get_template_part( 'template-parts/post/post', 'thumbnail' ); ?>
+        <?php get_template_part( 'template-parts/post', 'thumbnail' ); ?>
 
 	<?php endif; ?>
 
     <?php if ( is_single() ) : ?>
 
-		<?php get_template_part( 'template-parts/post/post', 'content' ); ?>
+		<?php get_template_part( 'template-parts/post', 'content' ); ?>
 
 	<?php else : ?>
 
-		<?php get_template_part( 'template-parts/post/post', 'excerpt' ); ?>
+		<?php get_template_part( 'template-parts/post', 'excerpt' ); ?>
 
 	<?php endif; ?>
 

@@ -27,7 +27,7 @@
 
     	<?php endif; ?>
 
-        <?php get_template_part( 'template-parts/post/post', 'meta' ); ?>
+        <?php get_template_part( 'template-parts/post', 'meta' ); ?>
 
     	<?php
         /**

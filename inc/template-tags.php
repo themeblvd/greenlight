@@ -169,7 +169,7 @@ function greenlight_the_top_social() {
 
         ob_start();
 
-        get_template_part( 'template-parts/shared/social', 'menu' );
+        get_template_part( 'template-parts/social', 'menu' );
 
         $html .= ob_get_clean();
 

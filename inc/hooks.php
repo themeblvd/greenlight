@@ -14,7 +14,7 @@
  */
 function greenlight_add_top_bar() {
 
-	get_template_part( 'template-parts/header/top', 'bar' );
+	get_template_part( 'template-parts/top', 'bar' );
 
 }
 add_action( 'greenlight_header_before', 'greenlight_add_top_bar' );
@@ -27,7 +27,7 @@ add_action( 'greenlight_header_before', 'greenlight_add_top_bar' );
  */
 function greenlight_add_site_branding() {
 
-	get_template_part( 'template-parts/header/site', 'branding' );
+	get_template_part( 'template-parts/site', 'branding' );
 
 }
 add_action( 'greenlight_header', 'greenlight_add_site_branding' );
@@ -41,7 +41,7 @@ add_action( 'greenlight_header', 'greenlight_add_site_branding' );
  */
 function greenlight_add_site_search() {
 
-	get_template_part( 'template-parts/header/site', 'search' );
+	get_template_part( 'template-parts/site', 'search' );
 
 }
 add_action( 'greenlight_header', 'greenlight_add_site_search', 20 );
@@ -54,7 +54,7 @@ add_action( 'greenlight_header', 'greenlight_add_site_search', 20 );
  */
 function greenlight_add_site_menu() {
 
-	get_template_part( 'template-parts/header/site', 'menu' );
+	get_template_part( 'template-parts/site', 'menu' );
 
 }
 add_action( 'greenlight_header', 'greenlight_add_site_menu', 30 );
@@ -112,7 +112,7 @@ add_action( 'greenlight_site_nav', 'greenlight_add_site_nav' );
  */
 function greenlight_add_footer_widgets() {
 
-	get_template_part( 'template-parts/footer/footer', 'widgets' );
+	get_template_part( 'template-parts/footer', 'widgets' );
 
 }
 add_action( 'greenlight_footer', 'greenlight_add_footer_widgets' );
@@ -125,7 +125,7 @@ add_action( 'greenlight_footer', 'greenlight_add_footer_widgets' );
  */
 function greenlight_add_site_info() {
 
-	get_template_part( 'template-parts/footer/site', 'info' );
+	get_template_part( 'template-parts/site', 'info' );
 
 }
 add_action( 'greenlight_footer_after', 'greenlight_add_site_info' );
@@ -138,7 +138,7 @@ add_action( 'greenlight_footer_after', 'greenlight_add_site_info' );
  */
 function greenlight_add_social_menu() {
 
-	get_template_part( 'template-parts/shared/social', 'menu' );
+	get_template_part( 'template-parts/social', 'menu' );
 
 }
 add_action( 'greenlight_site_info', 'greenlight_add_social_menu' );
@@ -153,11 +153,11 @@ function greenlight_add_header_media() {
 
 	if ( greenlight_has_header_thumb() ) {
 
-		get_template_part( 'template-parts/header/header', 'thumb' );
+		get_template_part( 'template-parts/header', 'thumb' );
 
 	} else if ( greenlight_has_header_media() ) {
 
-		get_template_part( 'template-parts/header/header', 'media' );
+		get_template_part( 'template-parts/header', 'media' );
 
 	}
 
@@ -172,7 +172,7 @@ add_action( 'greenlight_header_after', 'greenlight_add_header_media' );
  */
 function greenlight_add_site_credit() {
 
-	get_template_part( 'template-parts/footer/site', 'credit' );
+	get_template_part( 'template-parts/site', 'credit' );
 
 }
 add_action( 'greenlight_site_info', 'greenlight_add_site_credit', 20 );
@@ -185,7 +185,7 @@ add_action( 'greenlight_site_info', 'greenlight_add_site_credit', 20 );
  */
 function greenlight_add_footer_menu() {
 
-	get_template_part( 'template-parts/footer/footer', 'menu' );
+	get_template_part( 'template-parts/footer', 'menu' );
 
 }
 add_action( 'greenlight_site_info', 'greenlight_add_footer_menu', 30 );
