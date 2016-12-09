@@ -6,6 +6,28 @@
  * @since 1.0.0
  */
 
+function greenlight_kses( $input, $allowed = array() ) {
+
+    global $allowedposttags;
+
+    if ( ! $allowed ) {
+
+        /**
+         * Filter which HTML tags are allowed through
+         * our standard usage of wp_kses().
+         *
+         * @since 1.0.0
+         *
+         * @var array
+         */
+        $allowed = apply_filters( 'greenlight_allowed_tags', $allowedposttags );
+
+    }
+
+    return wp_kses( $input, $allowed );
+
+}
+
 /**
  * Sanitize HTML.
  *
@@ -16,15 +38,13 @@
  */
 function greenlight_sanitize_html( $input ) {
 
-    global $allowedposttags;
-
     if ( current_user_can('unfiltered_html') ) {
 
     	$output = $input;
 
     } else {
 
-        $output = wp_kses( $input, $allowedposttags );
+        $output = greenlight_kses( $input, $allowedposttags );
 		$output = htmlspecialchars_decode( $output );
 
     }
@@ -46,7 +66,9 @@ function greenlight_sanitize_html( $input ) {
 function greenlight_sanitize_font( $font ) {
 
     if ( ! in_array( $font, greenlight_get_fonts() ) ) {
+
         return '';
+
     }
 
     return $font;
@@ -63,7 +85,7 @@ function greenlight_sanitize_font( $font ) {
  */
 function greenlight_sanitize_checkbox( $input ) {
 
-    return ( 1 === absint( $input ) ) ? 1 : 0;
+    return ( absint( $input ) === 1 || $input === 'on' ) ? 1 : 0;
 
 }
 
