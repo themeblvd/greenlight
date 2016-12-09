@@ -2,6 +2,9 @@
 /**
  * Small bits and parts.
  *
+ * All of these functions follow the pattern of
+ * pairing greenlight_get_*() and greenlight_*().
+ *
  * @package Greenlight
  * @since 1.0.0
  */
@@ -11,7 +14,8 @@
  *
  * @since 1.0.0
  *
- * @param array $to Selector to jump to
+ * @param array $to Selector to jump to.
+ * @return string $html Final content to output.
  */
 function greenlight_get_scroll_to( $to = '#content' ) {
 
@@ -47,9 +51,9 @@ function greenlight_scroll_to( $args = array() ) {
 /**
  * Get loader
  *
- * @since 2.5.0
+ * @since 1.0.0
  *
- * @return string $output Final content to output
+ * @return string $html Final content to output.
  */
 function greenlight_get_loader() {
 
@@ -73,7 +77,7 @@ function greenlight_get_loader() {
 /**
  * Display loader
  *
- * @since 2.5.0
+ * @since 1.0.0
  */
 function greenlight_loader() {
 

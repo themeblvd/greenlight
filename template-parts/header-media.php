@@ -12,9 +12,17 @@
  * @since 1.0.0
  */
 
-$title = get_theme_mod( 'header_media_title', '' );
-$tagline = get_theme_mod( 'header_media_tagline', '' );
+if ( is_home() || ! get_theme_mod( 'header_media_use_text_on_blog_only', 1 ) ) {
 
+    $title = get_theme_mod( 'header_media_title', '' );
+    $tagline = get_theme_mod( 'header_media_tagline', '' );
+
+} else {
+
+    $title = greenlight_the_archive_title( false );
+    $tagline = '';
+
+}
 ?>
 
 <div id="header-media" <?php greenlight_header_media_class(); ?>>

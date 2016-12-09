@@ -165,6 +165,24 @@ function greenlight_add_header_media() {
 add_action( 'greenlight_header_after', 'greenlight_add_header_media' );
 
 /**
+ * Display title on archives, 404's,
+ * and search results.
+ *
+ * @action greenlight_content_before
+ * @since 1.0.0
+ */
+function greenlight_add_archive_info() {
+
+	if ( is_archive() || is_404() || is_search() ) {
+
+		get_template_part( 'template-parts/archive', 'info' );
+
+	}
+
+}
+add_action( 'greenlight_content_before', 'greenlight_add_archive_info', 10 );
+
+/**
  * Display social menu in footer.
  *
  * @action greenlight_site_info

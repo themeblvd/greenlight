@@ -497,8 +497,11 @@ function greenlight_footer_col_class( $current = 1 ) {
  *
  * @link https://codex.wordpress.org/Function_Reference/paginate_links
  * @since 1.0.0
+ *
+ * @param bool $display Whether to display or return content.
+ * @return string HTML content for output.
  */
-function greenlight_paginate_links() {
+function greenlight_paginate_links( $display = false ) {
 
     global $wp_query, $wp_rewrite;
 
@@ -570,7 +573,17 @@ function greenlight_paginate_links() {
      *
      * @var string
      */
-    echo apply_filters( 'greenlight_paginate_links', $html, $links );
+    $html = apply_filters( 'greenlight_paginate_links', $html, $links );
+
+    if ( $display ) {
+
+        echo $html;
+
+    } else {
+
+        return $html;
+
+    }
 
 }
 
@@ -579,8 +592,11 @@ function greenlight_paginate_links() {
  *
  * @link https://codex.wordpress.org/Function_Reference/wp_link_pages
  * @since 1.0.0
+ *
+ * @param bool $display Whether to display or return content.
+ * @return string HTML content for output.
  */
-function greenlight_link_pages() {
+function greenlight_link_pages( $display = true ) {
 
     $html = "";
 
@@ -608,6 +624,115 @@ function greenlight_link_pages() {
      *
      * @var string
      */
-    echo apply_filters( 'greenlight_link_pages', $html, $links );
+    $html = apply_filters( 'greenlight_link_pages', $html, $links );
+
+    if ( $display ) {
+
+        echo $html;
+
+    } else {
+
+        return $html;
+
+    }
+
+}
+
+/**
+ * Expand WP's the_archive_title() to account
+ * for 404 and search results.
+ *
+ * @since 1.0.0
+ *
+ * @param bool $display Whether to display or return content.
+ * @return string $title
+ */
+function greenlight_the_archive_title( $display = true ) {
+
+    $title = '';
+
+    if ( is_404() ) {
+
+        $title = esc_html__( '404: Nothing Found', 'greenlight' );
+
+    } else if ( is_search() ) {
+
+        $title = sprintf( esc_html__( 'Search Results For: "%s"', 'greenlight' ), get_search_query() );
+
+    } else {
+
+        $title = get_the_archive_title();
+
+    }
+
+    /**
+	 * Filter the title.
+	 *
+	 * @since 1.0.0
+     *
+	 * @var string
+	 */
+    $title = apply_filters( 'greenlight_archive_title', $title );
+
+    if ( $display ) {
+
+        echo $title;
+
+    } else {
+
+        return $title;
+
+    }
+
+}
+
+/**
+ * Display the description for an archive, if relevant.
+ *
+ * @since 1.0.0
+ *
+ * @param bool $display Whether to display or return content.
+ * @return string $desc
+ */
+function greenlight_the_archive_desc( $display = true ) {
+
+    $desc = '';
+
+    if ( is_author() ) {
+
+        $desc = get_the_author_meta( 'description' );
+
+    } else if ( is_category() ) {
+
+        $desc = category_description();
+
+    } else if ( is_tag() ) {
+
+        $desc = tag_description();
+
+    } else if ( is_tax() ) {
+
+        $desc = term_description();
+
+    }
+
+    /**
+	 * Filter the title.
+	 *
+	 * @since 1.0.0
+     *
+	 * @var string
+	 */
+    $desc = apply_filters( 'greenlight_archive_desc', $desc );
+
+    if ( $display ) {
+
+        echo $desc;
+
+    } else {
+
+        return $desc;
+
+    }
 
 }
