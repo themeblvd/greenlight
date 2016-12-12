@@ -613,14 +613,14 @@ function greenlight_inline_style() {
 			$default = ! empty( $types['menu_text']['default'] ) ? $types['menu_text']['default'] : null;
 			$color = sanitize_hex_color( get_theme_mod( 'menu_text', $default ) );
 
-			$css .= ".site-menu a,\n";
+			$css .= ".header-menu a,\n";
 			$css .= ".site-header-media .greenlight-scroll-to {\n";
 			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.85' ) );
 			$css .= "}\n";
 
 			$css .= ".site-header,\n";
-			$css .= ".site-menu a:hover,\n";
-			$css .= ".site-menu a:focus,\n";
+			$css .= ".header-menu a:hover,\n";
+			$css .= ".header-menu a:focus,\n";
 			$css .= ".site-header-media .greenlight-scroll-to:hover {\n";
 			$css .= sprintf( "\tcolor: %s;\n", $color );
 			$css .= "}\n";
@@ -645,13 +645,13 @@ function greenlight_inline_style() {
 			$default = ! empty( $types['menu_dropdown_color']['default'] ) ? $types['menu_dropdown_color']['default'] : null;
 			$color = sanitize_hex_color( get_theme_mod( 'menu_dropdown_color', $default ) );
 
-			$css .= ".site-menu ul ul {\n";
+			$css .= ".header-menu ul ul {\n";
 			$css .= sprintf( "\tbackground-color: %s; /* secondary color */\n", $color );
 			$css .= "}\n";
 
 			$css .= "@media (min-width: 68.8125em) {\n";
 
-			$css .= "\t.site-menu ul ul:before {\n";
+			$css .= "\t.header-menu ul ul:before {\n";
 			$css .= sprintf( "\t\tborder-bottom-color: %s; /* secondary color */\n", $color );
 			$css .= "\t}\n";
 
@@ -668,28 +668,28 @@ function greenlight_inline_style() {
 			$default = ! empty( $types['menu_dropdown_text']['default'] ) ? $types['menu_dropdown_text']['default'] : null;
 			$color = sanitize_hex_color( get_theme_mod( 'menu_dropdown_text', $default ) );
 
-			$css .= ".site-menu ul ul a {\n";
+			$css .= ".header-menu ul ul a {\n";
 			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.85' ) );
 			$css .= "}\n";
 
-			$css .= ".site-menu ul ul a:hover,\n";
-			$css .= ".site-menu ul ul a:focus {\n";
+			$css .= ".header-menu ul ul a:hover,\n";
+			$css .= ".header-menu ul ul a:focus {\n";
 			$css .= sprintf( "\tcolor: %s;\n", $color );
 			$css .= "}\n";
 
 			$css .= "@media (min-width: 68.8125em) {\n";
 
-			$css .= "\t.site-search .searchform .search-wrap:before,\n";
-			$css .= "\t.site-search .search-input,\n";
-			$css .= "\t.site-search .search-input:focus {\n";
+			$css .= "\t.header-search .searchform .search-wrap:before,\n";
+			$css .= "\t.header-search .search-input,\n";
+			$css .= "\t.header-search .search-input:focus {\n";
 			$css .= sprintf( "\t\tcolor: %s;\n", $color );
 			$css .= "\t}\n";
 
-			$css .= "\t.site-search .searchform .search-input::-webkit-input-placeholder {\n";
+			$css .= "\t.header-search .searchform .search-input::-webkit-input-placeholder {\n";
 			$css .= sprintf( "\t\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.50' ) );
 			$css .= "\t}\n";
 
-			$css .= "\t.site-search .searchform .search-input:-ms-input-placeholder {\n";
+			$css .= "\t.header-search .searchform .search-input:-ms-input-placeholder {\n";
 			$css .= sprintf( "\t\tcolor: %s;\n", themeblvd_get_rgb( $color, '0.50' ) );
 			$css .= "\t}\n";
 
@@ -813,27 +813,27 @@ function greenlight_inline_style() {
 			$default_text = ! empty( $types['info_text']['default'] ) ? $types['info_text']['default'] : null;
 			$text = sanitize_hex_color( get_theme_mod( 'info_text', $default_text ) );
 
-			$css .= ".site-info {\n";
+			$css .= ".footer-info {\n";
 			$css .= sprintf( "\tbackground-color: %s; /* primary color */\n", $bg );
 			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $text, '0.60' ) );
 			$css .= "}\n";
 
-			$css .= ".site-info a {\n";
+			$css .= ".footer-info a {\n";
 			$css .= sprintf( "\tborder-bottom-color: %s;\n", themeblvd_get_rgb( $text, '0.60' ) );
 			$css .= "}\n";
 
-			$css .= ".site-info a:hover,\n";
-			$css .= ".site-info a:focus {\n";
+			$css .= ".footer-info a:hover,\n";
+			$css .= ".footer-info a:focus {\n";
 			$css .= sprintf( "\tborder-bottom-color: %s;\n", $text );
 			$css .= sprintf( "\tcolor: %s;\n", $text );
 			$css .= "}\n";
 
-			$css .= ".site-info .social-menu > ul > li > a {\n";
+			$css .= ".footer-info .social-menu > ul > li > a {\n";
 			$css .= sprintf( "\tcolor: %s;\n", themeblvd_get_rgb( $text, '0.80' ) );
 			$css .= "}\n";
 
-			$css .= ".site-info .social-menu > ul > li > a:hover,\n";
-			$css .= ".site-info .social-menu > ul > li > a:focus {\n";
+			$css .= ".footer-info .social-menu > ul > li > a:hover,\n";
+			$css .= ".footer-info .social-menu > ul > li > a:focus {\n";
 			$css .= sprintf( "\tcolor: %s;\n", $text );
 			$css .= "}\n";
 

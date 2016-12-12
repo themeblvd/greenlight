@@ -283,7 +283,7 @@ function greenlight_customize_register( $wp_customize ) {
 
         // Site Identity
         $wp_customize->selective_refresh->add_partial( 'custom_logo', array(
-    		'selector'        => '.site-branding',
+    		'selector'        => '.header-branding',
     		'render_callback' => 'greenlight_customize_partial_branding'
     	));
 
@@ -317,7 +317,7 @@ function greenlight_customize_partial_branding() {
 
     ob_start();
 
-    get_template_part( 'template-parts/site', 'branding' );
+    get_template_part( 'template-parts/header', 'branding' );
 
     return ob_get_clean();
 
@@ -404,7 +404,7 @@ function greenlight_get_font_types() {
             'description'   => esc_html__( 'Main menu top-level items.', 'greenlight' ),
             'default'       => 'Hind - Bold',
             'uppercase'     => 1,
-            'selector'      => ".site-menu > ul > li > a"
+            'selector'      => ".header-menu > ul > li > a"
 		),
         'header_media_font' => array(
             'label'         => esc_html__( 'Header Media', 'greenlight' ),

@@ -9,10 +9,10 @@
 
 <?php if ( greenlight_do_menu_search() ) : ?>
 
-    <div class="site-search">
+    <div class="header-search">
 
         <?php get_search_form(); ?>
 
-    </div><!-- .site-search -->
+    </div><!-- .header-search -->
 
 <?php endif; ?>

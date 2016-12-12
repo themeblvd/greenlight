@@ -41,7 +41,7 @@
 
         <?php
         /**
-         * @hooked greenlight_add_site_info - 10
+         * @hooked greenlight_add_footer_info - 10
          */
         do_action( 'greenlight_footer_after' );
         ?>

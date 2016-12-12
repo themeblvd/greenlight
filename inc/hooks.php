@@ -25,12 +25,12 @@ add_action( 'greenlight_header_before', 'greenlight_add_top_bar' );
  * @action greenlight_header
  * @since 1.0.0
  */
-function greenlight_add_site_branding() {
+function greenlight_add_header_branding() {
 
-	get_template_part( 'template-parts/site', 'branding' );
+	get_template_part( 'template-parts/header', 'branding' );
 
 }
-add_action( 'greenlight_header', 'greenlight_add_site_branding' );
+add_action( 'greenlight_header', 'greenlight_add_header_branding' );
 
 /**
  * Display header search, displayed from icon added to
@@ -39,12 +39,12 @@ add_action( 'greenlight_header', 'greenlight_add_site_branding' );
  * @action greenlight_header
  * @since 1.0.0
  */
-function greenlight_add_site_search() {
+function greenlight_add_header_search() {
 
-	get_template_part( 'template-parts/site', 'search' );
+	get_template_part( 'template-parts/header', 'search' );
 
 }
-add_action( 'greenlight_header', 'greenlight_add_site_search', 20 );
+add_action( 'greenlight_header', 'greenlight_add_header_search', 20 );
 
 /**
  * Display site menu template in the header.
@@ -52,20 +52,20 @@ add_action( 'greenlight_header', 'greenlight_add_site_search', 20 );
  * @action greenlight_header
  * @since 1.0.0
  */
-function greenlight_add_site_menu() {
+function greenlight_add_header_menu() {
 
-	get_template_part( 'template-parts/site', 'menu' );
+	get_template_part( 'template-parts/header', 'menu' );
 
 }
-add_action( 'greenlight_header', 'greenlight_add_site_menu', 30 );
+add_action( 'greenlight_header', 'greenlight_add_header_menu', 30 );
 
 /**
  * Display site menu within the menu template.
  *
- * @action greenlight_site_nav
+ * @action greenlight_header_nav
  * @since 1.0.0
  */
-function greenlight_add_site_nav() {
+function greenlight_add_header_nav() {
 
 	if ( has_nav_menu( greenlight_primary_menu_location() ) ) {
 
@@ -76,7 +76,7 @@ function greenlight_add_site_nav() {
 		 *
 		 * @var array
 		 */
-		wp_nav_menu( apply_filters( 'greenlight_site_nav_args', array(
+		wp_nav_menu( apply_filters( 'greenlight_header_nav_args', array(
 			'theme_location'	=> greenlight_primary_menu_location(),
 			'container'			=> 'ul',
 			'depth'     		=> 3
@@ -91,7 +91,7 @@ function greenlight_add_site_nav() {
 		 *
 		 * @var array
 		 */
-		wp_page_menu( apply_filters( 'greenlight_site_nav_fallback_args', array(
+		wp_page_menu( apply_filters( 'greenlight_header_nav_fallback_args', array(
 			'container'			=> 'ul',
 			'depth'     		=> 1, // Top-level only
 			'show_home' 		=> true,
@@ -102,33 +102,7 @@ function greenlight_add_site_nav() {
 	}
 
 }
-add_action( 'greenlight_site_nav', 'greenlight_add_site_nav' );
-
-/**
- * Display widget area columns in footer.
- *
- * @action greenlight_footer
- * @since 1.0.0
- */
-function greenlight_add_footer_widgets() {
-
-	get_template_part( 'template-parts/footer', 'widgets' );
-
-}
-add_action( 'greenlight_footer', 'greenlight_add_footer_widgets' );
-
-/**
- * Display site info after the footer.
- *
- * @action greenlight_after_footer
- * @since 1.0.0
- */
-function greenlight_add_site_info() {
-
-	get_template_part( 'template-parts/site', 'info' );
-
-}
-add_action( 'greenlight_footer_after', 'greenlight_add_site_info' );
+add_action( 'greenlight_header_nav', 'greenlight_add_header_nav' );
 
 /**
  * Display social menu in footer.
@@ -183,17 +157,43 @@ function greenlight_add_archive_info() {
 add_action( 'greenlight_content_before', 'greenlight_add_archive_info', 10 );
 
 /**
+ * Display widget area columns in footer.
+ *
+ * @action greenlight_footer
+ * @since 1.0.0
+ */
+function greenlight_add_footer_widgets() {
+
+	get_template_part( 'template-parts/footer', 'widgets' );
+
+}
+add_action( 'greenlight_footer', 'greenlight_add_footer_widgets' );
+
+/**
+ * Display site info after the footer.
+ *
+ * @action greenlight_after_footer
+ * @since 1.0.0
+ */
+function greenlight_add_footer_info() {
+
+	get_template_part( 'template-parts/footer', 'info' );
+
+}
+add_action( 'greenlight_footer_after', 'greenlight_add_footer_info' );
+
+/**
  * Display social menu in footer.
  *
  * @action greenlight_site_info
  * @since 1.0.0
  */
-function greenlight_add_site_credit() {
+function greenlight_add_footer_credit() {
 
-	get_template_part( 'template-parts/site', 'credit' );
+	get_template_part( 'template-parts/footer', 'credit' );
 
 }
-add_action( 'greenlight_site_info', 'greenlight_add_site_credit', 20 );
+add_action( 'greenlight_site_info', 'greenlight_add_footer_credit', 20 );
 
 /**
  * Display social menu in footer.

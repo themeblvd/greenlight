@@ -7,7 +7,7 @@
  */
 ?>
 
-<div class="site-branding">
+<div class="header-branding">
 
     <?php if ( greenlight_has_custom_logo() ) : ?>
 
@@ -23,4 +23,4 @@
 
     <?php greenlight_the_site_menu_toggle(); ?>
 
-</div><!-- .site-branding -->
+</div><!-- .header-branding -->

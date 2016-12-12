@@ -1251,14 +1251,14 @@ form label {
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
-.site-branding {
+.header-branding {
 	position: relative;
 }
 @media (min-width: 68.8125em) {
-	.site-branding {
+	.header-branding {
 		float: left;
 	}
-	.site-menu-container {
+	.header-menu-container {
 		position: absolute;
 		top: 50%;
 		right: 0;
@@ -1267,13 +1267,13 @@ form label {
 	}
 }
 @media (max-width: 68.75em) {
-	.site-menu {
+	.header-menu {
 		margin-top: 30px; /* matches .site-header padding */
 	}
-	.site-header.has-search .site-search {
+	.site-header.has-search .header-search {
 		margin-top: 30px; /* matches .site-header padding */
 	}
-	.site-header.has-search .site-menu {
+	.site-header.has-search .header-menu {
 		margin-top: 10px;
 	}
 }
@@ -1320,7 +1320,7 @@ form label {
 
 /* Search */
 @media (min-width: 68.8125em) {
-	.site-search {
+	.header-search {
 		display: none;
 		opacity: 0;
 		position: absolute;
@@ -1333,97 +1333,97 @@ form label {
     	transition: opacity .2s ease-in-out;
 		z-index: 2;
 	}
-	.site-header.search-animate-in .site-search,
-	.site-header.search-animate-out .site-search {
+	.site-header.search-animate-in .header-search,
+	.site-header.search-animate-out .header-search {
 		display: block;
 	}
-	.site-header.search-on .site-search {
+	.site-header.search-on .header-search {
 		display: block;
 		opacity: 1;
 	}
 	.site-header.search-on .site-title,
 	.site-header.search-on .site-description,
 	.site-header.search-on .custom-logo-link,
-	.site-header.search-on .site-menu-container {
+	.site-header.search-on .header-menu-container {
 		opacity: 0;
 	}
 }
-.site-search .search-input,
-.site-search .search-input:focus {
+.header-search .search-input,
+.header-search .search-input:focus {
 	background: rgba(0,0,0,.1);
 	border-color: rgba(0,0,0,.2);
 	color: #fff;
 	width: 100%;
 }
-.site-search .search-input:focus {
+.header-search .search-input:focus {
 	border-color: rgba(0,0,0,.5);
 }
 @media (min-width: 48em) {
-	.site-search .search-input {
+	.header-search .search-input {
 		padding: 20px 20px 20px 54px;
 	}
 }
 @media (min-width: 68.8125em) {
-	.site-search .search-input,
-	.site-search .search-input:focus {
+	.header-search .search-input,
+	.header-search .search-input:focus {
 		background-color: transparent;
 		border: none;
 		font-size: 1.5em;
 		padding: 20px 0 20px 34px;
 	}
 }
-.site-search .searchform .search-wrap:before {
+.header-search .searchform .search-wrap:before {
 	color: #fff;
 }
 @media (min-width: 48em) {
-	.site-search .searchform .search-wrap:before {
+	.header-search .searchform .search-wrap:before {
 		font-size: 20px;
 		left: 20px;
 	}
 }
 @media (min-width: 68.8125em) {
-	.site-search .searchform .search-wrap:before {
+	.header-search .searchform .search-wrap:before {
 		left: 0;
 	}
 }
-.site-search .searchform .search-input::-webkit-input-placeholder {
+.header-search .searchform .search-input::-webkit-input-placeholder {
 	color: rgba(255,255,255,.5);
 }
-.site-search .searchform .search-input:-ms-input-placeholder {
+.header-search .searchform .search-input:-ms-input-placeholder {
 	color: rgba(255,255,255,.3);
 }
 
 /* Menu */
-.site-menu ul {
+.header-menu ul {
 	margin: 0;
 	padding: 0;
 }
-.site-menu li {
+.header-menu li {
 	list-style: none;
 }
-.site-menu a {
+.header-menu a {
 	color: rgba(255,255,255,.85);
 }
-.site-menu a:hover,
-.site-menu a:focus {
+.header-menu a:hover,
+.header-menu a:focus {
 	color: #fff;
 }
 @media (min-width: 68.8125em) {
-	.site-menu > ul {
+	.header-menu > ul {
 		margin: 0 -5px;
 	}
 }
-.site-menu > ul > li {
+.header-menu > ul > li {
 	position: relative;
 	padding: 5px 0;
 }
 @media (min-width: 68.8125em) {
-	.site-menu > ul > li {
+	.header-menu > ul > li {
 		float: left;
 		padding: 0 5px;
 	}
 }
-.site-menu > ul > li > a {
+.header-menu > ul > li > a {
 	font-size: 15px;
 	display: block;
 	letter-spacing: .0625em;
@@ -1433,39 +1433,39 @@ form label {
 	text-transform: uppercase;
 }
 @media (min-width: 68.8125em) {
-	.site-menu > ul > li > a {
+	.header-menu > ul > li > a {
 		font-size: 12px;
 		padding: 1.5em .75em;
 	}
 }
-.site-menu > ul > li > a > .sub-indicator {
+.header-menu > ul > li > a > .sub-indicator {
 	float: right;
 	margin-right: 1em;
 }
 @media (min-width: 68.8125em) {
-	.site-menu > ul > li > a > .sub-indicator {
+	.header-menu > ul > li > a > .sub-indicator {
 		margin-right: 0;
 		margin-left: .8em;
 	}
 }
-.site-menu ul ul {
+.header-menu ul ul {
 	background-color: #59928c; /* secondary color */
 	display: none;
 	margin: 0;
 	padding: 13px 0;
 }
-.site-menu ul ul ul {
+.header-menu ul ul ul {
 	display: block;
 	padding: 0 0 0 20px;
 }
-.site-menu li:hover > ul,
-.site-menu li.focus > ul,
-.site-menu ul ul li:hover > ul,
-.site-menu ul ul li.focus > ul {
+.header-menu li:hover > ul,
+.header-menu li.focus > ul,
+.header-menu ul ul li:hover > ul,
+.header-menu ul ul li.focus > ul {
 	display: block;
 }
 @media (min-width: 68.8125em) {
-	.site-menu ul ul {
+	.header-menu ul ul {
 		box-shadow: 0 0 4px rgba(0,0,0,.1);
 		display: block;
 		position: absolute;
@@ -1473,38 +1473,38 @@ form label {
 		width: 200px;
 		z-index: 99999;
 	}
-	.site-menu li:hover > ul,
-	.site-menu li.focus > ul {
+	.header-menu li:hover > ul,
+	.header-menu li.focus > ul {
 		position: absolute;
 	    left: auto;
 	    right: 0;
 	}
-	.site-menu ul ul li:hover > ul,
-	.site-menu ul ul li.focus > ul {
+	.header-menu ul ul li:hover > ul,
+	.header-menu ul ul li.focus > ul {
 	    left: 100%;
 	    right: auto;
 	}
-	.site-menu ul ul ul {
+	.header-menu ul ul ul {
 		top: 0;
 		padding: 13px 0;
 	}
 }
-.site-menu ul ul a {
+.header-menu ul ul a {
 	display: block;
 	font-size: 12px;
 	line-height: 1.4;
 	padding: 8px 22px;
 	text-decoration: none;
 }
-.site-menu ul ul .sub-indicator {
+.header-menu ul ul .sub-indicator {
 	display: none;
 }
 @media (min-width: 68.8125em) {
-	.site-menu ul ul .sub-indicator {
+	.header-menu ul ul .sub-indicator {
 		display: block;
 		float: right;
 	}
-	.site-menu ul ul:before {
+	.header-menu ul ul:before {
 		content: "";
 		border-left: 8px solid transparent;
 		border-right: 8px solid transparent;
@@ -1515,14 +1515,14 @@ form label {
 		width: 0;
 		height: 0;
 	}
-	.site-menu ul ul ul:before {
+	.header-menu ul ul ul:before {
 		display: none;
 	}
 }
 
 /* Menu Icons */
 @media (max-width: 68.75em) {
-	.site-menu .menu-item-search {
+	.header-menu .menu-item-search {
 		display: none;
 	}
 }
@@ -1546,21 +1546,21 @@ form label {
 
 /* Mobile Menu/Search Visibility */
 @media (max-width: 68.75em) {
-	.site-search,
-	.site-menu-container {
+	.header-search,
+	.header-menu-container {
 		display: none;
 		opacity: 0;
 		-webkit-transition: opacity .2s ease-in-out;
     	transition: opacity .2s ease-in-out;
 	}
-	.site-header.mobile-menu-animate-in .site-search,
-	.site-header.mobile-menu-animate-out .site-search,
-	.site-header.mobile-menu-animate-in .site-menu-container,
-	.site-header.mobile-menu-animate-out .site-menu-container {
+	.site-header.mobile-menu-animate-in .header-search,
+	.site-header.mobile-menu-animate-out .header-search,
+	.site-header.mobile-menu-animate-in .header-menu-container,
+	.site-header.mobile-menu-animate-out .header-menu-container {
 		display: block;
 	}
-	.site-header.mobile-menu-on .site-search,
-	.site-header.mobile-menu-on .site-menu-container {
+	.site-header.mobile-menu-on .header-search,
+	.site-header.mobile-menu-on .header-menu-container {
 		display: block;
 		opacity: 1;
 	}
@@ -1649,25 +1649,25 @@ form label {
 	color: #fff;
 }
 .site-footer a,
-.site-info a {
+.footer-info a {
 	color: inherit;
 	border-bottom: 1px solid rgba(255,255,255,0.8);
 	padding-bottom: 1px;
 	text-decoration: none;
 }
-.site-info a {
+.footer-info a {
 	border-bottom-color: rgba(255,255,255,0.6);
 }
 .site-footer a:hover,
 .site-footer a:focus,
-.site-info a:hover,
-.site-info a:focus {
+.footer-info a:hover,
+.footer-info a:focus {
 	border-color: #fff;
 	color: #fff;
 }
 
 /* Site Info */
-.site-info {
+.footer-info {
 	background: #26393d; /* primary color */
 	color: rgba(255,255,255,0.6);
 	font-size: .875rem;
@@ -1676,10 +1676,10 @@ form label {
 }
 
 /* Social Menu */
-.site-info .social-menu {
+.footer-info .social-menu {
 	margin-bottom: 20px;
 }
-.site-info .social-menu > ul > li > a:before {
+.footer-info .social-menu > ul > li > a:before {
 	font-size: 1.5rem;
 }
 

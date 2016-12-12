@@ -8,7 +8,7 @@
  */
 ?>
 
-<div class="site-credit">
+<div class="footer-credit">
     <div class="wrap">
 
         <?php
@@ -45,4 +45,4 @@
         ?>
 
     </div><!-- .wrap -->
-</div><!-- .site-credit -->
+</div><!-- .footer-credit -->

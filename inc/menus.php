@@ -214,7 +214,7 @@ function greenlight_nav_search( $items, $args ) {
     }
 
     $items .= '<li class="menu-item menu-item-search">';
-    $items .= '<a href="#" class="site-search-toggle" title="' . esc_attr__( 'Search the site', 'greenlight' ) . '"><i class="fa fa-fw fa-search"></i></a>';
+    $items .= '<a href="#" class="header-search-toggle" title="' . esc_attr__( 'Search the site', 'greenlight' ) . '"><i class="fa fa-fw fa-search"></i></a>';
     $items .= '</li>';
 
     return $items;

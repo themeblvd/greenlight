@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
 	// ---------------------------------------------------------
 
     // Search toggle
-    $('.site-search-toggle').on( 'click', function() {
+    $('.header-search-toggle').on( 'click', function() {
 
         $header.addClass('search-animate-in');
 
@@ -24,7 +24,7 @@ jQuery(document).ready(function($) {
 
     });
 
-    $('.site-search .search-input').on( 'focusout', function() {
+    $('.header-search .search-input').on( 'focusout', function() {
 
         $header.removeClass('search-on').addClass('search-animate-out');
 
