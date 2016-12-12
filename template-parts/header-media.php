@@ -12,15 +12,15 @@
  * @since 1.0.0
  */
 
-if ( is_home() || ! get_theme_mod( 'header_media_use_text_on_blog_only', 1 ) ) {
+$title = get_theme_mod( 'header_media_title', get_bloginfo( 'blogname' ) ); // Appearance > Customize > Blog Header Image
 
-    $title = get_theme_mod( 'header_media_title', '' );
-    $tagline = get_theme_mod( 'header_media_tagline', '' );
+if ( is_home() ) {
+
+    $tagline = get_theme_mod( 'header_media_tagline', get_bloginfo( 'description' ) );
 
 } else {
 
-    $title = greenlight_the_archive_title( false );
-    $tagline = '';
+    $tagline = greenlight_the_archive_title( false );
 
 }
 ?>

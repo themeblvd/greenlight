@@ -146,7 +146,7 @@ function greenlight_has_header_thumb( $post_id = 0 ) {
 
     if ( is_single() || is_page() ) {
 
-        if ( ! $post_id ) {
+        if ( ! $post_id && is_a( $post, 'WP_Post' ) ) {
 
             $post_id = $post->ID;
 
@@ -186,15 +186,7 @@ function greenlight_has_header_media() {
 
     if ( ! greenlight_has_header_thumb() && has_header_image() ) { // header thumb (i.e. featured image set as header image) always overrides general header media
 
-        if ( get_theme_mod( 'header_media_on_archives_only', 1 ) ) {
-
-            if ( is_home() || is_archive() ) {
-
-                $has = true;
-
-            }
-
-        } else {
+        if ( is_home() || is_archive() ) {
 
             $has = true;
 

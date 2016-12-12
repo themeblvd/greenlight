@@ -248,6 +248,12 @@ function greenlight_customize_register( $wp_customize ) {
 
     if ( $options = greenlight_get_header_media_options() ) {
 
+        $wp_customize->add_section( 'header_image', array(
+			'title'          => esc_html__( 'Blog Header Image', 'greenlight' ),
+			'theme_supports' => 'custom-header',
+			'priority'       => 60
+		));
+
         foreach ( $options as $key => $args ) {
 
             $key = sanitize_key( $key );
@@ -791,30 +797,16 @@ function greenlight_get_header_media_options() {
      */
     return apply_filters( 'greenlight_header_media_options', array(
         'header_media_title' => array(
-            'label'             => esc_html__( 'Header Image Title', 'greenlight' ),
-            'default'           => '',
+            'label'             => esc_html__( 'Blog Title', 'greenlight' ),
+            'default'           => get_bloginfo( 'blogname' ),
             'type'              => 'textarea',
             'sanitize_callback' => 'greenlight_sanitize_html'
 		),
         'header_media_tagline' => array(
-            'label'             => esc_html__( 'Header Image Tagline', 'greenlight' ),
-            'default'           => '',
+            'label'             => esc_html__( 'Blog Tagline', 'greenlight' ),
+            'default'           => get_bloginfo( 'description' ),
             'type'              => 'textarea',
             'sanitize_callback' => 'greenlight_sanitize_html'
-		),
-        'header_media_use_text_on_blog_only' => array(
-            'label'             => esc_html__( 'Use custom text from above on blog page only.', 'greenlight' ),
-            'description'       => esc_html__( 'Note: When this box is checked, the theme will generate titles to overlay on header images when relevent, like with archives, 404 pages, etc.', 'greenlight' ),
-            'default'           => 1,
-            'type'              => 'checkbox',
-            'sanitize_callback' => 'greenlight_sanitize_checkbox'
-		),
-        'header_media_on_archives_only' => array(
-            'label'             => esc_html__( 'Apply default header image to blog and archives only.', 'greenlight' ),
-            'description'       => esc_html__( 'Note: You can override custom header images for individual pages and posts when configuring their featured images.', 'greenlight' ),
-            'default'           => 1,
-            'type'              => 'checkbox',
-            'sanitize_callback' => 'greenlight_sanitize_checkbox'
 		),
         'header_media_fs' => array(
             'label'             => esc_html__( 'Use full-screen parallax effect.', 'greenlight' ),
