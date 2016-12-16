@@ -11,6 +11,6 @@
 
 	<?php /* @TODO // ... this should be Read More button somehow, filtered in maybe? */ the_content( __( 'Read More <span class="meta-nav">&rarr;</span>', 'greenlight' ) ); ?>
 
-	<?php greenlight_link_pages(); ?>
+	<?php greenlight_link_pages(); // wrapper for WP's link_pages() ?>
 
 </div><!-- .entry-content -->
