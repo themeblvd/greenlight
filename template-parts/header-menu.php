@@ -5,14 +5,17 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?>
 
 <div class="header-menu-container">
 
 	<?php
 	/**
-     * @hooked null
-     */
+	 * Fires before the main menu.
+	 *
+	 * @since 1.0.0
+	 */
 	do_action( 'greenlight_header_nav_before' );
 	?>
 
@@ -20,6 +23,9 @@
 
 		<?php
 		/**
+		 * Fires for the main menu.
+		 *
+		 * @since 1.0.0
 		 * @hooked greenlight_add_header_nav - 10
 		 */
 		do_action( 'greenlight_header_nav' );
@@ -29,8 +35,10 @@
 
 	<?php
 	/**
-     * @hooked null
-     */
+	 * Firest after the main menu.
+	 *
+	 * @since 1.0.0
+	 */
 	do_action( 'greenlight_header_nav_after' );
 	?>
 

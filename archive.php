@@ -14,7 +14,8 @@
  * @package Greenlight
  * @since 1.0.0
  */
-get_header(); ?>
+
+get_header();?>
 
 <div id="primary" class="content-area archives">
 
@@ -22,30 +23,35 @@ get_header(); ?>
 
 		<?php
 		/**
+		 * Fires just before The Loop.
+		 *
+		 * @since 1.0.0
 		 * @hooked greenlight_add_archive_info - 10
 		 */
 		do_action( 'greenlight_content_before' );
 		?>
 
-    	<?php if ( have_posts() ) : ?>
+		<?php if ( have_posts() ) : ?>
 
-    		<?php while ( have_posts() ) : the_post(); ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-    			<?php get_template_part( 'template-parts/content', get_post_format() ); ?>
+				<?php get_template_part( 'template-parts/content', get_post_format() ); ?>
 
-    		<?php endwhile; ?>
+			<?php endwhile; ?>
 
-    		<?php greenlight_paginate_links(); // wrapper for WP's paginate_links() ?>
+			<?php greenlight_paginate_links(); // Wrapper for WP's paginate_links(). ?>
 
-    	<?php else : ?>
+		<?php else : ?>
 
-    		<?php get_template_part( 'template-parts/content', 'none' ); ?>
+			<?php get_template_part( 'template-parts/content', 'none' ); ?>
 
-    	<?php endif; ?>
+		<?php endif; ?>
 
 		<?php
 		/**
-		 * @hooked null
+		 * Fires just after The Loop.
+		 *
+		 * @since 1.0.0
 		 */
 		do_action( 'greenlight_content_after' );
 		?>

@@ -7,6 +7,7 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 get_header(); ?>
 
 <div id="primary" class="content-area single">
@@ -15,6 +16,9 @@ get_header(); ?>
 
 		<?php
 		/**
+		 * Fires just before The Loop.
+		 *
+		 * @since 1.0.0
 		 * @hooked greenlight_add_archive_info - 10
 		 */
 		do_action( 'greenlight_content_before' );
@@ -34,7 +38,9 @@ get_header(); ?>
 
 		<?php
 		/**
-		 * @hooked null
+		 * Fires just after The Loop.
+		 *
+		 * @since 1.0.0
 		 */
 		do_action( 'greenlight_content_after' );
 		?>

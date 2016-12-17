@@ -79,7 +79,7 @@ function greenlight_add_header_nav() {
 		wp_nav_menu( apply_filters( 'greenlight_header_nav_args', array(
 			'theme_location'	=> greenlight_primary_menu_location(),
 			'container'			=> 'ul',
-			'depth'     		=> 3
+			'depth'     		=> 3,
 		)));
 
 	} else {
@@ -93,10 +93,10 @@ function greenlight_add_header_nav() {
 		 */
 		wp_page_menu( apply_filters( 'greenlight_header_nav_fallback_args', array(
 			'container'			=> 'ul',
-			'depth'     		=> 1, // Top-level only
+			'depth'     		=> 1, // Top-level only.
 			'show_home' 		=> true,
 			'before'			=> '',
-			'after'				=> ''
+			'after'				=> '',
 		)));
 
 	}
@@ -129,7 +129,7 @@ function greenlight_add_header_media() {
 
 		get_template_part( 'template-parts/header', 'thumb' );
 
-	} else if ( greenlight_has_header_media() ) {
+	} elseif ( greenlight_has_header_media() ) {
 
 		get_template_part( 'template-parts/header', 'media' );
 

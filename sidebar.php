@@ -7,14 +7,15 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?>
 
 <?php if ( greenlight_has_sidebar() ) : ?>
 
-    <div id="secondary" class="site-sidebar widget-area" role="complementary">
+	<div id="secondary" class="site-sidebar widget-area" role="complementary">
 
-    	<?php dynamic_sidebar( 'sidebar' ); ?>
+		<?php dynamic_sidebar( 'sidebar' ); ?>
 
-    </div><!-- #secondary -->
+	</div><!-- #secondary -->
 
 <?php endif; ?>

@@ -1,29 +1,36 @@
 <?php
 /**
- * Greenlight Meta Box. Adds meta boxes through
- * WP's built-in add_meta_box functionality.
+ * Greenlight meta box system.
+ *
+ * @package Greenlight
+ * @since 1.0.0
+ */
+
+/**
+ * Adds meta boxes through WP's built-in add_meta_box
+ * functionality.
  *
  * @package Greenlight
  * @since 1.0.0
  */
 class Greenlight_Meta_Box {
 
-    /**
-     * Arguments to pass to add_meta_box().
-     *
-     * @since 1.0.0
-     * @access private
-     * @var array
-     */
+	/**
+	 * Arguments to pass to add_meta_box().
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @var array
+	 */
 	private $args;
 
-    /**
-     * Settings for meta box.
-     *
-     * @since 1.0.0
-     * @access private
-     * @var array
-     */
+	/**
+	 * Settings for meta box.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @var array
+	 */
 	private $settings;
 
 	/**
@@ -31,9 +38,9 @@ class Greenlight_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $args Setup array for meta box
-	 * @param array $settings Settings for meta box
-     * @return void
+	 * @param array $args Setup array for meta box.
+	 * @param array $settings Settings for meta box.
+	 * @return void
 	 */
 	public function __construct( $args, $settings ) {
 
@@ -43,13 +50,13 @@ class Greenlight_Meta_Box {
 
         	return;
 
-        }
+		}
 
 		$this->args = wp_parse_args( $args, array(
-            'post_type' => array('post'),   // array of post types to display meta box
-            'title'     => '',              // Title of meta box
-            'context'   => 'normal',        // normal, advanced, or side
-            'priority'  => 'default'        // high, low, default
+			'post_type' => array( 'post' ),   // array of post types to display meta box.
+			'title'     => '',              // Title of meta box.
+			'context'   => 'normal',        // normal, advanced, or side.
+			'priority'  => 'default',       // high, low, default.
 		));
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
@@ -58,41 +65,51 @@ class Greenlight_Meta_Box {
 
 	}
 
-    /**
-     * Enqueue assets needed for meta box.
-     *
-     * @since 1.0.0
-     * @access public
-     * @return void
-     */
-    public function assets() {
+	/**
+	 * Enqueue assets needed for meta box.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function assets() {
 
-        $screen = get_current_screen();
+		$screen = get_current_screen();
 
-        if ( $screen->base == 'post' && in_array( $screen->post_type, $this->args['post_type'] ) ) {
+		if ( 'post' === $screen->base && in_array( $screen->post_type, $this->args['post_type'], true ) ) {
 
-            $rtl = is_rtl() ? '-rtl' : '';
+			$rtl = is_rtl() ? '-rtl' : '';
 
-            wp_enqueue_style( 'greenlight-meta-box', esc_url( get_template_directory_uri() . "/assets/css/meta-box{$rtl}.css" ), array(), GREENLIGHT_VERSION );
+			wp_enqueue_style(
+				'greenlight-meta-box',
+				esc_url( get_template_directory_uri() . "/assets/css/meta-box{$rtl}.css" ),
+				array(),
+				GREENLIGHT_VERSION
+			);
 
-            wp_enqueue_script( 'greenlight-meta-box', esc_url( get_template_directory_uri() . '/assets/js/meta-box.js' ), array( 'jquery' ), GREENLIGHT_VERSION );
+			wp_enqueue_script(
+				'greenlight-meta-box',
+				esc_url( get_template_directory_uri() . '/assets/js/meta-box.js' ),
+				array( 'jquery' ),
+				GREENLIGHT_VERSION
+			);
 
-        }
+		}
 
-    }
+	}
 
-    /**
-     * Add meta box by calling add_meta_box().
-     *
-     * @since 1.0.0
-     * @access public
-     * @return void
-     */
-    public function add() {
+	/**
+	 * Add meta box by calling add_meta_box().
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function add() {
 
-        foreach ( $this->args['post_type'] as $type ) {
+		foreach ( $this->args['post_type'] as $type ) {
 
-            add_meta_box(
+			add_meta_box(
 		        $this->args['id'],
 				$this->args['title'],
 				array( $this, 'display' ),
@@ -101,185 +118,192 @@ class Greenlight_Meta_Box {
 				$this->args['priority']
 		    );
 
-    	}
+		}
 
-    }
+	}
 
-    /**
-     * Display meta box. This is the callback function
-     * passed into add_meta_box().
-     *
-     * @global $post
-     * @since 1.0.0
-     * @access public
-     *
-     * @return void
-     */
-    public function display() {
+	/**
+	 * Display meta box. This is the callback function
+	 * passed into add_meta_box().
+	 *
+	 * @global $post
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function display() {
 
-        global $post;
+		global $post;
 
-        printf( '<div class="greenlight-meta-box %s">', $this->args['context'] );
+		printf( '<div class="greenlight-meta-box %s">', $this->args['context'] ); // WPCS: XSS ok, sanitization ok.
 
-        foreach ( $this->settings as $key => $setting ) {
+		wp_nonce_field( 'greenlight_save_meta_box', 'greenlight_meta_box' );
 
-            $key = sanitize_key( $key );
+		foreach ( $this->settings as $key => $setting ) {
 
-            $val = get_post_meta( $post->ID, $key, true );
+			$key = sanitize_key( $key );
 
-            if ( $val === '' && ! empty( $setting['default'] ) ) {
+			$val = get_post_meta( $post->ID, $key, true );
 
-                $val = $setting['default'];
+			if ( '' === $val && ! empty( $setting['default'] ) ) {
 
-            }
+				$val = $setting['default'];
 
-            $val = call_user_func( $setting['sanitize_callback'], $val );
+			}
 
-            printf( '<div class="setting type-%s">', $setting['type'] );
+			$val = call_user_func( $setting['sanitize_callback'], $val );
 
-            if ( ! empty( $setting['label'] ) && $setting['type'] != 'checkbox' ) {
+			printf( '<div class="setting type-%s">', $setting['type'] ); // WPCS: XSS ok, sanitization ok.
 
-                printf( '<label for="%s" class="title">%s</label>', $key, $setting['label'] );
+			if ( ! empty( $setting['label'] ) && 'checkbox' !== $setting['type'] ) {
 
-            }
+				printf( '<label for="%s" class="title">%s</label>', $key, $setting['label'] ); // WPCS: XSS ok, sanitization ok.
 
-            echo '<div class="control">';
+			}
 
-            switch ( $setting['type'] ) {
+			echo '<div class="control">';
 
-                case 'text' :
+			switch ( $setting['type'] ) {
 
-                    printf( '<input name="%1$s" class="greenlight-text" type="text" id="%1$s" value="%2$s">', $key, $val );
+				case 'text' :
 
-                    break;
+					printf( '<input name="%1$s" class="greenlight-text" type="text" id="%1$s" value="%2$s">', $key, $val ); // WPCS: XSS ok, sanitization ok.
 
-                case 'select' :
+					break;
 
-                    printf( '<select name="%1$s" class="greenlight-select" id="%1$s">', $key );
+				case 'select' :
 
-                    foreach ( $setting['choices'] as $choice => $name ) {
+					printf( '<select name="%1$s" class="greenlight-select" id="%1$s">', $key ); // WPCS: XSS ok, sanitization ok.
 
-                        $selected = $val == $choice ? 'selected' : '';
+					foreach ( $setting['choices'] as $choice => $name ) {
 
-                        printf( '<option value="%s" %s>%s</option>', $choice, $selected, $name );
+						$selected = $val === $choice ? 'selected' : '';
 
-                    }
+						printf( '<option value="%s" %s>%s</option>', $choice, $selected, $name ); // WPCS: XSS ok, sanitization ok.
 
-                    echo '</select>';
+					}
 
-                    break;
+					echo '</select>';
 
-                case 'checkbox' :
+					break;
 
-                    $checked = $val === 1 ? 'checked' : '';
+				case 'checkbox' :
 
-                    printf( '<label for="%s" class="checkbox-label">', $key );
-                    printf( '<input name="%1$s" class="greenlight-checkbox" type="checkbox" id="%1$s" value="%2$s" %3$s> %4$s', $key, $val, $checked, $setting['description'] );
-                    echo '</label>';
+					$checked = 1 === $val ? 'checked' : '';
 
-                    break;
+					printf( '<label for="%s" class="checkbox-label">', $key ); // WPCS: XSS ok, sanitization ok.
+					printf( '<input name="%1$s" class="greenlight-checkbox" type="checkbox" id="%1$s" value="%2$s" %3$s> %4$s', $key, $val, $checked, $setting['description'] ); // WPCS: XSS ok, sanitization ok.
+					echo '</label>';
 
-                case 'radio-image' :
+					break;
 
-                    if ( ! empty( $setting['choices'] ) ) {
+				case 'radio-image' :
 
-                        echo '<div class="greenlight-radio-images">';
+					if ( ! empty( $setting['choices'] ) ) {
 
-                        foreach ( $setting['choices'] as $choice_id => $choice ) {
+						echo '<div class="greenlight-radio-images">';
 
-                            $checked = '';
+						foreach ( $setting['choices'] as $choice_id => $choice ) {
 
-                            if ( $val == $choice_id ) {
+							$checked = '';
 
-                                $checked = 'checked';
+							if ( $val === $choice_id ) {
 
-                            }
+								$checked = 'checked';
 
-                            printf( '<input type="radio" id="%1$s-%2$s" name="%1$s" value="%2$s" %3$s />', $key, $choice_id, $checked );
+							}
 
-                            $class = '';
+							printf( '<input type="radio" id="%1$s-%2$s" name="%1$s" value="%2$s" %3$s />', $key, $choice_id, $checked ); // WPCS: XSS ok, sanitization ok.
 
-                            if ( $val == $choice_id ) {
+							$class = '';
 
-                                $class = 'active';
+							if ( $val === $choice_id ) {
 
-                            }
+								$class = 'active';
 
-                            printf( '<label for="%s" class="%s">', $key, $class );
-                            printf( '<span class="screen-reader-text">%s</span>', $choice['label'] );
-                            printf( '<img src="%s" alt="%s" data-choice="%s" />', $choice['img'], $choice['label'], $choice_id );
-                            echo '</label>';
+							}
 
-                        }
+							printf( '<label for="%s" class="%s">', $key, $class ); // WPCS: XSS ok, sanitization ok.
+							printf( '<span class="screen-reader-text">%s</span>', $choice['label'] ); // WPCS: XSS ok, sanitization ok.
+							printf( '<img src="%s" alt="%s" data-choice="%s" />', $choice['img'], $choice['label'], $choice_id ); // WPCS: XSS ok, sanitization ok.
+							echo '</label>';
 
-                        echo '</div><!-- .greenlight-radio-images -->';
+						}
 
-                    }
+						echo '</div><!-- .greenlight-radio-images -->';
 
-            }
+					}
+			}
 
-            echo '</div><!-- .control -->';
+			echo '</div><!-- .control -->';
 
-            if ( ! empty( $setting['description'] ) && $setting['type'] != 'checkbox' ) {
+			if ( ! empty( $setting['description'] ) && 'checkbox' !== $setting['type'] ) {
 
-                printf( '<div class="description">%s</div>', $setting['description'] );
+				printf( '<div class="description">%s</div>', $setting['description'] ); // WPCS: XSS ok, sanitization ok.
 
-            }
+			}
 
-            echo '</div><!-- .setting -->';
+			echo '</div><!-- .setting -->';
 
-        }
+		}
 
-        echo '</div><!-- .greenlight-meta-box -->';
+		echo '</div><!-- .greenlight-meta-box -->';
 
-    }
+	}
 
-    /**
-     * Save data for meta box.
-     *
-     * @global array $_POST
-     * @since 1.0.0
-     * @access public
-     *
-     * @param int $post_id ID of current post being saved
-     * @return void
-     */
-    public function save( $post_id ) {
+	/**
+	 * Save data for meta box.
+	 *
+	 * @global array $_POST
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param int $post_id ID of current post being saved.
+	 * @return void
+	 */
+	public function save( $post_id ) {
 
-        global $_POST;
+		global $_POST; // WPCS: input var okay.
 
-        if ( empty( $this->settings ) ) {
+		if ( ! isset( $_POST['greenlight_meta_box'] ) || ! wp_verify_nonce( wp_unslash( $_POST['greenlight_meta_box'] ), 'greenlight_save_meta_box' ) ) { // WPCS: input var okay.
 
-            return;
+			return;
 
-        }
+		}
 
-        $settings = $this->settings;
+		if ( empty( $this->settings ) ) {
 
-        foreach ( $settings as $key => $setting ) {
+			return;
 
-            if ( empty( $setting['sanitize_callback'] ) ) {
+		}
 
-                continue;
+		$settings = $this->settings;
 
-            }
+		foreach ( $settings as $key => $setting ) {
 
-            $key = sanitize_key( $key );
+			if ( empty( $setting['sanitize_callback'] ) ) {
 
-            $val = '';
+				continue;
 
-            if ( isset( $_POST[$key] ) ) {
+			}
 
-                $val = $_POST[$key];
+			$key = sanitize_key( $key );
 
-            }
+			$val = '';
 
-            $val = call_user_func( $setting['sanitize_callback'], $val );
+			if ( isset( $_POST[ $key ] ) ) { // WPCS: input var okay.
 
-            update_post_meta( $post_id, $key, $val );
+				$val = wp_unslash( $_POST[ $key ] ); // WPCS: input var okay.
 
-        }
+			}
 
-    }
+			$val = call_user_func( $setting['sanitize_callback'], $val );
+
+			update_post_meta( $post_id, $key, $val );
+
+		}
+
+	}
 
 }

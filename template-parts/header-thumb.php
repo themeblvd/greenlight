@@ -14,49 +14,50 @@
  */
 
 global $post;
-
 ?>
 
 <div id="header-media" <?php greenlight_header_media_class(); ?>>
 
-    <header class="entry-header">
+	<header class="entry-header">
 
-        <?php if ( has_post_format('quote') ) : ?>
+		<?php if ( has_post_format( 'quote' ) ) : ?>
 
-            <div class="featured-quote header-media-quote">
-                <?php themeblvd_content_quote(); ?>
-            </div>
+			<div class="featured-quote header-media-quote">
 
-        <?php else : ?>
+				<?php themeblvd_content_quote(); ?>
 
-            <h1 class="entry-title"><?php the_title(); ?></h1>
+			</div>
 
-            <?php if ( is_single() ) : // posts only ?>
+		<?php else : ?>
 
-                <?php get_template_part( 'template-parts/post', 'meta' ); ?>
+			<h1 class="entry-title"><?php the_title(); ?></h1>
 
-            <?php endif; ?>
+			<?php if ( is_single() ) : ?>
 
-        <?php endif; ?>
+				<?php get_template_part( 'template-parts/post', 'meta' ); ?>
 
-    </header><!-- .entry-header -->
+			<?php endif; ?>
 
-    <?php if ( get_post_meta( $post->ID, '_greenlight_apply_header_thumb_fs', true ) ) : ?>
+		<?php endif; ?>
 
-        <figure class="parallax-figure">
+	</header><!-- .entry-header -->
 
-            <?php greenlight_loader(); ?>
+	<?php if ( get_post_meta( $post->ID, '_greenlight_apply_header_thumb_fs', true ) ) : ?>
 
-            <?php greenlight_scroll_to( '#content' ); ?>
+		<figure class="parallax-figure">
 
-            <?php the_post_thumbnail( 'full' ); ?>
+			<?php greenlight_loader(); ?>
 
-        </figure><!-- .parallax-figure -->
+			<?php greenlight_scroll_to( '#content' ); ?>
 
-    <?php else : ?>
+			<?php the_post_thumbnail( 'full' ); ?>
 
-        <?php the_post_thumbnail( 'full' ); ?>
+		</figure><!-- .parallax-figure -->
 
-    <?php endif; ?>
+	<?php else : ?>
+
+		<?php the_post_thumbnail( 'full' ); ?>
+
+	<?php endif; ?>
 
 </div><!-- #header-media -->

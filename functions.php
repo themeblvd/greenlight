@@ -124,21 +124,21 @@ function greenlight_setup() {
 
 	global $greenlight_image_sizes;
 
-    /**
-     * Load theme translations.
-     *
-     * @link  https://codex.wordpress.org/Function_Reference/load_theme_textdomain
-     * @since 1.0.0
-     */
-    load_theme_textdomain( 'greenlight', get_template_directory() . '/lang' );
+	/**
+	 * Load theme translations.
+	 *
+	 * @link  https://codex.wordpress.org/Function_Reference/load_theme_textdomain
+	 * @since 1.0.0
+	 */
+	load_theme_textdomain( 'greenlight', get_template_directory() . '/lang' );
 
-    /**
-     * Filter registered image sizes.
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
+	/**
+	 * Filter registered image sizes.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
 	$greenlight_image_sizes = apply_filters( 'greenlight_image_sizes', array(
 		/* // ... @TODO
         'greenlight-featured' => array(
@@ -148,19 +148,19 @@ function greenlight_setup() {
 			'label'  => esc_html__( 'Featured', 'greenlight' ),
 		)
         */
-    ));
+	));
 
-    foreach ( $greenlight_image_sizes as $name => &$args ) {
+	foreach ( $greenlight_image_sizes as $name => &$args ) {
 
-        if ( empty( $name ) || empty( $args['width'] ) || empty( $args['height'] ) ) {
-			unset( $greenlight_image_sizes[$name] );
+		if ( empty( $name ) || empty( $args['width'] ) || empty( $args['height'] ) ) {
+			unset( $greenlight_image_sizes[ $name ] );
 			continue;
 		}
 
-        $args['crop']  = ! empty( $args['crop'] ) ? $args['crop'] : false;
+		$args['crop']  = ! empty( $args['crop'] ) ? $args['crop'] : false;
 		$args['label'] = ! empty( $args['label'] ) ? $args['label'] : ucwords( str_replace( array( '-', '_' ), ' ', $name ) );
 
-        add_image_size(
+		add_image_size(
 			sanitize_key( $name ),
 			absint( $args['width'] ),
 			absint( $args['height'] ),
@@ -168,13 +168,13 @@ function greenlight_setup() {
 		);
 	}
 
-    /**
+	/**
 	 * Add Greenlight's image sizes for selection in WordPress media manager.
 	 *
 	 * @link https://codex.wordpress.org/Plugin_API/Filter_Reference/image_size_names_choose
 	 * @since 1.0.0
 	 */
-    if ( $greenlight_image_sizes ) {
+	if ( $greenlight_image_sizes ) {
 
 		add_filter( 'image_size_names_choose', 'greenlight_image_size_names_choose' );
 
@@ -187,10 +187,10 @@ function greenlight_setup() {
 	 * @since 1.0.0
 	 */
 	add_theme_support( 'custom-header', array(
-		'header-text' => false
+		'header-text' => false,
 	));
 
-    /**
+	/**
 	 * Enable support for Automatic Feed Links.
 	 *
 	 * @link https://codex.wordpress.org/Function_Reference/add_theme_support#Feed_Links
@@ -217,7 +217,7 @@ function greenlight_setup() {
 	/**
 	 * Enable support for customizer selective refresh
 	 *
-	 * https://developer.wordpress.org/reference/functions/add_theme_support/#customize-selective-refresh-widgets
+	 * @link https://developer.wordpress.org/reference/functions/add_theme_support/#customize-selective-refresh-widgets
 	 * @since 1.0.0
 	 */
 	add_theme_support( 'customize-selective-refresh-widgets' );
@@ -239,7 +239,7 @@ function greenlight_setup() {
 		apply_filters( 'greenlight_nav_menus', array(
 			'top'   	=> esc_html__( 'Top Menu', 'greenlight' ),
 			'primary'   => esc_html__( 'Primary Menu', 'greenlight' ),
-            'side'      => esc_html__( 'Side Menu', 'greenlight' ),
+			'side'      => esc_html__( 'Side Menu', 'greenlight' ),
 			'social'    => esc_html__( 'Social Menu', 'greenlight' ),
 			'footer'    => esc_html__( 'Footer Menu', 'greenlight' ),
 		))
@@ -256,7 +256,7 @@ function greenlight_setup() {
 		'comment-form',
 		'comment-list',
 		'gallery',
-		'caption'
+		'caption',
 	));
 
 	/**
@@ -270,16 +270,16 @@ function greenlight_setup() {
 		'image',
 		'video',
 		'quote',
-		'link'
+		'link',
 	));
 
-    /**
+	/**
 	 * Enable custom logo support. Requires WordPress 4.5.
 	 *
 	 * @link https://make.wordpress.org/core/2016/03/10/custom-logo/
 	 * @since 1.0.0
 	 */
-    add_theme_support( 'custom-logo' );
+	 add_theme_support( 'custom-logo' );
 
 	/**
 	 * Add starter content (requires WordPress 4.7)
@@ -306,14 +306,14 @@ add_action( 'after_setup_theme', 'greenlight_setup' );
  * @global array $greenlight_image_sizes
  * @since  1.0.0
  *
- * @param  array $sizes
+ * @param  array $sizes Images sizes passed from image_size_names_choose filter.
  * @return array
  */
 function greenlight_image_size_names_choose( $sizes ) {
 
-    global $greenlight_image_sizes;
+	global $greenlight_image_sizes;
 
-    $labels = array_combine(
+	$labels = array_combine(
 		array_keys( $greenlight_image_sizes ),
 		wp_list_pluck( $greenlight_image_sizes, 'label' )
 	);
@@ -332,10 +332,10 @@ function greenlight_image_size_names_choose( $sizes ) {
  */
 function greenlight_content_width() {
 
-    $layout = greenlight_get_layout();
-	$width = ( $layout === 'wide' ) ? 1200 : 840;
+	$layout = greenlight_get_layout();
+	$width = ( 'wide' === $layout ) ? 1200 : 840;
 
-    /**
+	/**
 	 * Filter the content width in pixels.
 	 *
 	 * @since 1.0.0
@@ -344,7 +344,7 @@ function greenlight_content_width() {
 	 *
 	 * @var int
 	 */
-	 $GLOBALS['content_width'] = apply_filters( 'greenlight_content_width', $width, $layout );
+	$GLOBALS['content_width'] = apply_filters( 'greenlight_content_width', $width, $layout );
 
 }
 add_action( 'after_setup_theme', 'greenlight_content_width', 0 );
@@ -368,7 +368,7 @@ add_action( 'admin_init', 'add_editor_style', 10, 0 );
  */
 function greenlight_register_sidebars() {
 
-    /**
+	/**
 	 * Filter registered widget areas.
 	 *
 	 * @since 1.0.0
@@ -408,18 +408,20 @@ function greenlight_register_sidebars() {
 			'before_title'  => '<h4 class="widget-title">',
 			'after_title'   => '</h4>',
 		),
-        'footer-4' => array(
+		'footer-4' => array(
 			'name'          => esc_html__( 'Footer 4', 'greenlight' ),
 			'description'   => esc_html__( 'This sidebar is the optional fourth column of the footer widget area.', 'greenlight' ),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</aside>',
 			'before_title'  => '<h4 class="widget-title">',
 			'after_title'   => '</h4>',
-		)
-    ));
+		),
+	));
 
 	foreach ( $sidebars as $id => $args ) {
+
 		register_sidebar( array_merge( array( 'id' => $id ), $args ) );
+
 	}
 
 }
@@ -441,52 +443,69 @@ function greenlight_scripts() {
 	$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 	// Add custom fonts, selected from the customizer.
-	wp_enqueue_style( 'greenlight-fonts', esc_url( greenlight_get_fonts_url() ), array(), null );
+	wp_enqueue_style(
+		'greenlight-fonts',
+		esc_url( greenlight_get_fonts_url() ),
+		array(),
+		null
+	);
 
-	// Add FontAwesome
-	wp_enqueue_style( 'font-awesome', esc_url( get_template_directory_uri() . "/assets/css/font-awesome{$suffix}.css" ), array(), '4.7.0' );
+	// Add FontAwesome.
+	wp_enqueue_style(
+		'font-awesome',
+		esc_url( get_template_directory_uri() . "/assets/css/font-awesome{$suffix}.css" ),
+		array(),
+		'4.7.0'
+	);
 
-	// Add grid system styles
-	wp_enqueue_style( 'greenlight-grid', esc_url( get_template_directory_uri() . "/assets/css/grid{$rtl}{$suffix}.css" ), array(), GREENLIGHT_VERSION );
+	// Add grid system styles.
+	wp_enqueue_style(
+		'greenlight-grid',
+		esc_url( get_template_directory_uri() . "/assets/css/grid{$rtl}{$suffix}.css" ),
+		array(),
+		GREENLIGHT_VERSION
+	);
 
-	// Add primary theme styles
-    wp_enqueue_style( $stylesheet, esc_url( get_stylesheet_uri() ), false, defined( 'GREENLIGHT_CHILD_VERSION' ) ? GREENLIGHT_CHILD_VERSION : GREENLIGHT_VERSION );
+	// Add primary theme styles.
+	wp_enqueue_style(
+		$stylesheet,
+		esc_url( get_stylesheet_uri() ),
+		false,
+		defined( 'GREENLIGHT_CHILD_VERSION' ) ? GREENLIGHT_CHILD_VERSION : GREENLIGHT_VERSION
+	);
+
 	wp_style_add_data( $stylesheet, 'rtl', 'replace' );
 
 	/**
-     * Filter whether inline styles get processed. If you're wanting
+	 * Filter whether inline styles get processed. If you're wanting
 	 * to do all your style adjustments via your child theme,
 	 * disabling this can make things a bit cleaner and more efficient.
-     *
-     * @since 1.0.0
-     *
-     * @var bool
-     */
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var bool
+	 */
 	if ( apply_filters( 'greenlight_do_inline_style', true ) ) {
 
 		wp_add_inline_style( $stylesheet, greenlight_inline_style() );
 
 	}
 
-	// Add primary theme JavaScript
-	wp_enqueue_script( 'greenlight', esc_url( get_template_directory_uri() . "/assets/js/greenlight{$suffix}.js" ), array( 'jquery' ), GREENLIGHT_VERSION, true );
+	// Add primary theme JavaScript.
+	wp_enqueue_script(
+		'greenlight',
+		esc_url( get_template_directory_uri() . "/assets/js/greenlight{$suffix}.js" ),
+		array( 'jquery' ),
+		GREENLIGHT_VERSION,
+		true
+	);
 
-    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+
 		wp_enqueue_script( 'comment-reply' );
+
 	}
 
-    /* // ... @TODO
-    if ( greenlight_has_hero_image() ) {
-		wp_add_inline_style(
-			$stylesheet,
-			sprintf(
-				'%s { background-image: url(%s); }',
-				greenlight_get_hero_image_selector(),
-				esc_url( greenlight_get_hero_image() )
-			)
-		);
-	}
-    */
 }
 add_action( 'wp_enqueue_scripts', 'greenlight_scripts' );
 
@@ -512,7 +531,7 @@ function greenlight_inline_style() {
 			$font = get_theme_mod( $key, $args['default'] );
 			$uppercase = get_theme_mod( $key . '_uppercase', $args['uppercase'] );
 
-			if ( $font && $font != 'None' ) {
+			if ( $font && 'None' !== $font ) {
 
 				$font = explode( ' - ', $font );
 
@@ -536,7 +555,6 @@ function greenlight_inline_style() {
 			$css .= "}\n";
 
 		}
-
 	}
 
 	/**
@@ -546,7 +564,7 @@ function greenlight_inline_style() {
 
 		$css .= "\n/* Colors */\n";
 
-		// Header
+		// Header.
 		if ( ! empty( $types['top_bar_color'] ) ) {
 
 			$default = ! empty( $types['top_bar_color']['default'] ) ? $types['top_bar_color']['default'] : null;
@@ -581,7 +599,6 @@ function greenlight_inline_style() {
 				$css .= "}\n";
 
 			}
-
 		}
 
 		if ( ! empty( $types['header_color'] ) ) {
@@ -637,7 +654,6 @@ function greenlight_inline_style() {
 				$css .= "}\n";
 
 			}
-
 		}
 
 		if ( ! empty( $types['menu_dropdown_color'] ) ) {
@@ -697,7 +713,7 @@ function greenlight_inline_style() {
 
 		}
 
-		// Buttons
+		// Buttons.
 		if ( ! empty( $types['btn_color'] ) ) {
 
 			$default_bg = ! empty( $types['btn_color']['default'] ) ? $types['btn_color']['default'] : null;
@@ -719,7 +735,7 @@ function greenlight_inline_style() {
 
 		}
 
-		// Content
+		// Content.
 		if ( ! empty( $types['heading_text'] ) ) {
 
 			// ... @TODO
@@ -769,7 +785,7 @@ function greenlight_inline_style() {
 
 		}
 
-		// Footer
+		// Footer.
 		if ( ! empty( $types['footer_color'] ) && ! empty( $types['footer_text'] ) ) {
 
 			$default_bg = ! empty( $types['footer_color']['default'] ) ? $types['footer_color']['default'] : null;
@@ -804,7 +820,7 @@ function greenlight_inline_style() {
 
 		}
 
-		// Site Info
+		// Site Info.
 		if ( ! empty( $types['info_color'] ) && ! empty( $types['info_text'] ) ) {
 
 			$default_bg = ! empty( $types['info_color']['default'] ) ? $types['info_color']['default'] : null;
@@ -838,17 +854,17 @@ function greenlight_inline_style() {
 			$css .= "}\n";
 
 		}
-
 	}
 
 	/**
-     * Filter inline CSS.
-     *
-     * @since 1.0.0
-     *
-     * @var str
-     */
+	 * Filter inline CSS.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var str
+	 */
 	return apply_filters( 'greenlight_inline_style', $css );
+
 }
 
 /**
@@ -856,12 +872,15 @@ function greenlight_inline_style() {
  *
  * @filter body_class
  * @since 1.0.0
+ *
+ * @param array $class Classes to be added to <body>.
+ * @return array $class Classes to be added to <body>, after filtering.
  */
 function greenlight_body_class( $class ) {
 
 	$class[] = 'layout-' . greenlight_get_layout();
 
-	if ( wp_is_mobile() ) {
+	if ( greenlight_is_mobile() ) {
 
 		$class[] = 'mobile';
 
@@ -890,7 +909,6 @@ function greenlight_body_class( $class ) {
 			$class[] = 'has-trans-header';
 
 		}
-
 	}
 
 	return $class;
@@ -904,12 +922,15 @@ add_filter( 'body_class', 'greenlight_body_class' );
  *
  * @filter get_custom_logo
  * @since 1.0.0
+ *
+ * @param string $html Custom logo HTML from WordPress.
+ * @return string $html Custom logo HTML from WordPress, after filtering.
  */
 function greenlight_custom_logo( $html ) {
 
 	$src = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' );
 
-	preg_match( "!^(.+?)(?:\.([^.]+))?$!", $src[0], $path );
+	preg_match( '!^(.+?)(?:\.([^.]+))?$!', $src[0], $path );
 
 	if ( greenlight_is_200( $path[1] . '@2x.' . $path[2] ) ) {
 
@@ -917,7 +938,7 @@ function greenlight_custom_logo( $html ) {
 
 	}
 
-	if ( ! empty ( $srcset ) ) {
+	if ( ! empty( $srcset ) ) {
 
 		$html = str_replace(
 			'itemprop="logo"',
@@ -950,8 +971,10 @@ function greenlight_setup_author() {
 
 	global $wp_query, $authordata;
 
-    if ( $wp_query->is_author() && isset( $wp_query->post ) ) {
-		$authordata = get_userdata( $wp_query->post->post_author );
+	if ( $wp_query->is_author() && isset( $wp_query->post ) ) {
+
+		$authordata = get_userdata( $wp_query->post->post_author ); // WPCS: override ok.
+
 	}
 
 }

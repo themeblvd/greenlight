@@ -10,21 +10,22 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?>
 
 <?php if ( greenlight_show_comments() ) : ?>
 
 	<?php if ( post_password_required() ) : ?>
 
-        <div id="comments" class="nopassword">
+		<div id="comments" class="nopassword">
 
-        	<p><?php esc_html_e( 'This post is password protected. Enter the password to view any comments.', 'greenlight' ); ?></p>
+			<p><?php esc_html_e( 'This post is password protected. Enter the password to view any comments.', 'greenlight' ); ?></p>
 
-        </div><!-- #comments  (end) -->
+		</div><!-- #comments  (end) -->
 
-        <?php return; ?>
+		<?php return; ?>
 
-    <?php endif; ?>
+	<?php endif; ?>
 
 	<div id="comments">
 
@@ -33,58 +34,58 @@
 			<!-- COMMENTS (start) -->
 
 			<h2 id="comments-title">
-                <?php
-                printf(
-                    _nx(
-                        'One thought on %2$s',
-                        '%1$d thoughts on %2$s',
-                        get_comments_number(),
-                        '1. number of comments, 2. post title',
-                        'greenlight'
-                    ),
-                    number_format_i18n( get_comments_number() ),
-                    sprintf(
-                        '<span>&ldquo;%s&rdquo;</span>',
-                        get_the_title()
-                    )
-                );
-                ?>
-            </h2>
+				<?php
+				printf(
+					esc_html( _nx(
+						'%1$d thought on %2$s',
+						'%1$d thoughts on %2$s',
+						get_comments_number(),
+						'1. number of comments, 2. post title',
+						'greenlight'
+					)),
+					esc_attr( number_format_i18n( get_comments_number() ) ),
+					sprintf(
+						'<span>&ldquo;%s&rdquo;</span>',
+						get_the_title()
+					)
+				);
+				?>
+			</h2>
 
 			<ol class="commentlist">
 				<?php
-                wp_list_comments( apply_filters( 'greenlight_comment_list', array(
-            		'avatar_size' 		=> 60,
-            		'style' 			=> 'ul',
-            		'type' 				=> 'all',
-            		'reply_text' 		=> esc_html__( 'Reply', 'greenlight' ),
-            		'login_text' 		=> esc_html__( 'Log in to Reply', 'greenlight' ),
-            		'callback' 			=> null,
-            		'reverse_top_level' => null,
-            		'reverse_children' 	=> false
-            	)));
-                ?>
+				wp_list_comments( apply_filters( 'greenlight_comment_list', array(
+					'avatar_size' 		=> 60,
+					'style' 			=> 'ul',
+					'type' 				=> 'all',
+					'reply_text' 		=> esc_html__( 'Reply', 'greenlight' ),
+					'login_text' 		=> esc_html__( 'Log in to Reply', 'greenlight' ),
+					'callback' 			=> null,
+					'reverse_top_level' => null,
+					'reverse_children' 	=> false,
+				)));
+				?>
 			</ol>
 
-			<?php if ( get_comment_pages_count() > 1 && get_option('page_comments') ) : // are there comments to navigate through ?>
+			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
 
-                <nav id="comment-nav-below">
+				<nav id="comment-nav-below">
 
-                    <div class="nav-previous">
-                        <?php previous_comments_link( esc_html__( '&larr; Older Comments', 'greenlight' ) ); ?>
-                    </div>
+					<div class="nav-previous">
+						<?php previous_comments_link( esc_html__( '&larr; Older Comments', 'greenlight' ) ); ?>
+					</div>
 
-                    <div class="nav-next">
-                        <?php next_comments_link( esc_html__( 'Newer Comments &rarr;', 'greenlight' ) ); ?>
-                    </div>
+					<div class="nav-next">
+						<?php next_comments_link( esc_html__( 'Newer Comments &rarr;', 'greenlight' ) ); ?>
+					</div>
 
-                </nav>
+				</nav>
 
 			<?php endif; ?>
 
 			<!-- COMMENTS (end) -->
 
-		<?php endif; // end if has_comments() ?>
+		<?php endif; // End if has_comments(). ?>
 
 		<?php if ( comments_open() ) : ?>
 
@@ -94,9 +95,9 @@
 
 				<div class="comment-form-inner">
 
-                    <?php comment_form(); ?>
+					<?php comment_form(); ?>
 
-                </div><!-- .comment-form-inner -->
+				</div><!-- .comment-form-inner -->
 
 			</div><!-- .comment-form-wrapper -->
 
@@ -105,8 +106,8 @@
 		<?php else : ?>
 
 			<p class="nocomments">
-                <?php esc_html_e( 'Comments are closed.', 'greenlight' ); ?>
-            </p>
+				<?php esc_html_e( 'Comments are closed.', 'greenlight' ); ?>
+			</p>
 
 		<?php endif; ?>
 

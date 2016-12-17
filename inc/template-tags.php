@@ -13,29 +13,29 @@
  */
 function greenlight_top_bar_class() {
 
-    $class = array('site-top-bar');
+	$class = array( 'site-top-bar' );
 
-    $items = greenlight_get_top_bar_items();
+	$items = greenlight_get_top_bar_items();
 
-    if ( get_theme_mod( 'do_top_menu', $items['do_top_menu']['default'] ) ) {
+	if ( get_theme_mod( 'do_top_menu', $items['do_top_menu']['default'] ) ) {
 
-        $class[] = 'has-top-menu';
+		$class[] = 'has-top-menu';
 
-    }
+	}
 
-    if ( get_theme_mod( 'top_text', $items['top_text']['default'] ) ) {
+	if ( get_theme_mod( 'top_text', $items['top_text']['default'] ) ) {
 
-        $class[] = 'has-top-text';
+		$class[] = 'has-top-text';
 
-    }
+	}
 
-    if ( get_theme_mod( 'do_top_social', $items['do_top_social']['default'] ) && has_nav_menu( 'social' ) ) {
+	if ( get_theme_mod( 'do_top_social', $items['do_top_social']['default'] ) && has_nav_menu( 'social' ) ) {
 
-        $class[] = 'has-top-social';
+		$class[] = 'has-top-social';
 
-    }
+	}
 
-    /**
+	/**
 	 * Filter the top bar class array.
 	 *
 	 * @since 1.0.0
@@ -44,18 +44,18 @@ function greenlight_top_bar_class() {
 	 */
 	if ( $class = apply_filters( 'greenlight_top_bar_class', $class ) ) {
 
-		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+		$output = sprintf( 'class="%s"', esc_attr( implode( ' ', $class ) ) );
 
-        /**
-    	 * Filter the final output of the top bar class HTML.
-    	 *
-    	 * @since 1.0.0
-    	 *
-    	 * @var string
-    	 */
-        echo apply_filters( 'greenlight_top_bar_class_output', $output, $class );
+		/**
+		 * Filter the final output of the top bar class HTML.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
+		echo apply_filters( 'greenlight_top_bar_class_output', $output, $class ); // WPCS: XSS ok, sanitization ok.
 
-    }
+	}
 }
 
 /**
@@ -65,64 +65,64 @@ function greenlight_top_bar_class() {
  */
 function greenlight_the_top_menu() {
 
-    $items = greenlight_get_top_bar_items();
+	$items = greenlight_get_top_bar_items();
 
-    $html = '';
+	$html = '';
 
-    if ( get_theme_mod( 'do_top_menu', $items['do_top_menu']['default'] ) ) {
+	if ( get_theme_mod( 'do_top_menu', $items['do_top_menu']['default'] ) ) {
 
-        $html .= "<nav class=\"top-bar-menu\">\n";
+		$html .= "<nav class=\"top-bar-menu\">\n";
 
-        ob_start();
+		ob_start();
 
-        if ( has_nav_menu( greenlight_top_menu_location() ) ) {
+		if ( has_nav_menu( greenlight_top_menu_location() ) ) {
 
-    		/**
-    		 * Filter arguments used for main menu.
-    		 *
-    		 * @since 1.0.0
-    		 *
-    		 * @var array
-    		 */
-    		wp_nav_menu( apply_filters( 'greenlight_top_nav_args', array(
-    			'theme_location'	=> greenlight_top_menu_location(),
-    			'container'			=> 'ul',
-    			'depth'     		=> 1 // Top-level only
-    		)));
+			/**
+			 * Filter arguments used for main menu.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @var array
+			 */
+			wp_nav_menu( apply_filters( 'greenlight_top_nav_args', array(
+				'theme_location'	=> greenlight_top_menu_location(),
+				'container'			=> 'ul',
+				'depth'     		=> 1, // Top-level only.
+			)));
 
-    	} else {
+		} else {
 
-    		/**
-    		 * Filter arguments used for main menu fallback.
-    		 *
-    		 * @since 1.0.0
-    		 *
-    		 * @var array
-    		 */
-    		wp_page_menu( apply_filters( 'greenlight_top_nav_fallback_args', array(
-    			'container'			=> 'ul',
-    			'depth'     		=> 1, // Top-level only
-    			'show_home' 		=> false,
-    			'before'			=> '',
-    			'after'				=> ''
-    		)));
+			/**
+			 * Filter arguments used for main menu fallback.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @var array
+			 */
+			wp_page_menu( apply_filters( 'greenlight_top_nav_fallback_args', array(
+				'container'			=> 'ul',
+				'depth'     		=> 1, // Top-level only.
+				'show_home' 		=> false,
+				'before'			=> '',
+				'after'				=> '',
+			)));
 
-    	}
+		}
 
-        $html .= ob_get_clean();
+		$html .= ob_get_clean();
 
-        $html .= "</nav>\n";
+		$html .= "</nav>\n";
 
-    }
+	}
 
-    /**
+	/**
 	 * Filter the top menu output.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
-	echo apply_filters( 'greenlight_the_top_menu', $html );
+	echo apply_filters( 'greenlight_the_top_menu', $html ); // WPCS: XSS ok, sanitization ok.
 
 }
 
@@ -133,24 +133,24 @@ function greenlight_the_top_menu() {
  */
 function greenlight_the_top_text() {
 
-    $items = greenlight_get_top_bar_items();
+	$items = greenlight_get_top_bar_items();
 
-    $html = '';
+	$html = '';
 
-    if ( $text = get_theme_mod( 'top_text', $items['top_text']['default'] ) ) {
+	if ( $text = get_theme_mod( 'top_text', $items['top_text']['default'] ) ) {
 
-        $html .= sprintf( "<div class=\"top-bar-text\">%s</div>\n", greenlight_do_fa( $text ) );
+		$html .= sprintf( "<div class=\"top-bar-text\">%s</div>\n", greenlight_do_fa( $text ) );
 
-    }
+	}
 
-    /**
+	/**
 	 * Filter the top menu output.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
-	echo apply_filters( 'greenlight_the_top_text', $html );
+	echo apply_filters( 'greenlight_the_top_text', $html ); // WPCS: XSS ok, sanitization ok.
 
 }
 
@@ -161,28 +161,28 @@ function greenlight_the_top_text() {
  */
 function greenlight_the_top_social() {
 
-    $items = greenlight_get_top_bar_items();
+	$items = greenlight_get_top_bar_items();
 
-    $html = '';
+	$html = '';
 
-    if ( get_theme_mod( 'do_top_social', $items['do_top_social']['default'] ) ) {
+	if ( get_theme_mod( 'do_top_social', $items['do_top_social']['default'] ) ) {
 
-        ob_start();
+		ob_start();
 
-        get_template_part( 'template-parts/social', 'menu' );
+		get_template_part( 'template-parts/social', 'menu' );
 
-        $html .= ob_get_clean();
+		$html .= ob_get_clean();
 
-    }
+	}
 
-    /**
+	/**
 	 * Filter the top menu output.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
-	echo apply_filters( 'greenlight_the_top_social', $html );
+	echo apply_filters( 'greenlight_the_top_social', $html ); // WPCS: XSS ok, sanitization ok.
 
 }
 
@@ -199,7 +199,7 @@ function greenlight_the_top_social() {
  */
 function greenlight_the_custom_logo() {
 
-    /**
+	/**
 	 * For backwards compatibility prior to WordPress 4.5.
 	 *
 	 * @link  https://developer.wordpress.org/reference/functions/the_custom_logo/
@@ -222,10 +222,10 @@ function greenlight_the_custom_logo() {
  */
 function greenlight_the_site_title() {
 
-    $html = sprintf(
+	$html = sprintf(
 		'<h1 class="site-title"><a href="%s" rel="home">%s</a></h1>',
 		esc_url( home_url( '/' ) ),
-		get_bloginfo( 'name' )
+		esc_html( get_bloginfo( 'name' ) )
 	);
 
 	/**
@@ -235,7 +235,7 @@ function greenlight_the_site_title() {
 	 *
 	 * @var string
 	 */
-	echo apply_filters( 'greenlight_the_site_title', $html );
+	echo apply_filters( 'greenlight_the_site_title', $html ); // WPCS: XSS ok, sanitization ok.
 
 }
 
@@ -246,9 +246,9 @@ function greenlight_the_site_title() {
  */
 function greenlight_the_site_description() {
 
-    $html = sprintf(
+	$html = sprintf(
 		'<div class="site-description">%s</div>',
-		get_bloginfo( 'description' )
+		greenlight_kses( get_bloginfo( 'description' ) )
 	);
 
 	/**
@@ -258,7 +258,7 @@ function greenlight_the_site_description() {
 	 *
 	 * @var string
 	 */
-	echo apply_filters( 'greenlight_the_site_description', $html );
+	echo apply_filters( 'greenlight_the_site_description', $html ); // WPCS: XSS ok, sanitization ok.
 
 }
 
@@ -269,22 +269,22 @@ function greenlight_the_site_description() {
  */
 function greenlight_the_site_menu_toggle() {
 
-    $html  = "<a href=\"#\" class=\"site-menu-toggle hamburger\">\n";
-    $html .= "\t<span class=\"wrap\">\n";
-    $html .= "\t\t<span class=\"top\"></span>\n";
-    $html .= "\t\t<span class=\"middle\"></span>\n";
-    $html .= "\t\t<span class=\"bottom\"></span>\n";
-    $html .= "\t</span>\n";
-    $html .= "</a>";
+	$html  = "<a href=\"#\" class=\"site-menu-toggle hamburger\">\n";
+	$html .= "\t<span class=\"wrap\">\n";
+	$html .= "\t\t<span class=\"top\"></span>\n";
+	$html .= "\t\t<span class=\"middle\"></span>\n";
+	$html .= "\t\t<span class=\"bottom\"></span>\n";
+	$html .= "\t</span>\n";
+	$html .= '</a>';
 
-    /**
+	/**
 	 * Filter the site description HTML.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
-	echo apply_filters( 'greenlight_the_site_menu_toggle', $html );
+	echo apply_filters( 'greenlight_the_site_menu_toggle', $html ); // WPCS: XSS ok, sanitization ok.
 
 }
 
@@ -295,21 +295,21 @@ function greenlight_the_site_menu_toggle() {
  */
 function greenlight_header_class() {
 
-    $class = array('site-header');
+	$class = array( 'site-header' );
 
-    if ( greenlight_has_custom_logo() ) {
+	if ( greenlight_has_custom_logo() ) {
 
-        $class[] = 'has-logo';
+		$class[] = 'has-logo';
 
-    }
+	}
 
-    if ( greenlight_do_menu_search() ) {
+	if ( greenlight_do_menu_search() ) {
 
-        $class[] = 'has-search';
+		$class[] = 'has-search';
 
-    }
+	}
 
-    /**
+	/**
 	 * Filter the header class array.
 	 *
 	 * @since 1.0.0
@@ -318,18 +318,18 @@ function greenlight_header_class() {
 	 */
 	if ( $class = apply_filters( 'greenlight_header_class', $class ) ) {
 
-		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+		$output = sprintf( 'class="%s"', esc_attr( implode( ' ', $class ) ) );
 
-        /**
-    	 * Filter the final output of the header class HTML.
-    	 *
-    	 * @since 1.0.0
-    	 *
-    	 * @var string
-    	 */
-        echo apply_filters( 'greenlight_header_class_output', $output, $class );
+		/**
+		 * Filter the final output of the header class HTML.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
+		echo apply_filters( 'greenlight_header_class_output', $output, $class ); // WPCS: XSS ok, sanitization ok.
 
-    }
+	}
 }
 
 /**
@@ -340,68 +340,66 @@ function greenlight_header_class() {
  */
 function greenlight_header_media_class() {
 
-    global $post;
+	global $post;
 
-    $class = array('site-header-media');
+	$class = array( 'site-header-media' );
 
-    if ( greenlight_has_header_thumb() ) {
+	if ( greenlight_has_header_thumb() ) {
 
-        $fs = get_post_meta( $post->ID, '_greenlight_apply_header_thumb_fs', true );
+		$fs = get_post_meta( $post->ID, '_greenlight_apply_header_thumb_fs', true );
 
-    } else {
+	} else {
 
-        $fs = get_theme_mod( 'header_media_fs', 0 );
+		$fs = get_theme_mod( 'header_media_fs', 0 );
 
-    }
+	}
 
-    if ( $fs ) {
+	if ( $fs ) {
 
-        $class[] = 'fs';
+		$class[] = 'fs';
 
-        if ( ! wp_is_mobile() ) {
+		if ( ! greenlight_is_mobile() ) {
 
-            $class[] = 'greenlight-parallax';
+			$class[] = 'greenlight-parallax';
 
-        }
+		}
+	} else {
 
-    } else {
+		$class[] = 'fw';
 
-        $class[] = 'fw';
+	}
 
-    }
+	if ( greenlight_has_header_thumb() ) {
 
-    if ( greenlight_has_header_thumb() ) {
+		$class[] = 'featured-image';
 
-        $class[] = 'featured-image';
+	}
 
-    }
-
-    /**
+	/**
 	 * Filter whether header image gets shaded for
-     * more readable text overlay.
+	 * more readable text overlay.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var bool
 	 */
-    if ( apply_filters( 'greenlight_do_header_media_shade', true ) ) {
+	if ( apply_filters( 'greenlight_do_header_media_shade', true ) ) {
 
-        $types = greenlight_get_color_types();
-        $default = ! empty( $types['menu_text']['default'] ) ? $types['menu_text']['default'] : null;
+	    $types = greenlight_get_color_types();
+	    $default = ! empty( $types['menu_text']['default'] ) ? $types['menu_text']['default'] : null;
 
-        if ( greenlight_is_light_color( sanitize_hex_color( get_theme_mod( 'menu_text', $default ) ) ) ) {
+		if ( greenlight_is_light_color( sanitize_hex_color( get_theme_mod( 'menu_text', $default ) ) ) ) {
 
-            $class[] = 'darken';
+			$class[] = 'darken';
 
-        } else {
+		} else {
 
-            $class[] = 'lighten';
+			$class[] = 'lighten';
 
-        }
+		}
+	}
 
-    }
-
-    /**
+	/**
 	 * Filter the header media class array.
 	 *
 	 * @since 1.0.0
@@ -410,18 +408,18 @@ function greenlight_header_media_class() {
 	 */
 	if ( $class = apply_filters( 'greenlight_header_media_class', $class ) ) {
 
-		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+		$output = sprintf( 'class="%s"', esc_attr( implode( ' ', $class ) ) );
 
-        /**
-    	 * Filter the final output of the header class HTML.
-    	 *
-    	 * @since 1.0.0
-    	 *
-    	 * @var string
-    	 */
-        echo apply_filters( 'greenlight_header_media_class_output', $output, $class );
+		/**
+		 * Filter the final output of the header class HTML.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
+		echo apply_filters( 'greenlight_header_media_class_output', $output, $class ); // WPCS: XSS ok, sanitization ok.
 
-    }
+	}
 }
 
 /**
@@ -431,9 +429,9 @@ function greenlight_header_media_class() {
  */
 function greenlight_footer_class() {
 
-    $class = array( 'site-footer' );
+	$class = array( 'site-footer' );
 
-    /**
+	/**
 	 * Filter the footer class array.
 	 *
 	 * @since 1.0.0
@@ -442,18 +440,18 @@ function greenlight_footer_class() {
 	 */
 	if ( $class = apply_filters( 'greenlight_footer_class', $class ) ) {
 
-		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+		$output = sprintf( 'class="%s"', esc_attr( implode( ' ', $class ) ) );
 
-        /**
-    	 * Filter the final output of the footer class HTML.
-    	 *
-    	 * @since 1.0.0
-    	 *
-    	 * @var string
-    	 */
-        echo apply_filters( 'greenlight_footer_class_output', $output, $class );
+	    /**
+		 * Filter the final output of the footer class HTML.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
+		echo apply_filters( 'greenlight_footer_class_output', $output, $class ); // WPCS: XSS ok, sanitization ok.
 
-    }
+	}
 }
 
 /**
@@ -461,35 +459,35 @@ function greenlight_footer_class() {
  *
  * @since 1.0.0
  *
- * @param int $current Current column number being displayed
+ * @param int $current Current column number being displayed.
  */
 function greenlight_footer_col_class( $current = 1 ) {
 
-    $total = count( greenlight_get_active_footer_sidebars() );
+	$total = count( greenlight_get_active_footer_sidebars() );
 
-    $class = array( 'footer-widget', 'column', 'col-md-' . strval( ( 12 / $total ) ) );
+	$class = array( 'footer-widget', 'column', 'col-md-' . strval( ( 12 / $total ) ) );
 
-    /**
+	/**
 	 * Filter the footer column class array.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var array
 	 */
-	if ( $class = apply_filters('greenlight_footer_col_class', $class, $total, $current ) ) {
+	if ( $class = apply_filters( 'greenlight_footer_col_class', $class, $total, $current ) ) {
 
-		$output = sprintf( 'class="%s"', esc_attr( implode(' ', $class) ) );
+		$output = sprintf( 'class="%s"', esc_attr( implode( ' ', $class ) ) );
 
-        /**
-    	 * Filter the final output of the footer column class HTML.
-    	 *
-    	 * @since 1.0.0
-    	 *
-    	 * @var string
-    	 */
-        echo apply_filters( 'greenlight_footer_col_class_output', $output, $class, $total, $current );
+		/**
+	 	 * Filter the final output of the footer column class HTML.
+	 	 *
+	 	 * @since 1.0.0
+	 	 *
+	 	 * @var string
+	 	 */
+		echo apply_filters( 'greenlight_footer_col_class_output', $output, $class, $total, $current ); // WPCS: XSS ok, sanitization ok.
 
-    }
+	}
 }
 
 /**
@@ -503,15 +501,15 @@ function greenlight_footer_col_class( $current = 1 ) {
  */
 function greenlight_paginate_links( $display = false ) {
 
-    global $wp_query, $wp_rewrite;
+	global $wp_query, $wp_rewrite;
 
 	if ( $wp_query->max_num_pages < 2 ) {
 
 		return;
 
-    }
+	}
 
-    $html = "";
+	$html = '';
 
 	$paged = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
 	$pagenum_link = html_entity_decode( get_pagenum_link() );
@@ -522,7 +520,7 @@ function greenlight_paginate_links( $display = false ) {
 
 		wp_parse_str( $url_parts[1], $query_args );
 
-    }
+	}
 
 	$pagenum_link = remove_query_arg( array_keys( $query_args ), $pagenum_link );
 	$pagenum_link = trailingslashit( $pagenum_link ) . '%_%';
@@ -530,60 +528,60 @@ function greenlight_paginate_links( $display = false ) {
 	$format  = $wp_rewrite->using_index_permalinks() && ! strpos( $pagenum_link, 'index.php' ) ? 'index.php/' : '';
 	$format .= $wp_rewrite->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
 
-    /**
-     * Filter arguments passed into WP's paginate_links().
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
-    $links = paginate_links( apply_filters( 'greenlight_paginate_links_args', array(
-        'base'          => $pagenum_link,
-        'format'        => $format,
-        'total'         => $wp_query->max_num_pages,
-        'current'       => $paged,
-        'mid_size'      => 3,
-        'add_args'      => array_map( 'urlencode', $query_args ),
-        'prev_next'     => false,
-        'type'          => 'array'
-        )));
+	/**
+	 * Filter arguments passed into WP's paginate_links().
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
+	$links = paginate_links( apply_filters( 'greenlight_paginate_links_args', array(
+		'base'          => $pagenum_link,
+		'format'        => $format,
+		'total'         => $wp_query->max_num_pages,
+		'current'       => $paged,
+		'mid_size'      => 3,
+		'add_args'      => array_map( 'urlencode', $query_args ),
+		'prev_next'     => false,
+		'type'          => 'array',
+	)));
 
-    if ( $links ) {
+	if ( $links ) {
 
-        $html .= "<nav class=\"paging-nav\" role=\"navigation\">\n";
-        $html .= sprintf( "\t<h2 class=\"screen-reader-text\">%s</h2>", esc_html__( 'Posts navigation', 'greenlight' ) );
-        $html .= "\t<ol>\n";
+		$html .= "<nav class=\"paging-nav\" role=\"navigation\">\n";
+		$html .= sprintf( "\t<h2 class=\"screen-reader-text\">%s</h2>", esc_html__( 'Posts navigation', 'greenlight' ) );
+		$html .= "\t<ol>\n";
 
-        foreach ( $links as $link ) {
+		foreach ( $links as $link ) {
 
-            $link = str_replace( 'page-numbers', 'btn btn-sm btn-light page-numbers', $link );
-            $html .= sprintf( "\t\t<li>%s</li>\n", $link );
+			$link = str_replace( 'page-numbers', 'btn btn-sm btn-light page-numbers', $link );
+			$html .= sprintf( "\t\t<li>%s</li>\n", $link );
 
-        }
+		}
 
-        $html .= "\t</ol>\n";
-        $html .= "</nav><!-- .paging-nav -->\n";
+		$html .= "\t</ol>\n";
+		$html .= "</nav><!-- .paging-nav -->\n";
 
-    }
+	}
 
-    /**
-     * Filter the final output of the post pagination.
-     *
-     * @since 1.0.0
-     *
-     * @var string
-     */
-    $html = apply_filters( 'greenlight_paginate_links', $html, $links );
+	/**
+	 * Filter the final output of the post pagination.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	$html = apply_filters( 'greenlight_paginate_links', $html, $links );
 
-    if ( $display ) {
+	if ( $display ) {
 
-        echo $html;
+		echo $html; // WPCS: XSS ok, sanitization ok.
 
-    } else {
+	} else {
 
-        return $html;
+		return $html;
 
-    }
+	}
 
 }
 
@@ -598,43 +596,43 @@ function greenlight_paginate_links( $display = false ) {
  */
 function greenlight_link_pages( $display = true ) {
 
-    $html = "";
+	$html = '';
 
-    $links = wp_link_pages( array(
-        'before'        => '<div class="page-links">',
-        'after'         => '</div>',
-        'link_before'   => '<span class="btn btn-light btn-sm">',
-        'link_after'    => '</span>',
-        'echo'          => false
+	$links = wp_link_pages( array(
+		'before'        => '<div class="page-links">',
+		'after'         => '</div>',
+		'link_before'   => '<span class="btn btn-light btn-sm">',
+		'link_after'    => '</span>',
+		'echo'          => false,
 	));
 
-    if ( $links ) {
+	if ( $links ) {
 
-        // Find the <span> with a space before and designate that as the current
-        $links = str_replace( ' <span class="btn btn-light btn-sm">', ' <span class="btn btn-light btn-sm current">', $links );
+		// Find the <span> with a space before and designate that as the current.
+		$links = str_replace( ' <span class="btn btn-light btn-sm">', ' <span class="btn btn-light btn-sm current">', $links );
 
-        $html = $links;
+		$html = $links;
 
-    }
+	}
 
-    /**
-     * Filter the final output of page links.
-     *
-     * @since 1.0.0
-     *
-     * @var string
-     */
-    $html = apply_filters( 'greenlight_link_pages', $html, $links );
+	/**
+	 * Filter the final output of page links.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	$html = apply_filters( 'greenlight_link_pages', $html, $links );
 
-    if ( $display ) {
+	if ( $display ) {
 
-        echo $html;
+		echo $html; // WPCS: XSS ok, sanitization ok.
 
-    } else {
+	} else {
 
-        return $html;
+		return $html;
 
-    }
+	}
 
 }
 
@@ -649,40 +647,40 @@ function greenlight_link_pages( $display = true ) {
  */
 function greenlight_the_archive_title( $display = true ) {
 
-    $title = '';
+	$title = '';
 
-    if ( is_404() ) {
+	if ( is_404() ) {
 
-        $title = esc_html__( '404: Nothing Found', 'greenlight' );
+		$title = esc_html__( '404: Nothing Found', 'greenlight' );
 
-    } else if ( is_search() ) {
+	} elseif ( is_search() ) {
 
-        $title = sprintf( esc_html__( 'Search Results For: "%s"', 'greenlight' ), get_search_query() );
+		$title = sprintf( esc_html__( 'Search Results For: "%s"', 'greenlight' ), get_search_query() );
 
-    } else {
+	} else {
 
-        $title = get_the_archive_title();
+		$title = get_the_archive_title();
 
-    }
+	}
 
-    /**
+	/**
 	 * Filter the title.
 	 *
 	 * @since 1.0.0
-     *
+	 *
 	 * @var string
 	 */
-    $title = apply_filters( 'greenlight_archive_title', $title );
+	$title = apply_filters( 'greenlight_archive_title', $title );
 
-    if ( $display ) {
+	if ( $display ) {
 
-        echo $title;
+		echo $title; // WPCS: XSS ok, sanitization ok.
 
-    } else {
+	} else {
 
-        return $title;
+		return $title;
 
-    }
+	}
 
 }
 
@@ -696,43 +694,43 @@ function greenlight_the_archive_title( $display = true ) {
  */
 function greenlight_the_archive_desc( $display = true ) {
 
-    $desc = '';
+	$desc = '';
 
-    if ( is_author() ) {
+	if ( is_author() ) {
 
-        $desc = get_the_author_meta( 'description' );
+		$desc = get_the_author_meta( 'description' );
 
-    } else if ( is_category() ) {
+	} elseif ( is_category() ) {
 
-        $desc = category_description();
+		$desc = category_description();
 
-    } else if ( is_tag() ) {
+	} elseif ( is_tag() ) {
 
-        $desc = tag_description();
+		$desc = tag_description();
 
-    } else if ( is_tax() ) {
+	} elseif ( is_tax() ) {
 
-        $desc = term_description();
+		$desc = term_description();
 
-    }
+	}
 
-    /**
+	/**
 	 * Filter the title.
 	 *
 	 * @since 1.0.0
-     *
+	 *
 	 * @var string
 	 */
-    $desc = apply_filters( 'greenlight_archive_desc', $desc );
+	$desc = apply_filters( 'greenlight_archive_desc', $desc );
 
-    if ( $display ) {
+	if ( $display ) {
 
-        echo $desc;
+		echo $desc; // WPCS: XSS ok, Sanitization ok.
 
-    } else {
+	} else {
 
-        return $desc;
+		return $desc;
 
-    }
+	}
 
 }

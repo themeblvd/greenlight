@@ -19,7 +19,7 @@ function greenlight_switch_theme() {
 
 	switch_theme( WP_DEFAULT_THEME, WP_DEFAULT_THEME );
 
-	unset( $_GET['activated'] );
+	unset( $_GET['activated'] ); // WPCS: input var ok.
 
 	add_action( 'admin_notices', 'greenlight_upgrade_notice' );
 
@@ -62,7 +62,7 @@ function greenlight_get_wp_upgrade_message() {
  */
 function greenlight_upgrade_notice() {
 
-	printf( '<div class="error"><p>%s</p></div>', greenlight_get_wp_upgrade_message() );
+	printf( '<div class="error"><p>%s</p></div>', greenlight_get_wp_upgrade_message() ); // WPCS: XSS ok, sanitization ok.
 
 }
 
@@ -74,7 +74,7 @@ function greenlight_upgrade_notice() {
  */
 function greenlight_customize() {
 
-	wp_die( greenlight_get_wp_upgrade_message(), '', array( 'back_link' => true ) );
+	wp_die( greenlight_get_wp_upgrade_message(), '', array( 'back_link' => true ) ); // WPCS: XSS ok, sanitization ok.
 
 }
 add_action( 'load-customize.php', 'greenlight_customize' );
@@ -87,9 +87,9 @@ add_action( 'load-customize.php', 'greenlight_customize' );
  */
 function greenlight_preview() {
 
-	if ( isset( $_GET['preview'] ) ) {
+	if ( isset( $_GET['preview'] ) ) { // WPCS: input var ok.
 
-		wp_die( greenlight_get_wp_upgrade_message() );
+		wp_die( greenlight_get_wp_upgrade_message() ); // WPCS: XSS ok, sanitization ok.
 
 	}
 

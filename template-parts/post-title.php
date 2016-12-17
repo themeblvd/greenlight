@@ -5,36 +5,41 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?>
 
 <header class="entry-header">
-    <div class="wrap">
+	<div class="wrap">
 
-        <?php
-        /**
-         * @hooked null
-         */
-        do_action( 'greenlight_post_title_before' );
-        ?>
+		<?php
+		/**
+		 * Fires before the title of a post in The Loop.
+		 *
+		 * @since 1.0.0
+		 */
+		do_action( 'greenlight_post_title_before' );
+		?>
 
-    	<?php if ( is_singular() ) : ?>
+		<?php if ( is_singular() ) : ?>
 
-    		<h1 class="entry-title"><?php the_title(); ?></h1>
+			<h1 class="entry-title"><?php the_title(); ?></h1>
 
-    	<?php else : ?>
+		<?php else : ?>
 
-    		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
+			<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 
-    	<?php endif; ?>
+		<?php endif; ?>
 
-        <?php get_template_part( 'template-parts/post', 'meta' ); ?>
+		<?php get_template_part( 'template-parts/post', 'meta' ); ?>
 
-    	<?php
-        /**
-         * @hooked null
-         */
-        do_action( 'greenlight_post_title_after' );
-        ?>
+		<?php
+		/**
+		 * Fires after the title of a post in The Loop.
+		 *
+		 * @since 1.0.0
+		 */
+		do_action( 'greenlight_post_title_after' );
+		?>
 
-    </div><!-- .wrap -->
+	</div><!-- .wrap -->
 </header><!-- .entry-header -->

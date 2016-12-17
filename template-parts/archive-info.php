@@ -6,20 +6,21 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?>
 
 <div class="archive-info">
 
-    <h1 class="archive-title"><?php greenlight_the_archive_title(); ?></h1>
+	<h1 class="archive-title"><?php greenlight_the_archive_title(); ?></h1>
 
-    <?php if ( $desc = greenlight_the_archive_desc( false ) ) : ?>
+	<?php if ( $desc = greenlight_the_archive_desc( false ) ) : ?>
 
-        <div class="archive-description">
+		<div class="archive-description">
 
-            <?php echo greenlight_kses( $desc ); ?>
+			<?php echo greenlight_kses( $desc ); // WPCS: XSS ok, sanitization ok. ?>
 
-        </div><!-- archive-description -->
+		</div><!-- archive-description -->
 
-    <?php endif; ?>
+	<?php endif; ?>
 
 </div><!-- .archive-title -->

@@ -6,25 +6,32 @@
  * @since 1.0.0
  */
 
+/**
+ * Sanitize complex HTML output.
+ *
+ * @since 1.0.0
+ *
+ * @param string $input Inputted text and/or HTML.
+ * @param array  $allowed Accepted HTML tags.
+ * @return string $output Cleaned text and/or HTML.
+ */
 function greenlight_kses( $input, $allowed = array() ) {
 
-    global $allowedposttags;
+	if ( ! $allowed ) {
 
-    if ( ! $allowed ) {
+		/**
+		 * Filter which HTML tags are allowed through
+		 * our standard usage of wp_kses().
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var array
+		 */
+		$allowed = apply_filters( 'greenlight_allowed_tags', wp_kses_allowed_html( 'post' ) );
 
-        /**
-         * Filter which HTML tags are allowed through
-         * our standard usage of wp_kses().
-         *
-         * @since 1.0.0
-         *
-         * @var array
-         */
-        $allowed = apply_filters( 'greenlight_allowed_tags', $allowedposttags );
+	}
 
-    }
-
-    return wp_kses( $input, $allowed );
+	return wp_kses( $input, $allowed );
 
 }
 
@@ -38,20 +45,20 @@ function greenlight_kses( $input, $allowed = array() ) {
  */
 function greenlight_sanitize_html( $input ) {
 
-    if ( current_user_can('unfiltered_html') ) {
+	if ( current_user_can( 'unfiltered_html' ) ) {
 
-    	$output = $input;
+		$output = $input;
 
-    } else {
+	} else {
 
-        $output = greenlight_kses( $input, $allowedposttags );
+		$output = greenlight_kses( $input, $allowedposttags );
 		$output = htmlspecialchars_decode( $output );
 
-    }
+	}
 
 	$output = str_replace( "\r\n", "\n", $output );
 
-    return $output;
+	return $output;
 
 }
 
@@ -65,13 +72,13 @@ function greenlight_sanitize_html( $input ) {
  */
 function greenlight_sanitize_font( $font ) {
 
-    if ( ! in_array( $font, greenlight_get_fonts() ) ) {
+	if ( ! in_array( $font, greenlight_get_fonts(), true ) ) {
 
-        return '';
+		return '';
 
-    }
+	}
 
-    return $font;
+	return $font;
 
 }
 
@@ -85,7 +92,7 @@ function greenlight_sanitize_font( $font ) {
  */
 function greenlight_sanitize_checkbox( $input ) {
 
-    return ( absint( $input ) === 1 || $input === 'on' ) ? 1 : 0;
+	return ( 1 === absint( $input ) || 'on' === $input ) ? 1 : 0;
 
 }
 
@@ -99,6 +106,6 @@ function greenlight_sanitize_checkbox( $input ) {
  */
 function greenlight_sanitize_range( $input ) {
 
-    return intval( $input );
+	return intval( $input );
 
 }

@@ -7,51 +7,64 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?>
 
-                <?php
-                /**
-                 * @hooked
-                 */
-                do_action( 'greenlight_content_end' );
-                ?>
+				<?php
+				/**
+				 * Fires afer main content and sidebars.
+				 *
+				 * @since 1.0.0
+				 */
+				do_action( 'greenlight_content_end' );
+				?>
 
-            </div><!-- .wrap -->
-        </div><!-- #content -->
+			</div><!-- .wrap -->
+		</div><!-- #content -->
 
-        <?php
-        /**
-         * @hooked
-         */
-        do_action( 'greenlight_footer_before' );
-        ?>
+		<?php
+		/**
+		 * Fires before footer.
+		 *
+		 * @since 1.0.0
+		 */
+		do_action( 'greenlight_footer_before' );
+		?>
 
-        <footer id="colophon" <?php greenlight_footer_class(); ?>>
+		<footer id="colophon" <?php greenlight_footer_class(); ?>>
 			<div class="wrap clearfix">
 
-                <?php
-                /**
-                 * @hooked greenlight_add_footer_widgets - 10
-                 */
-                do_action( 'greenlight_footer' );
-                ?>
+				<?php
+				/**
+				 * Fires just before The Loop.
+				 *
+				 * @since 1.0.0
+				 * @hooked greenlight_add_footer_widgets - 10
+				 */
+				do_action( 'greenlight_footer' );
+				?>
 
 			</div><!-- .wrap -->
 		</footer><!-- #colophon -->
 
-        <?php
-        /**
-         * @hooked greenlight_add_footer_info - 10
-         */
-        do_action( 'greenlight_footer_after' );
-        ?>
+		<?php
+		/**
+		 * Fires after footer.
+		 *
+		 * @since 1.0.0
+		 * @hooked greenlight_add_footer_info - 10
+		 */
+		do_action( 'greenlight_footer_after' );
+		?>
 
-    </div><!-- #container (end) -->
+	</div><!-- #container (end) -->
 </div><!-- #wrapper (end) -->
 
 <?php
 /**
- * @hooked null
+ * Fires before wp_footer().
+ *
+ * @since 1.0.0
  */
 do_action( 'greenlight_after' );
 ?>

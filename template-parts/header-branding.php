@@ -5,22 +5,23 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?>
 
 <div class="header-branding">
 
-    <?php if ( greenlight_has_custom_logo() ) : ?>
+	<?php if ( greenlight_has_custom_logo() ) : ?>
 
-        <?php greenlight_the_custom_logo(); ?>
+		<?php greenlight_the_custom_logo(); ?>
 
-    <?php else : ?>
+	<?php else : ?>
 
-        <?php greenlight_the_site_title(); ?>
+		<?php greenlight_the_site_title(); ?>
 
-        <?php greenlight_the_site_description(); ?>
+		<?php greenlight_the_site_description(); ?>
 
-    <?php endif; ?>
+	<?php endif; ?>
 
-    <?php greenlight_the_site_menu_toggle(); ?>
+	<?php greenlight_the_site_menu_toggle(); ?>
 
 </div><!-- .header-branding -->

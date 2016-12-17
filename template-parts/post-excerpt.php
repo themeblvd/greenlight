@@ -5,6 +5,7 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?>
 
 <div class="entry-summary">

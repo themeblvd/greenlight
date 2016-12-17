@@ -16,60 +16,58 @@
  */
 function greenlight_get_layout() {
 
-    global $post;
+	global $post;
 
-    $types = greenlight_get_layout_types();
+	$types = greenlight_get_layout_types();
 
-    /**
+	/**
 	 * Filter which post types get the layout designated
-     * for "single posts."
-     *
-     * Note: Filtering more post types onto this array
-     * will also automatically add the cooresponding
-     * meta box for the layout override whene diting the
-     * post types (see greenlight_add_meta_boxes()).
+	 * for "single posts."
+	 *
+	 * Note: Filtering more post types onto this array
+	 * will also automatically add the cooresponding
+	 * meta box for the layout override whene diting the
+	 * post types (see greenlight_add_meta_boxes()).
 	 *
 	 * @since 1.0.0
-     *
+	 *
 	 * @var array
 	 */
-    if ( is_singular( apply_filters( 'greenlight_apply_single_post_layout', array( 'post' ) ) ) ) {
+	if ( is_singular( apply_filters( 'greenlight_apply_single_post_layout', array( 'post' ) ) ) ) {
 
-        $layout = get_post_meta( $post->ID, '_greenlight_layout', true );
+		$layout = get_post_meta( $post->ID, '_greenlight_layout', true );
 
-        if ( empty( $layout ) || $layout == 'default' ) {
+		if ( empty( $layout ) || 'default' === $layout ) {
 
-            $layout = get_theme_mod( 'layout-post', $types['post']['default'] );
+			$layout = get_theme_mod( 'layout-post', $types['post']['default'] );
 
-        }
+		}
+	} elseif ( is_page() ) {
 
-    } else if ( is_page() ) {
+		$layout = get_post_meta( $post->ID, '_greenlight_layout', true );
 
-        $layout = get_post_meta( $post->ID, '_greenlight_layout', true );
+		if ( empty( $layout ) || 'default' === $default ) {
 
-        if ( empty( $layout ) || $layout == 'default' ) {
+			$layout = get_theme_mod( 'layout-page', $types['page']['default'] );
 
-            $layout = get_theme_mod( 'layout-page', $types['page']['default'] );
+		}
+	} else {
 
-        }
+		$layout = get_theme_mod( 'layout-default', $types['default']['default'] );
 
-    } else {
+	}
 
-        $layout = get_theme_mod( 'layout-default', $types['default']['default'] );
-
-    }
-
-    /**
+	/**
 	 * Filter current sidebar layout.
 	 *
 	 * @since 1.0.0
 	 *
-     * @param $types array Types of layouts
-     * @param $post POST obj
-     *
+	 * @param $types array Types of layouts
+	 * @param $post POST obj
+	 *
 	 * @var string
 	 */
-    return apply_filters( 'greenlight_layout', $layout, $types, $post );
+	return apply_filters( 'greenlight_layout', $layout, $types, $post );
 
 }
 
@@ -82,28 +80,28 @@ function greenlight_get_layout() {
  */
 function greenlight_has_sidebar() {
 
-    $has = true;
+	$has = true;
 
-    if ( strpos( greenlight_get_layout(), 'sidebar' ) === false ) {
+	if ( strpos( greenlight_get_layout(), 'sidebar' ) === false ) {
 
-        $has = false;
+		$has = false;
 
-    }
+	}
 
-    if ( $has && ! is_active_sidebar( 'sidebar' ) ) {
+	if ( $has && ! is_active_sidebar( 'sidebar' ) ) {
 
-        $has = false;
+		$has = false;
 
-    }
+	}
 
-    /**
+	/**
 	 * Filter whether to output sidebar.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var bool
 	 */
-    return (bool) apply_filters( 'greenlight_has_sidebar', $has );
+	return (bool) apply_filters( 'greenlight_has_sidebar', $has );
 
 }
 
@@ -114,9 +112,9 @@ function greenlight_has_sidebar() {
  */
 function greenlight_get_featured_image_size() {
 
-    // ... @TODO
+	// ... @TODO.
+	return '';
 
-    return '';
 }
 
 /**
@@ -135,40 +133,39 @@ function greenlight_get_featured_image_size() {
  * @global WP_Post $post
  * @since 1.0.0
  *
- * @param int $post_id
+ * @param int $post_id ID of current post.
  * @return bool
  */
 function greenlight_has_header_thumb( $post_id = 0 ) {
 
-    global $post;
+	global $post;
 
-    $has = false;
+	$has = false;
 
-    if ( is_single() || is_page() ) {
+	if ( is_single() || is_page() ) {
 
-        if ( ! $post_id && is_a( $post, 'WP_Post' ) ) {
+		if ( ! $post_id && is_a( $post, 'WP_Post' ) ) {
 
-            $post_id = $post->ID;
+			$post_id = $post->ID;
 
-        }
+		}
 
-        if ( has_post_thumbnail( $post_id ) && get_post_meta( $post_id, '_greenlight_apply_header_thumb', true ) ) {
+		if ( has_post_thumbnail( $post_id ) && get_post_meta( $post_id, '_greenlight_apply_header_thumb', true ) ) {
 
-            $has = true;
+			$has = true;
 
-        }
+		}
+	}
 
-    }
-
-    /**
-     * Filter whether current post has an
-     * header thumbnail set.
-     *
-     * @since 1.0.0
-     *
-     * @var bool
-     */
-    return (bool) apply_filters( 'greenlight_has_header_thumb', $has, $post_id );
+	/**
+	 * Filter whether current post has an
+	 * header thumbnail set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var bool
+	 */
+	return (bool) apply_filters( 'greenlight_has_header_thumb', $has, $post_id );
 
 }
 
@@ -177,32 +174,30 @@ function greenlight_has_header_thumb( $post_id = 0 ) {
  *
  * @since 1.0.0
  *
- * @param int $post_id
  * @return bool
  */
 function greenlight_has_header_media() {
 
-    $has = false;
+	$has = false;
 
-    if ( ! greenlight_has_header_thumb() && has_header_image() ) { // header thumb (i.e. featured image set as header image) always overrides general header media
+	if ( ! greenlight_has_header_thumb() && has_header_image() ) { // Header thumb (i.e. featured image set as header image) always overrides general header media.
 
-        if ( is_home() || is_archive() ) {
+		if ( is_home() || is_archive() ) {
 
-            $has = true;
+			$has = true;
 
-        }
+		}
+	}
 
-    }
-
-    /**
-     * Filter whether current post has an
-     * header thumbnail set.
-     *
-     * @since 1.0.0
-     *
-     * @var bool
-     */
-    return (bool) apply_filters( 'greenlight_has_header_media', $has );
+	/**
+	 * Filter whether current post has an
+	 * header thumbnail set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var bool
+	 */
+	return (bool) apply_filters( 'greenlight_has_header_media', $has );
 
 }
 
@@ -216,17 +211,17 @@ function greenlight_has_header_media() {
  *
  * @return bool
  */
-function greenlight_has_custom_logo () {
+function greenlight_has_custom_logo() {
 
-    /**
+	/**
 	 * For backwards compatibility prior to WordPress 4.5.
 	 *
 	 * @link  https://developer.wordpress.org/reference/functions/has_custom_logo/
 	 * @since 1.0.0
 	 */
-    $enabled = function_exists( 'has_custom_logo' ) ? has_custom_logo() : false;
+	$enabled = function_exists( 'has_custom_logo' ) ? has_custom_logo() : false;
 
-    /**
+	/**
 	 * Filter if the site has a custom logo.
 	 *
 	 * @since 1.0.0
@@ -250,19 +245,19 @@ function greenlight_has_custom_logo () {
  */
 function greenlight_has_active_categories() {
 
-    if ( WP_DEBUG || false === ( $has_active_categories = get_transient( 'greenlight_has_active_categories' ) ) ) {
+	if ( WP_DEBUG || false === ( $has_active_categories = get_transient( 'greenlight_has_active_categories' ) ) ) {
 
-        $categories = get_categories( array(
+		$categories = get_categories( array(
 			'fields'     => 'ids',
 			'hide_empty' => 1,
-			'number'     => 2, // We only care if more than 1 exists
+			'number'     => 2, // We only care if more than 1 exists.
 		));
 
 		$has_active_categories = ( count( $categories ) > 1 );
 
-        set_transient( 'greenlight_has_active_categories', $has_active_categories );
+		set_transient( 'greenlight_has_active_categories', $has_active_categories );
 
-    }
+	}
 
 	/**
 	 * Filter if the site has active categories.
@@ -284,51 +279,52 @@ function greenlight_has_active_categories() {
  */
 function greenlight_get_fonts_url() {
 
-    $types = greenlight_get_font_types();
+	$types = greenlight_get_font_types();
 
-    $fonts = array();
+	$fonts = array();
 
-    if ( $types ) {
-        foreach ( $types as $key => $args ) {
+	if ( $types ) {
+		foreach ( $types as $key => $args ) {
 
-            $font = get_theme_mod( $key, $args['default'] );
+			$font = get_theme_mod( $key, $args['default'] );
 
-            if ( ! $font || $font == 'None' ) {
-                continue;
-            }
+			if ( ! $font || 'None' === $font ) {
+				continue;
+			}
 
-            $font = explode( ' - ', $font );
+			$font = explode( ' - ', $font );
 
-            if ( ! isset( $fonts[ $font[0] ] ) ) {
-                $fonts[ $font[0] ] = array();
-            }
+			if ( ! isset( $fonts[ $font[0] ] ) ) {
+				$fonts[ $font[0] ] = array();
+			}
 
-            $weight = greenlight_get_font_weight( $font[1] );
+			$weight = greenlight_get_font_weight( $font[1] );
 
-            if ( ! in_array( $weight, $fonts[ $font[0] ] ) ) {
-                $fonts[ $font[0] ][] = $weight;
-            }
+			if ( ! in_array( $weight, $fonts[ $font[0] ], true ) ) {
 
-        }
-    }
+				$fonts[ $font[0] ][] = $weight;
 
-    if ( $fonts ) {
-        foreach ( $fonts as $key => $val ) {
+			}
+		}
+	}
 
-            $fonts[$key] = $key . ':' . implode( ',', $val );
-            $fonts[$key] = str_replace( ' ', '+', $fonts[$key] );
+	if ( $fonts ) {
+		foreach ( $fonts as $key => $val ) {
 
-        }
-    }
+			$fonts[ $key ] = $key . ':' . implode( ',', $val );
+			$fonts[ $key ] = str_replace( ' ', '+', $fonts[ $key ] );
 
-    /**
-     * Filter URL to retrieve web fonts.
-     *
-     * @since 1.0.0
-     *
-     * @var str
-     */
-    return apply_filters( 'greenlight_fonts_url', 'https://fonts.googleapis.com/css?family=' . implode( '|', $fonts ) );
+		}
+	}
+
+	/**
+	 * Filter URL to retrieve web fonts.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var str
+	 */
+	return apply_filters( 'greenlight_fonts_url', 'https://fonts.googleapis.com/css?family=' . implode( '|', $fonts ) );
 
 }
 
@@ -338,59 +334,60 @@ function greenlight_get_fonts_url() {
  *
  * @since 1.0.0
  *
+ * @param string $name Name of font weight.
  * @return str $weight URL to include fonts
  */
 function greenlight_get_font_weight( $name ) {
 
-    $weight = '400'; // default
+	$weight = '400'; // Default value.
 
-    switch ( $name ) {
+	switch ( $name ) {
 
-        case 'Thin' :
-            $weight = '100';
-            break;
+		case 'Thin' :
+			$weight = '100';
+			break;
 
-        case 'Extra-Light' :
-            $weight = '200';
-            break;
+		case 'Extra-Light' :
+			$weight = '200';
+			break;
 
-        case 'Light' :
-            $weight = '300';
-            break;
+		case 'Light' :
+			$weight = '300';
+			break;
 
-        case 'Regular' :
-            $weight = '400';
-            break;
+		case 'Regular' :
+			$weight = '400';
+			break;
 
-        case 'Medium' :
-            $weight = '500';
-            break;
+		case 'Medium' :
+			$weight = '500';
+			break;
 
-        case 'Semi-Bold' :
-            $weight = '600';
-            break;
+		case 'Semi-Bold' :
+			$weight = '600';
+			break;
 
-        case 'Bold' :
-            $weight = '700';
-            break;
+		case 'Bold' :
+			$weight = '700';
+			break;
 
-        case 'Extra-Bold' :
-            $weight = '800';
-            break;
+		case 'Extra-Bold' :
+			$weight = '800';
+			break;
 
-        case 'Black' :
-            $weight = '900';
+		case 'Black' :
+			$weight = '900';
 
-    }
+	}
 
-    /**
-     * Filter converted CSS font weight.
-     *
-     * @since 1.0.0
-     *
-     * @var str
-     */
-    return apply_filters( 'greenlight_font_weight', $weight, $name );
+	/**
+	 * Filter converted CSS font weight.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var str
+	 */
+	return apply_filters( 'greenlight_font_weight', $weight, $name );
 
 }
 
@@ -403,22 +400,22 @@ function greenlight_get_font_weight( $name ) {
  *
  * @since 1.0.0
  *
- * @var string $url The URL to some file, local or external
- * @return bool Whether the https status was 200
+ * @param string $url The URL to some file, local or external.
+ * @return bool Whether the https status was 200.
  */
 function greenlight_is_200( $url ) {
 
 	$code = 0;
 
 	$response = wp_remote_head( $url, array(
-        'timeout' => 5
-    ));
+		'timeout' => 5,
+	));
 
 	if ( ! is_wp_error( $response ) && isset( $response['response']['code'] ) ) {
 		$code = $response['response']['code'];
 	}
 
-	return $code === 200;
+	return 200 === $code;
 }
 
 /**
@@ -431,11 +428,11 @@ function greenlight_is_200( $url ) {
  */
 function greenlight_get_footer_sidebars() {
 
-    global $wp_registered_sidebars;
+	global $wp_registered_sidebars;
 
-    $sidebars = preg_grep( '/^footer-(.*)/', array_keys( $wp_registered_sidebars ) );
+	$sidebars = preg_grep( '/^footer-(.*)/', array_keys( $wp_registered_sidebars ) );
 
-    /**
+	/**
 	 * Filter the array of footer widget areas.
 	 *
 	 * @since 1.0.0
@@ -481,9 +478,9 @@ function greenlight_has_active_footer_sidebars() {
  */
 function greenlight_do_top_bar() {
 
-    $do = get_theme_mod( 'do_top_bar', 1 );
+	$do = get_theme_mod( 'do_top_bar', 1 );
 
-    /**
+	/**
 	 * Filter if top bar displays.
 	 *
 	 * @since 1.0.0
@@ -504,7 +501,7 @@ function greenlight_do_top_bar() {
  */
 function greenlight_do_menu_search() {
 
-    /**
+	/**
 	 * Filter if search gets applied to main menu.
 	 *
 	 * @since 1.0.0
@@ -524,10 +521,10 @@ function greenlight_do_menu_search() {
  */
 function greenlight_primary_menu_location() {
 
-    /**
+	/**
 	 * Filter if primary menu theme location. Useful for
-     * filtering in an alternate registed nav menu for different
-     * scenarios, like special pages, mobile-specific, etc.
+	 * filtering in an alternate registed nav menu for different
+	 * scenarios, like special pages, mobile-specific, etc.
 	 *
 	 * @since 1.0.0
 	 *
@@ -546,10 +543,10 @@ function greenlight_primary_menu_location() {
  */
 function greenlight_top_menu_location() {
 
-    /**
+	/**
 	 * Filter if top menu theme location. Useful for
-     * filtering in an alternate registed nav menu for different
-     * scenarios, like special pages, mobile-specific, etc.
+	 * filtering in an alternate registed nav menu for different
+	 * scenarios, like special pages, mobile-specific, etc.
 	 *
 	 * @since 1.0.0
 	 *
@@ -568,25 +565,25 @@ function greenlight_top_menu_location() {
  */
 function greenlight_show_comments() {
 
-    $show = true;
+	$show = true;
 
-    // If the current post's type doesn't support comments, comments
+	// If the current post's type doesn't support comments, comments
 	// presence should be hidden.
 	if ( $show && ! post_type_supports( get_post_type(), 'comments' ) ) {
 
-    	$show = false;
+		$show = false;
 
-    }
+	}
 
 	// If comments are closed AND no comments exist, then it doesn't
 	// make sense to have any comments presence.
 	if ( $show && ! comments_open() && ! have_comments() ) {
 
-    	$show = false;
+		$show = false;
 
-    }
+	}
 
-    /**
+	/**
 	 * Filter if comments template should display
 	 *
 	 * @since 1.0.0
@@ -602,8 +599,8 @@ function greenlight_show_comments() {
  *
  * @since 2.5.0
  *
- * @param string $hex Color hex - ex: #000 or 000
- * @param string $opacity Opacity value to determine rgb vs rgba - ex: 0.5
+ * @param string $color Color hex - ex: #000 or 000.
+ * @param string $opacity Opacity value to determine rgb vs rgba - ex: 0.5.
  * @return array $classes Classes for element.
  */
 function themeblvd_get_rgb( $color, $opacity = '' ) {
@@ -616,43 +613,45 @@ function themeblvd_get_rgb( $color, $opacity = '' ) {
 
 	}
 
-	// Sanitize $color if "#" is provided
+	// Sanitize $color if "#" is provided.
 	$color = str_replace( '#', '', $color );
 
-    // Check if color has 6 or 3 characters and get values
-    if ( strlen( $color ) == 6 ) {
+	// Check if color has 6 or 3 characters and get values.
+	if ( 6 === strlen( $color ) ) {
 
-        $hex = array( $color[0].$color[1], $color[2].$color[3], $color[4].$color[5] );
+		$hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
 
-    } else if ( strlen($color) == 3 ) {
+	} elseif ( 3 === strlen( $color ) ) {
 
-        $hex = array( $color[0].$color[0], $color[1].$color[1], $color[2].$color[2] );
+		$hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
 
-    } else {
+	} else {
 
-    	return $default;
+		return $default;
 
-    }
+	}
 
-    // Convert hexadec to rgb
-    $rgb =  array_map( 'hexdec', $hex );
+	// Convert hexadec to rgb.
+	$rgb = array_map( 'hexdec', $hex );
 
-    // Check if opacity is set(rgba or rgb)
-    if ( $opacity ) {
+	// Check if opacity is set(rgba or rgb).
+	if ( $opacity ) {
 
 		if ( abs( $opacity ) > 1 ) {
-    		$opacity = '1.0';
-    	}
 
-        $output = sprintf( 'rgba(%s,%s)', implode( ',', $rgb ), $opacity );
+			$opacity = '1.0';
 
-    } else {
+		}
 
-    	$output = sprintf( 'rgb(%s)', implode( ',', $rgb ) );
+		$output = sprintf( 'rgba(%s,%s)', implode( ',', $rgb ), $opacity );
 
-    }
+	} else {
 
-    return $output;
+		$output = sprintf( 'rgb(%s)', implode( ',', $rgb ) );
+
+	}
+
+	return $output;
 
 }
 
@@ -664,38 +663,38 @@ function themeblvd_get_rgb( $color, $opacity = '' ) {
  *
  * @since 2.0.0
  *
- * @param string $color Color hex to determine if light. Ex: #ffffff
+ * @param string $color Color hex to determine if light - Ex: #ffffff.
  * @return bool $light Whether color is considered light.
  */
 function greenlight_is_light_color( $color ) {
 
-    $light = false;
+	$light = false;
 
 	// Pop off '#' from start.
 	$color = explode( '#', $color );
 	$color = $color[1];
 
-	// Break up the color in its RGB components
+	// Break up the color in its RGB components.
 	$r = hexdec( substr( $color, 0, 2 ) );
 	$g = hexdec( substr( $color, 2, 2 ) );
 	$b = hexdec( substr( $color, 4, 2 ) );
 
-	// Simple weighted average
+	// Simple weighted average.
 	if ( $r + $g + $b > 382 ) {
 
-	    $light = true;
+		$light = true;
 
-    }
+	}
 
 	return (bool) apply_filters( 'greenlight_is_light_color', $light, $color );
 }
 
 /**
- * Process any FontAwesome icons passed in as %icon%.
+ * Process any FontAwesome icons passed in as %%icon%%.
  *
- * @since 2.5.0
+ * @since 1.0.0
  *
- * @param string $str String to search
+ * @param string $str String to search.
  * @return string $str Filtered original string
  */
 function greenlight_do_fa( $str ) {
@@ -706,27 +705,55 @@ function greenlight_do_fa( $str ) {
 
 		$list = true;
 
-		if ( substr_count( trim( $str ), "\n") ) {
-			$list = false; // If text has more than one line, we won't make into an inline list
+		if ( substr_count( trim( $str ), "\n" ) ) {
+
+			$list = false; // If text has more than one line, we won't make into an inline list.
+
 		}
 
-		$total = count($icons[0]);
+		$total = count( $icons[0] );
 
 		if ( $list ) {
-			$str = sprintf("<ul class=\"list-inline\">\n<li>%s</li>\n</ul>", $str);
+
+			$str = sprintf( "<ul class=\"list-inline\">\n<li>%s</li>\n</ul>", $str );
+
 		}
 
 		foreach ( $icons[0] as $key => $val ) {
 
-			$html = apply_filters('themeblvd_do_fa_html', '<i class="fa fa-fw fa-%s"></i>', $str);
+			$html = apply_filters( 'themeblvd_do_fa_html', '<i class="fa fa-fw fa-%s"></i>', $str );
 
 			if ( $list && $key > 0 ) {
-				$html = "<li>\n".$html;
+				$html = "<li>\n" . $html;
 			}
 
-			$str = str_replace( $val, sprintf( $html, $icons[1][$key] ), $str );
+			$str = str_replace( $val, sprintf( $html, $icons[1][ $key ] ), $str );
+
 		}
 	}
 
 	return $str;
+}
+
+/**
+ * A wrapper for wp_is_mobile() so we can use jetpack_is_mobile()
+ * instead, if it exists. jetpack_is_mobile() is more robust
+ * and works better with full-page caching.
+ *
+ * @since 1.0.0
+ *
+ * @return bool Whether on a mobile device.
+ */
+function greenlight_is_mobile() {
+
+	if ( function_exists( 'jetpack_is_mobile' ) ) {
+
+		return jetpack_is_mobile();
+
+	} else {
+
+		return wp_is_mobile();
+
+	}
+
 }

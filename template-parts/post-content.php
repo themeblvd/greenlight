@@ -5,12 +5,13 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?>
 
 <div class="entry-content">
 
-	<?php /* @TODO // ... this should be Read More button somehow, filtered in maybe? */ the_content( __( 'Read More <span class="meta-nav">&rarr;</span>', 'greenlight' ) ); ?>
+	<?php the_content( __( 'Read More <span class="meta-nav">&rarr;</span>', 'greenlight' ) ); ?>
 
-	<?php greenlight_link_pages(); // wrapper for WP's link_pages() ?>
+	<?php greenlight_link_pages(); // Wrapper for WP's link_pages(). ?>
 
 </div><!-- .entry-content -->

@@ -5,23 +5,29 @@
  * @package Greenlight
  * @since 1.0.0
  */
+
 ?><!DOCTYPE html>
 
 <html <?php language_attributes(); ?>>
 
 <head>
+
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+
 	<?php wp_head(); ?>
+
 </head>
 
 <body <?php body_class(); ?>>
 
 <?php
 /**
- * @hooked null
+ * Fires before anything else, just inside <body>.
+ *
+ * @since 1.0.0
  */
 do_action( 'greenlight_before' );
 ?>
@@ -31,6 +37,9 @@ do_action( 'greenlight_before' );
 
 		<?php
 		/**
+		 * Fires before header.
+		 *
+		 * @since 1.0.0
 		 * @hooked greenlight_add_top_bar - 10
 		 */
 		do_action( 'greenlight_header_before' );
@@ -41,6 +50,9 @@ do_action( 'greenlight_before' );
 
 				<?php
 				/**
+				 * Fires within header.
+				 *
+				 * @since 1.0.0
 				 * @hooked greenlight_add_header_branding - 10
 				 * @hooked greenlight_add_header_search - 20
 				 * @hooked greenlight_add_header_menu - 30
@@ -53,6 +65,9 @@ do_action( 'greenlight_before' );
 
 		<?php
 		/**
+		 * Fires after header.
+		 *
+		 * @since 1.0.0
 		 * @hooked greenlight_add_header_media - 10
 		 */
 		do_action( 'greenlight_header_after' );
@@ -63,7 +78,9 @@ do_action( 'greenlight_before' );
 
 				<?php
 				/**
-				 * @hooked null
+				 * Fires before main content and sidebars.
+				 *
+				 * @since 1.0.0
 				 */
 				do_action( 'greenlight_content_start' );
 				?>
