@@ -43,7 +43,7 @@
 
 	<?php
 	/**
- 	 * Fires after inner content of post.
+	 * Fires after inner content of post.
 	 *
 	 * @since 1.0.0
 	 */
