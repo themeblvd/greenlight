@@ -28,7 +28,7 @@
 			'depth'             => 1,
 			'fallback_cb'       => false,
 			'container'         => 'ul',
-		));
+		)));
 		?>
 
 	</nav><!-- .social-menu -->
