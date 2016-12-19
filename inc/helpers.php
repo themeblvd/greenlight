@@ -46,7 +46,7 @@ function greenlight_get_layout() {
 
 		$layout = get_post_meta( $post->ID, '_greenlight_layout', true );
 
-		if ( empty( $layout ) || 'default' === $default ) {
+		if ( empty( $layout ) || 'default' === $layout ) {
 
 			$layout = get_theme_mod( 'layout-page', $types['page']['default'] );
 
