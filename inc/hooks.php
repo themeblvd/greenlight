@@ -125,13 +125,29 @@ add_action( 'greenlight_site_info', 'greenlight_add_social_menu' );
  */
 function greenlight_add_header_media() {
 
-	if ( greenlight_has_header_thumb() ) {
+	if ( greenlight_has_header_thumb() || greenlight_has_header_media() ) {
 
-		get_template_part( 'template-parts/header', 'thumb' );
+		if ( have_posts() ) {
+			while ( have_posts() ) {
 
-	} elseif ( greenlight_has_header_media() ) {
+				the_post();
 
-		get_template_part( 'template-parts/header', 'media' );
+				if ( greenlight_has_header_thumb() ) {
+
+					get_template_part( 'template-parts/header', 'thumb' );
+
+				} elseif ( greenlight_has_header_media() ) {
+
+					get_template_part( 'template-parts/header', 'media' );
+
+				}
+
+				break; // 1st post only.
+
+			}
+		}
+
+		rewind_posts();
 
 	}
 

@@ -491,6 +491,90 @@ function greenlight_footer_col_class( $current = 1 ) {
 }
 
 /**
+ * Display the date a post was published.
+ *
+ * @since 1.0.0
+ */
+function greenlight_the_time() {
+
+	$html  = sprintf( '<span class="screen-reader-text">%1$s</span>', esc_html_x( 'Posted on', 'post date', 'greenlight' ) );
+
+	$html .= sprintf( '<time class="entry-date published updated" datetime="%1$s">%2$s</time>', get_the_date( DATE_W3C ), get_the_date() );
+
+	/**
+	 * Filter the time link to display when a post
+	 * was published.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	echo apply_filters( 'greenlight_the_time', $html ); // WPCS: XSS ok, sanitization ok.
+
+}
+
+/**
+ * Display the author of a post.
+ *
+ * @since 1.0.0
+ */
+function greenlight_the_author() {
+
+	$html  = sprintf( '<span class="screen-reader-text">%1$s</span>', esc_html_x( 'by', 'post author', 'greenlight' ) );
+
+	$html .= sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s">%2$s</a></span>', esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ), get_the_author() );
+
+	/**
+	 * Filter the author link for a post.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	echo apply_filters( 'greenlight_the_author', $html ); // WPCS: XSS ok, sanitization ok.
+
+}
+
+/**
+ * Display the category or categories of a post.
+ *
+ * @since 1.0.0
+ */
+function greenlight_the_category() {
+
+	$html = '';
+
+	$tax = 'category';
+
+	if ( 'portfolio_item' === get_post_type() ) { // Requires Portfolios plugin.
+
+		$tax = 'portfolio';
+
+	}
+
+	$category = get_the_term_list( get_the_ID(), $tax, '', ', ' );
+
+	if ( $category ) {
+
+		$html .= sprintf( '<span class="screen-reader-text">%1$s</span>', esc_html_x( 'in', 'post category', 'greenlight' ) );
+
+		$html .= sprintf( '<span class="category">%1$s</span>', $category );
+
+	}
+
+	/**
+	 * Filter the display of category or categories
+	 * of a post.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	echo apply_filters( 'greenlight_the_category', $html ); // WPCS: XSS ok, sanitization ok.
+
+}
+
+/**
  * Display pagination.
  *
  * @link https://codex.wordpress.org/Function_Reference/paginate_links
