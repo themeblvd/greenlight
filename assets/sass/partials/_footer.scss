@@ -1,0 +1,65 @@
+/* =Footer
+----------------------------------------------- */
+
+.site-footer {
+	background: #59928c; /* secondary color */
+	color: #fff;
+	color: rgba(255,255,255,0.8);
+	font-size: .9375rem;
+	padding: 60px 40px;
+}
+.site-footer h1,
+.site-footer h2,
+.site-footer h3,
+.site-footer h4,
+.site-footer h5,
+.site-footer h6 {
+	color: #fff;
+}
+.site-footer a,
+.footer-info a {
+	color: inherit;
+	border-bottom: 1px solid rgba(255,255,255,0.8);
+	padding-bottom: 1px;
+	text-decoration: none;
+}
+.footer-info a {
+	border-bottom-color: rgba(255,255,255,0.6);
+}
+.site-footer a:hover,
+.site-footer a:focus,
+.footer-info a:hover,
+.footer-info a:focus {
+	border-color: #fff;
+	color: #fff;
+}
+
+/* Site Info */
+.footer-info {
+	background: #26393d; /* primary color */
+	color: rgba(255,255,255,0.6);
+	font-size: .875rem;
+	padding: 40px 30px;
+	text-align: center;
+}
+
+/* Social Menu */
+.footer-info .social-menu {
+	margin-bottom: 20px;
+}
+.footer-info .social-menu > ul > li > a:before {
+	font-size: 1.5rem;
+}
+
+/* Footer Menu */
+.footer-menu {
+	padding-top: .5rem;
+}
+.footer-menu > ul {
+	margin: 0;
+}
+.footer-menu > ul > li {
+	display: inline-block;
+	list-style: none;
+	padding: 0 .3125rem;
+}

@@ -1,0 +1,75 @@
+/* =Layout
+----------------------------------------------- */
+
+/* Shared */
+.site-header,
+.site-header-media .entry-header,
+.site-content,
+.site-footer {
+	padding-right: 40px;
+	padding-left: 40px;
+}
+.site-top-bar > .wrap,
+.site-header > .wrap,
+.site-content > .wrap,
+.site-footer > .wrap {
+	margin: 0 auto;
+	max-width: 1200px;
+}
+
+/* Header */
+
+
+/* Content */
+.site-content {
+	padding-top: 60px;
+	padding-bottom: 60px;
+}
+#primary {
+	padding: 0 0 50px 0;
+}
+@media (min-width: 62em) {
+
+	/* Sidebar Right */
+	.layout-sidebar-right #primary {
+		float: left;
+		padding: 0 60px 0 0;
+		width: 75%;
+	}
+	.layout-sidebar-right #secondary {
+		float: right;
+		width: 25%;
+	}
+
+	/* Sidebar Left */
+	.layout-sidebar-left #primary {
+		float: right;
+		padding: 0 0 0 60px;
+		width: 75%;
+	}
+	.layout-sidebar-left #secondary {
+		float: left;
+		width: 25%;
+	}
+
+	/* Narrow */
+	.layout-narrow #primary {
+		margin: 0 auto;
+		padding: 0 30px;
+		width: 75%;
+	}
+
+	/* Wide */
+	/* No styling */
+
+}
+
+/* Footer */
+.footer-widget-area.row {
+	margin-right: -1.875em; /* -30px */
+	margin-left: -1.875em; /* -30px */
+}
+.footer-widget.column {
+	padding-right: 1.875em; /* 30px */
+	padding-left: 1.875em; /* 30px */
+}

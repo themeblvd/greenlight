@@ -1,0 +1,36 @@
+/* =Elements
+----------------------------------------------- */
+
+html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+	/* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+body {
+    background: #ffffff;
+    word-wrap: break-word;
+}
+blockquote,
+q {
+    quotes: "" "";
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+}
+hr {
+    background-color: rgba(37, 37, 37, 0.1);
+    border: 0;
+    height: 1px;
+    margin-bottom: 1.5em;
+}

@@ -1,0 +1,16 @@
+/* =Utilities
+----------------------------------------------- */
+
+/* Clearfix */
+.clearfix:before,
+.clearfix:after,
+.row:before,
+.row:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after,
+.container:after,
+.row:after {
+	clear: both;
+}

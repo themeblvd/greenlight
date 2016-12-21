@@ -1,0 +1,9 @@
+# environment = ":production"
+http_path = "/" #root level target path
+css_dir = "." #targets our default style.css file at the root level of our theme
+sass_dir = "assets/sass" #targets our sass directory
+images_dir = "assets/images" #targets our pre existing image directory
+javascripts_dir = "assets/js" #targets our JavaScript directory
+# output_style = ":expanded"
+relative_assets = true
+line_comments = false
