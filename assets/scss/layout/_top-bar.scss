@@ -5,7 +5,7 @@
 
 	background-color: #182e30; /* darkenned primary color */
 	color: #fff;
-	font-size: 13px;
+	font-size: em($font-size-top-bar);
 	padding: .8em 40px;
 	position: relative;
 	z-index: 2;
@@ -27,14 +27,12 @@
 
 		> ul > li {
 			padding: 0;
-
-			> a {
-				padding: 0 1px;
-
-				&:before {
-					font-size: 16px;
-				}
-			}
+		}
+		> ul > li > a {
+			padding: 0 1px;
+		}
+		> ul > li > a:before {
+			font-size: $font-size-base;
 		}
 	}
 

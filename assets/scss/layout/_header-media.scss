@@ -1,3 +1,4 @@
+
 /* =Header Media
 ----------------------------------------------- */
 
@@ -45,23 +46,23 @@
 		color: #fff;
 	}
 	.site-header-media .entry-title {
-		font-size: 3.4em;
-		letter-spacing: .08em;
+		font-size: em($font-size-header-media-title);
+		letter-spacing: $letter-spacing;
 		margin: 0 auto;
 		max-width: 900px;
 		text-transform: uppercase;
 	}
 	.site-header-media .entry-meta {
-		font-size: .75em;
-		margin-top: 1.4em;
+		font-size: em($font-size-header-media-meta);
+		margin-top: em($font-size-header-media-meta, $font-size-header-media-meta);
 	}
 }
 @media (max-width: 68.75em) {
 	.site-header-media .entry-header {
-		padding-top: 40px;
-		padding-bottom: 40px;
+		padding-top: em(40px);
+		padding-bottom: em(40px);
 	}
 	.site-header-media .entry-title {
-		line-height: 1.2;
+		line-height: $font-lh-header-lg;
 	}
 }

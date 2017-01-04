@@ -1,18 +1,14 @@
+
 /* =Widgets
 ----------------------------------------------- */
 
 .widget-title {
-	font-size: 1em;
-	letter-spacing: 1px;
+	font-size: $font-size-widget-title;
+	letter-spacing: $letter-spacing;
 	text-transform: uppercase;
 }
 
 /* Sidebar */
-.site-sidebar {
-
-	.widget {
-		margin-bottom: 40px;
-		margin-bottom: 2.5rem;
-	}
-
+.site-sidebar .widget {
+	margin-bottom: em(40px);
 }

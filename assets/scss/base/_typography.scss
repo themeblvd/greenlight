@@ -1,3 +1,4 @@
+
 /* =Typography
 ----------------------------------------------- */
 
@@ -13,10 +14,9 @@ select,
 textarea {
     color: #252525;
     font-family: sans-serif;
-    font-weight: normal;
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-weight: $font-weight-base;
+    font-size: $font-size-base;
+    line-height: $font-lh-base;
 }
 @media (max-width: 47.9375em) {
     body,
@@ -24,35 +24,34 @@ textarea {
     input,
     select,
     textarea {
-        font-size: 14.4px;
-        font-size: 0.9rem;
+        font-size: em($font-size-sm);
     }
 }
 h1, h2, h3, h4, h5, h6 {
 	clear: both;
-	font-weight: bold;
-	line-height: 1.4;
-	margin-top: 0.2rem;
-	margin-bottom: 0.8rem;
+	font-weight: $font-weight-header;
+	line-height: $font-lh-header;
+	margin-top: rem(5px);
+	margin-bottom: rem(15px);
 	text-rendering: optimizeLegibility;
 }
 h1 {
-    font-size: 2.5em;
+    font-size: em($font-size-base * 2.5 );
 }
 h2 {
-    font-size: 2em;
+    font-size: em($font-size-base * 2);
 }
 h3 {
-    font-size: 1.5em;
+    font-size: em($font-size-base * 1.5);
 }
 h4 {
-    font-size: 1.25em;
+    font-size: em($font-size-base * 1.25);
 }
 h5 {
-    font-size: 1.125em;
+    font-size: em($font-size-base * 1.125);
 }
 h6 {
-    font-size: 1em;
+    font-size: em($font-size-base);
 }
 a {
 	color: #1abc9c;
@@ -63,7 +62,7 @@ a:focus {
 	color: #16a085;
 }
 p {
-    margin-bottom: 1.5em;
+    margin-bottom: em(24px);
 }
 dfn, cite, em, i {
     font-style: italic;
@@ -86,18 +85,16 @@ pre {
     border: 1px solid rgba(37, 37, 37, 0.1);
     border-radius: 2px;
     font-family: "Courier 10 Pitch", Courier, monospace;
-    font-size: 15px;
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    font-size: em($font-size-pre);
+    line-height: $font-lh-base;
     margin-bottom: 1.6em;
     max-width: 100%;
     overflow: auto;
     padding: 1em;
 }
 code, kbd, tt, var {
-    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-    font-size: 15px;
-    font-size: 0.9375rem;
+    font-family: $font-fam-code;
+    font-size: em($font-size-code);
 }
 code {
     padding: 0.125rem 0.25rem;

@@ -1,3 +1,4 @@
+
 /* =Comments
 ----------------------------------------------- */
 
@@ -23,8 +24,9 @@
 	margin: 0 0 30px 0;
 }
 #comments .comment-body {
-	font-size: 15px;
-	padding: 0 0 0 80px;
+	font-size: em($font-size-comments);
+	margin-bottom: 0;
+	padding: 0 0 20px 80px;
 	position: relative;
 }
 #comments .comment-body .avatar {
@@ -48,11 +50,14 @@
 #comments .comment-body .comment-metadata {
 	color: #999999;
 	color: rgba(26,26,26,.4);
-	font-size: 12px;
+	font-size: em($font-size-comments-meta);
 }
 #comments .comment-body .fn {
 	display: block;
-	font-size: 15px;
+	font-size: em($font-size-comments);
+}
+#comments .comment-body p {
+	margin-bottom: 1.2em;
 }
 
 /* Admin Comment */
@@ -124,7 +129,7 @@
 
 /* Comment Form */
 #respond .comment-reply-title {
-	font-size: 20px;
+	font-size: em($font-size-reply-title);
 	margin: 0 0 20px 0;
 }
 #respond label {
@@ -148,7 +153,6 @@
 
 /* Comment Form (in reply) */
 .comment #respond {
-	font-size: 13px;
 	margin-top: 20px;
 	margin-left: 80px;
 }
@@ -156,7 +160,7 @@
 	margin-left: 20px;
 }
 .comment #respond .comment-reply-title {
-	font-size: 15px;
+	font-size: em($font-size-comments);
 }
 @media (max-width: 767px) {
 	.comment #respond,

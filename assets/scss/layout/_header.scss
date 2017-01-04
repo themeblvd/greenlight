@@ -1,3 +1,4 @@
+
 /* =Header
 ----------------------------------------------- */
 
@@ -67,7 +68,7 @@
 
 /* Logo */
 .site-title {
-	font-size: 1.5rem;
+	font-size: em($font-size-site-title);
 	line-height: 1;
 	margin: 0;
 }
@@ -80,7 +81,7 @@
 	color: rgba(255,255,255,.85);
 }
 .site-description {
-	font-size: .85rem;
+	font-size: em($font-size-site-desc);
 	line-height: 1;
 	margin-top: 5px;
 }
@@ -139,7 +140,7 @@
 	.header-search .search-input:focus {
 		background-color: transparent;
 		border: none;
-		font-size: 1.5em;
+		font-size: em($font-size-top-search);
 		padding: 20px 0 20px 34px;
 	}
 }
@@ -148,7 +149,7 @@
 }
 @media (min-width: 48em) {
 	.header-search .searchform .search-wrap:before {
-		font-size: 20px;
+		font-size: em($font-size-lg);
 		left: 20px;
 	}
 }
@@ -195,7 +196,7 @@
 	}
 }
 .header-menu > ul > li > a {
-	font-size: 15px;
+	font-size: em($font-size-header-menu-mobile);
 	display: block;
 	letter-spacing: .0625em;
 	line-height: 1.25em;
@@ -205,7 +206,7 @@
 }
 @media (min-width: 68.8125em) {
 	.header-menu > ul > li > a {
-		font-size: 12px;
+		font-size: em($font-size-header-menu);
 		padding: 1.5em .75em;
 	}
 }
@@ -262,7 +263,7 @@
 }
 .header-menu ul ul a {
 	display: block;
-	font-size: 12px;
+	font-size: em($font-size-header-menu-dropdown);
 	line-height: 1.4;
 	padding: 8px 22px;
 	text-decoration: none;
