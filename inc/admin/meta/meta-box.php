@@ -75,6 +75,7 @@ class Greenlight_Meta_Box {
 	public function assets() {
 
 		$screen = get_current_screen();
+		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		if ( 'post' === $screen->base && in_array( $screen->post_type, $this->args['post_type'], true ) ) {
 
@@ -89,7 +90,7 @@ class Greenlight_Meta_Box {
 
 			wp_enqueue_script(
 				'greenlight-meta-box',
-				esc_url( get_template_directory_uri() . '/assets/js/meta-box.js' ),
+				esc_url( get_template_directory_uri() . "/assets/js/meta-box{$suffix}.js" ),
 				array( 'jquery' ),
 				GREENLIGHT_VERSION
 			);

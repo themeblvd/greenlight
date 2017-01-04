@@ -292,9 +292,11 @@ add_action( 'customize_register', 'greenlight_customize_register' );
  */
 function greenlight_customize_scripts() {
 
+	$suffix = SCRIPT_DEBUG ? '' : '.min';
+
 	wp_enqueue_script(
 		'greenlight-customize-controls',
-		esc_url( get_template_directory_uri() . '/assets/js/customize-controls.js' ),
+		esc_url( get_template_directory_uri() . "/assets/js/customize-controls{$suffix}.js" ),
 		array( 'jquery', 'customize-controls' ),
 		GREENLIGHT_VERSION
 	);
