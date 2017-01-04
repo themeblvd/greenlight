@@ -14,4 +14,6 @@
 
 	<?php greenlight_link_pages(); // Wrapper for WP's link_pages(). ?>
 
+	<?php edit_post_link( esc_html__( 'Edit', 'greenlight' ), '<span class="edit-link">', '</span>' ); ?>
+
 </div><!-- .entry-content -->
