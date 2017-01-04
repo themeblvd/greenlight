@@ -13,7 +13,7 @@ input,
 select,
 textarea {
     color: #252525;
-    font-family: sans-serif;
+    font-family: $font-fam-base;
     font-weight: $font-weight-base;
     font-size: $font-size-base;
     line-height: $font-lh-base;
@@ -84,7 +84,7 @@ pre {
     background-color: rgba(225, 225, 225, 0.5);
     border: 1px solid rgba(37, 37, 37, 0.1);
     border-radius: 2px;
-    font-family: "Courier 10 Pitch", Courier, monospace;
+    font-family: $font-fam-code;
     font-size: em($font-size-pre);
     line-height: $font-lh-base;
     margin-bottom: 1.6em;
