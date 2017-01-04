@@ -9,7 +9,7 @@ table {
 }
 .hentry table th,
 .hentry table td {
-    border: 1px solid rgba(37, 37, 37, 0.1);
+    border: 1px solid rgba($color-border-dark, 0.1);
     border-left: none;
     border-right: none;
     padding: 0.5em;
@@ -24,7 +24,7 @@ table {
     border-bottom: none;
 }
 .hentry table tr:hover td {
-    background-color: rgba(37, 37, 37, 0.05);
+    background-color: rgba($dark, 0.05);
 }
 .widget table caption {
     font-weight: bold;

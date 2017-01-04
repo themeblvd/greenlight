@@ -49,26 +49,26 @@
 
 /* Colors */
 .btn-default {
-	background-color: #26393d; /* primary color */
-	color: #fff;
+	background-color: $color-bg-btn;
+	color: $color-text-light;
 }
 .btn-default:hover,
 .btn-default:focus,
 .btn-default.current,
 .btn-default.active {
-	background-color: #59928c; /* secondary color */
-	color: #fff;
+	background-color: $color-bg-btn-hover;
+	color: $color-text-light;
 }
 .btn-light {
-	background-color: #f2f2f2;
-	color: #222;
+	background-color: $color-bg-btn-light;
+	color: $color-text-dark;
 }
 .btn-light:hover,
 .btn-light:focus,
 .btn-light.current,
 .btn-light.active {
-	background-color: #ddd;
-	color: #222;
+	background-color: $color-bg-btn-light-hover;
+	color: $color-text-dark;
 }
 
 /* Hamburger */
@@ -83,8 +83,8 @@
 	height: 14px;
 }
 .hamburger .wrap span {
-	background-color: #fff;
-	background-color: rgba(255,255,255, .8);
+	background-color: $color-bg-hamburger;
+	background-color: rgba($color-bg-hamburger, .8);
 	border-radius: 1px;
 	display: block;
 	opacity: 1;
@@ -98,7 +98,7 @@
 }
 .hamburger:hover .wrap span,
 .hamburger:focus .wrap span {
-	background-color: #fff;
+	background-color: $color-bg-hamburger;
 }
 .hamburger .top {
 	top: 0;

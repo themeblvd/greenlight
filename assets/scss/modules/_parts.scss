@@ -8,10 +8,10 @@
 }
 .searchform .search-wrap:before {
 	content: "\f002";
-	color: rgba(200,200,200,.7);
+	color: rgba($light, .7);
 	display: block;
 	font-family: "FontAwesome";
-	line-height: 1em;
+	line-height: 1;
 	position: absolute;
 	top: 50%;
 	left: 10px;
@@ -26,16 +26,16 @@
 }
 .searchform .search-input {
 	outline: none;
-	padding: 6px 10px 6px 30px;
+	padding: em(6px) em(10px) em(6px) em(30px);
 }
 .searchform .search-input:focus {
-	border-color: rgba(37,37,37,.3);
+	border-color: rgba($color-border-dark, 0.3);
 }
 .searchform .search-input::-webkit-input-placeholder {
-	color: rgba(0,0,0,.2);
+	color: rgba($color-text-dark, 0.2);
 }
 .searchform .search-input:-ms-input-placeholder {
-	color: rgba(0,0,0,.2);
+	color: rgba($color-text-dark, .2);
 }
 .searchform .search-submit {
 	display: none;
@@ -69,15 +69,15 @@
 	padding: 0 2px;
 }
 .social-menu > ul > li > a {
-	color: #fff;
-	color: rgba(255,255,255,.8);
+	color: $color-text-light;
+	color: rgba($color-text-light, 0.8);
 	border-bottom: none;
 	font-size: 0;
 	padding: .3125rem;
 }
 .social-menu > ul > li > a:hover,
 .social-menu > ul > li > a:focus {
-	color: #fff;
+	color: $color-text-light;
 }
 .social-menu > ul > li > a:before {
 	display: inline-block;
@@ -92,10 +92,10 @@
 }
 @media (min-width: 68.8125em) {
 	.greenlight-loader {
-		background-color: rgba(0,0,0,.5);
+		background-color: rgba($black, 0.5);
 		border-radius: 2px;
-		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-		box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+		-webkit-box-shadow: 0 1px 2px rgba($black, 0.1);
+		box-shadow: 0 1px 2px rgba($black, 0.1);
 		display: block;
 		margin: -30px -51px 0 0;
 		top: 50%;
@@ -105,7 +105,7 @@
 		z-index: 999;
 	}
 	.greenlight-loader span {
-		border: 3px solid #ffffff;
+		border: 3px solid $white;
 	    border-radius: 100%;
 		margin-top: -7px;
 	    position: absolute;
@@ -139,17 +139,17 @@
 	0% {
 		-webkit-transform: scale(0.5);
 		transform: scale(0.5);
-		background: #ffffff;
+		background: $white;
 	}
 	50% {
 		-webkit-transform: scale(1);
 		transform: scale(1);
-		background: rgba(0,0,0,.5);
+		background: rgba($black, 0.5);
 	}
 	100% {
 		-webkit-transform: scale(0.5);
 		transform: scale(0.5);
-		background: #ffffff;
+		background: $white;
 	}
 }
 
@@ -161,7 +161,7 @@
 	.greenlight-scroll-to {
 	    background: transparent;
 	    border-radius: 0;
-	    color: rgba(255,255,255,.8);
+	    color: rgba($color-text-light, 0.8);
 		display: block;
 	    font-size: em($font-size-sroll-to);
 	    line-height: 2em;
@@ -171,7 +171,7 @@
 		left: 50%;
 	    text-align: center;
 	    text-indent: 0;
-	    text-shadow: 1px 1px 5px rgba(0,0,0,.5);
+	    text-shadow: 1px 1px 5px rgba($black, 0.5);
 	    width: 2em;
 	    height: 2em;
 		z-index: 10;

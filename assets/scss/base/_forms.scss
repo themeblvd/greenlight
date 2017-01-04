@@ -18,9 +18,9 @@ input[type="datetime"],
 input[type="datetime-local"],
 input[type="color"],
 textarea {
-    color: rgba(37, 37, 37, 0.5);
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(37, 37, 37, 0.1);
+    color: rgba($color-text-dark, 0.5);
+    background-color: rgba($color-bg-input, 0.5);
+    border: 1px solid rgba($color-border-dark, 0.1);
     border-radius: 2px;
     padding: 0.75rem;
     resize: none;
@@ -42,8 +42,8 @@ input[type="datetime"]:focus,
 input[type="datetime-local"]:focus,
 input[type="color"]:focus,
 textarea:focus {
-    background-color: rgba(255, 255, 255, 0.75);
-    color: rgba(37, 37, 37, 0.7);
+    background-color: rgba($color-bg-input, 0.75);
+    color: rgba($color-text-dark, 0.7);
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -53,19 +53,19 @@ input[type="file"] {
     font-size: em($font-size-xs);
 }
 select {
-    border: 1px solid rgba(37, 37, 37, 0.1);
+    border: 1px solid rgba($color-border-dark, 0.1);
 }
 textarea {
     width: 100%;
 }
 fieldset {
     padding: 0.5em 1.5em;
-    border-color: rgba(37, 37, 37, 0.1);
+    border-color: rgba($color-border-dark, 0.1);
 }
 legend {
     padding: 0 1em;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: $letter-spacing;
 }
 form label {
     font-weight: bold;

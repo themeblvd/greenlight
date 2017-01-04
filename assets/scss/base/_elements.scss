@@ -16,7 +16,7 @@ html {
     box-sizing: inherit;
 }
 body {
-    background: #ffffff;
+    background: $color-bg-body;
     word-wrap: break-word;
 }
 blockquote,
@@ -30,7 +30,7 @@ q:after {
     content: "";
 }
 hr {
-    background-color: rgba(37, 37, 37, 0.1);
+    background-color: rgba($color-bg-hr, 0.1);
     border: 0;
     height: 1px;
     margin-bottom: 1.5em;

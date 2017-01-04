@@ -1,75 +1,132 @@
 // ==========================================================================
-// Global Config
+// Fonts
 // ==========================================================================
 
+// Font Families
+$font-fam-base						: Geneva, Tahoma, sans-serif;
+$font-fam-code						: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+
 // Font Sizes
-$font-size-xxxl					: 64px;
-$font-size-xxl					: 40px;
-$font-size-xl					: 24px;
-$font-size-lg					: 20px;
-$font-size-base 				: 16px;
-$font-size-md					: 15px;
-$font-size-sm					: 14px;
-$font-size-xs					: 13px;
-$font-size-xxs					: 12px;
-$font-size-xxxs					: 11px;
-$font-size-micro				: 10px;
+$font-size-xxxl						: 64px;
+$font-size-xxl						: 40px;
+$font-size-xl						: 24px;
+$font-size-lg						: 20px;
+$font-size-base 					: 16px;
+$font-size-md						: 15px;
+$font-size-sm						: 14px;
+$font-size-xs						: 13px;
+$font-size-xxs						: 12px;
+$font-size-xxxs						: 11px;
+$font-size-micro					: 10px;
 
-$font-size-code					: $font-size-sm;
-$font-size-pre					: $font-size-md;
+// Font Size Usage
+$font-size-code						: $font-size-sm;
+$font-size-pre						: $font-size-md;
 
-$font-size-top-bar 				: $font-size-xs;
-$font-size-top-search			: $font-size-xl;
+$font-size-top-bar 					: $font-size-xs;
+$font-size-top-search				: $font-size-xl;
 
-$font-size-site-title			: $font-size-xl;
-$font-size-site-desc			: $font-size-sm;
-$font-size-header-menu			: $font-size-xxs;
-$font-size-header-menu-mobile	: $font-size-md;
-$font-size-header-menu-dropdown	: $font-size-xxs;
+$font-size-site-title				: $font-size-xl;
+$font-size-site-desc				: $font-size-sm;
+$font-size-header-menu				: $font-size-xxs;
+$font-size-header-menu-mobile		: $font-size-md;
+$font-size-header-menu-dropdown		: $font-size-xxs;
 
-$font-size-header-media-title	: $font-size-xxxl;
-$font-size-header-media-meta	: $font-size-sm;
-$font-size-sroll-to				: $font-size-xxl;
+$font-size-header-media-title		: $font-size-xxxl;
+$font-size-header-media-meta		: $font-size-sm;
+$font-size-sroll-to					: $font-size-xxl;
 
-$font-size-footer				: $font-size-md;
-$font-size-footer-info			: $font-size-sm;
+$font-size-footer					: $font-size-md;
+$font-size-footer-info				: $font-size-sm;
 
-$font-size-comments				: $font-size-md;
-$font-size-comments-meta		: $font-size-xxs;
-$font-size-reply-title			: $font-size-lg;
+$font-size-comments					: $font-size-md;
+$font-size-comments-meta			: $font-size-xxs;
+$font-size-reply-title				: $font-size-lg;
 
-$font-size-post-title			: $font-size-xxl;
-$font-size-post-meta			: $font-size-xxxs;
+$font-size-post-title				: $font-size-xxl;
+$font-size-post-meta				: $font-size-xxxs;
 
-$font-size-widget-title			: $font-size-base;
+$font-size-widget-title				: $font-size-base;
 
-$font-size-btn-xs				: $font-size-micro;
-$font-size-btn-sm				: $font-size-micro;
-$font-size-btn					: $font-size-xxxs;
-$font-size-btn-lg				: $font-size-xxs;
-$font-size-btn-xl				: $font-size-sm;
-$font-size-btn-xxl				: $font-size-base;
-$font-size-btn-xxxl				: $font-size-base;
+$font-size-btn-xs					: $font-size-micro;
+$font-size-btn-sm					: $font-size-micro;
+$font-size-btn						: $font-size-xxxs;
+$font-size-btn-lg					: $font-size-xxs;
+$font-size-btn-xl					: $font-size-sm;
+$font-size-btn-xxl					: $font-size-base;
+$font-size-btn-xxxl					: $font-size-base;
 
 // Font Line Heights
-$font-lh-base 					: 1.6;
-$font-lh-header 				: 1.4;
-$font-lh-header-lg 				: 1.2;
-$font-lh-btn 					: 1.42857143;
+$font-lh-base 						: 1.6;
+$font-lh-header 					: 1.4;
+$font-lh-header-lg 					: 1.2;
+$font-lh-btn 						: 1.42857143;
 
 // Font Weights
-$font-weight-base				: 300;
-$font-weight-header				: 600;
-
-// Font Families
-$font-fam-base					: Geneva, Tahoma, sans-serif;
-$font-fam-code					: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+$font-weight-base					: 300;
+$font-weight-header					: 600;
 
 // Letter Spacing
-$letter-spacing 				: 1px;
+$letter-spacing 					: 1px;
 
-// Descriptive Base Colors
+// ==========================================================================
+// Colors
+// ==========================================================================
 
-// Color Usage
+// General
+$white								: #fff;
+$lightest							: #f2f2f2;
+$lighter							: #ddd;
+$light								: #c8c8c8;
+$grey								: #555;
+$light-grey							: #686868;
+$dark								: #252525;
+$black								: #000;
+$outer-space-green					: #26393d;
+$timber-green						: #182e30;
+$patina-green						: #59928c;
+$meadow-green						: #1abc9c;
+$yellow								: #fff9c0;
 
-// Color Palettes
+// Text Colors
+$color-text-base					: $grey;
+$color-text-secondary				: $light-grey;
+$color-text-dark					: $dark;
+$color-text-light					: $white;
+$color-text-link					: $meadow-green;
+
+// Border Colors
+$color-border-white					: $white;
+$color-border-light					: $lighter;
+$color-border-dark					: $dark;
+
+// Background Colors
+$color-bg-white						: $white;
+$color-bg-light						: $lightest;
+$color-bg-dark						: $dark;
+$color-bg-black						: $black;
+$color-bg-primary					: $outer-space-green;
+$color-bg-accent					: $timber-green;
+$color-bg-secondary					: $patina-green;
+
+$color-bg-body						: $color-bg-white;
+$color-bg-hr						: $color-bg-dark;
+$color-bg-code						: $light;
+$color-bg-highlight					: $yellow;
+$color-bg-srt						: $lightest;
+
+$color-bg-top-bar					: $color-bg-accent;
+$color-bg-header					: $color-bg-primary;
+$color-bg-header-search				: $color-bg-secondary;
+$color-bg-header-menu-dropdown		: $color-bg-secondary;
+
+$color-bg-footer					: $color-bg-primary;
+$color-bg-footer-info				: $color-bg-secondary;
+
+$color-bg-btn						: $color-bg-primary;
+$color-bg-btn-hover					: $color-bg-secondary;
+$color-bg-btn-light					: $color-bg-light;
+$color-bg-btn-light-hover			: darken($color-bg-light, 10%);
+$color-bg-hamburger					: $color-bg-white;
+
+$color-bg-input						: $color-bg-white;

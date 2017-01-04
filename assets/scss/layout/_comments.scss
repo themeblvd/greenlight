@@ -9,8 +9,8 @@
 	padding: 0;
 }
 #comments ol.commentlist {
-	border-bottom: 2px solid #f2f2f2;
-	border-color: rgba(220,220,220,.4);
+	border-bottom: 2px solid $color-border-light;
+	border-color: rgba($color-border-dark, 0.4);
 	margin: 0 0 30px 0;
 	padding: 0 0 30px 0;
 }
@@ -48,8 +48,7 @@
 	color: inherit;
 }
 #comments .comment-body .comment-metadata {
-	color: #999999;
-	color: rgba(26,26,26,.4);
+	color: $color-text-secondary;
 	font-size: em($font-size-comments-meta);
 }
 #comments .comment-body .fn {
@@ -57,7 +56,13 @@
 	font-size: em($font-size-comments);
 }
 #comments .comment-body p {
-	margin-bottom: 1.2em;
+	margin-bottom: 1.2em; /* @TODO paragraph spacing */
+}
+#comments .comment-body p:last-child {
+	margin-bottom: 0;
+}
+#comments .comment-body .reply {
+	margin-top: 10px;
 }
 
 /* Admin Comment */
@@ -71,8 +76,7 @@
 
 /* Children */
 #comments ul.children {
-	border-left: 1px solid #eeeeee;
-	border-color: rgba(220,220,220,.4);
+	border-left: 1px solid $color-border-light;
 	margin: 40px 0 20px 70px;
 	padding: 0 0 0 20px;
 }

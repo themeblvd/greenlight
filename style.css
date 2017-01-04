@@ -85,7 +85,7 @@ html {
 }
 
 body {
-  background: #ffffff;
+  background: #fff;
   word-wrap: break-word;
 }
 
@@ -121,7 +121,7 @@ button,
 input,
 select,
 textarea {
-  color: #252525;
+  color: #555;
   font-family: Geneva, Tahoma, sans-serif;
   font-weight: 300;
   font-size: 16px;
@@ -139,6 +139,7 @@ textarea {
 }
 h1, h2, h3, h4, h5, h6 {
   clear: both;
+  color: #252525;
   font-weight: 600;
   line-height: 1.4;
   margin-top: 0.3125rem;
@@ -177,11 +178,12 @@ a {
 
 a:hover,
 a:focus {
-  color: #16a085;
+  color: #148f77;
 }
 
 p {
   margin-bottom: 1.5em;
+  /* @TODO paragraph spacing */
 }
 
 dfn, cite, em, i {
@@ -191,12 +193,16 @@ dfn, cite, em, i {
 blockquote {
   border-left: 4px solid rgba(37, 37, 37, 0.1);
   color: #686868;
-  font-size: 125%;
+  font-size: 1.25em;
   font-style: italic;
   line-height: 1.4;
-  margin: 0 1.5em;
-  margin: 1em 0;
-  padding-left: 1em;
+  margin: 0 .5em 24px .5em;
+  /* @TODO paragraph spacing */
+  padding: .5em 0 .5em 1em;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
 }
 
 address {
@@ -204,7 +210,7 @@ address {
 }
 
 pre {
-  background-color: rgba(225, 225, 225, 0.5);
+  background-color: #c8c8c8;
   border: 1px solid rgba(37, 37, 37, 0.1);
   border-radius: 2px;
   font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
@@ -223,7 +229,7 @@ code, kbd, tt, var {
 
 code {
   padding: 0.125rem 0.25rem;
-  background-color: rgba(225, 225, 225, 0.5);
+  background-color: #c8c8c8;
   border: 1px solid rgba(37, 37, 37, 0.1);
   -webkit-border-radius: 2px;
   border-radius: 2px;
@@ -254,6 +260,7 @@ big {
 ul,
 ol {
   margin: 0 0 1.5em 0;
+  padding-left: 2.5em;
 }
 
 ul {
@@ -395,16 +402,16 @@ form label {
   width: 1px;
 }
 .screen-reader-text:focus {
-  background-color: #f1f1f1;
+  background-color: #f2f2f2;
   -webkit-border-radius: 2px;
   border-radius: 2px;
   -webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
   clip: auto !important;
-  color: #21759b;
+  color: #1abc9c;
   display: block;
   font-size: 0.875em;
-  font-weight: 700;
+  font-weight: bold;
   height: auto;
   left: 5px;
   line-height: normal;
@@ -655,7 +662,6 @@ table {
 /* Colors */
 .btn-default {
   background-color: #26393d;
-  /* primary color */
   color: #fff;
 }
 
@@ -664,21 +670,20 @@ table {
 .btn-default.current,
 .btn-default.active {
   background-color: #59928c;
-  /* secondary color */
   color: #fff;
 }
 
 .btn-light {
   background-color: #f2f2f2;
-  color: #222;
+  color: #252525;
 }
 
 .btn-light:hover,
 .btn-light:focus,
 .btn-light.current,
 .btn-light.active {
-  background-color: #ddd;
-  color: #222;
+  background-color: #d9d9d9;
+  color: #252525;
 }
 
 /* Hamburger */
@@ -758,7 +763,7 @@ table {
   color: rgba(200, 200, 200, 0.7);
   display: block;
   font-family: "FontAwesome";
-  line-height: 1em;
+  line-height: 1;
   position: absolute;
   top: 50%;
   left: 10px;
@@ -774,7 +779,7 @@ table {
 
 .searchform .search-input {
   outline: none;
-  padding: 6px 10px 6px 30px;
+  padding: 0.375em 0.625em 0.375em 1.875em;
 }
 
 .searchform .search-input:focus {
@@ -782,11 +787,11 @@ table {
 }
 
 .searchform .search-input::-webkit-input-placeholder {
-  color: rgba(0, 0, 0, 0.2);
+  color: rgba(37, 37, 37, 0.2);
 }
 
 .searchform .search-input:-ms-input-placeholder {
-  color: rgba(0, 0, 0, 0.2);
+  color: rgba(37, 37, 37, 0.2);
 }
 
 .searchform .search-submit {
@@ -866,7 +871,7 @@ table {
   }
 
   .greenlight-loader span {
-    border: 3px solid #ffffff;
+    border: 3px solid #fff;
     border-radius: 100%;
     margin-top: -7px;
     position: absolute;
@@ -903,7 +908,7 @@ table {
   0% {
     -webkit-transform: scale(0.5);
     transform: scale(0.5);
-    background: #ffffff;
+    background: #fff;
   }
   50% {
     -webkit-transform: scale(1);
@@ -913,7 +918,7 @@ table {
   100% {
     -webkit-transform: scale(0.5);
     transform: scale(0.5);
-    background: #ffffff;
+    background: #fff;
   }
 }
 /* Scroll-To */
@@ -1038,7 +1043,6 @@ table {
 ----------------------------------------------- */
 .site-top-bar {
   background-color: #182e30;
-  /* darkenned primary color */
   color: #fff;
   font-size: 0.8125em;
   padding: .8em 40px;
@@ -1094,7 +1098,6 @@ table {
 ----------------------------------------------- */
 .site-header {
   background-color: #26393d;
-  /* primary color */
   color: #fff;
   padding-top: 30px;
   padding-bottom: 30px;
@@ -1106,7 +1109,6 @@ table {
 @media (min-width: 68.8125em) {
   .site-header.search-on {
     background-color: #59928c;
-    /* secondary color */
   }
 }
 .site-header > .wrap {
@@ -1156,8 +1158,6 @@ table {
   /* @noflip */
   .has-trans-header .site-header {
     background-color: rgba(38, 57, 61, 0.4);
-    /* #26393d */
-    /* primary color */
     position: absolute;
     top: 0;
     right: 0;
@@ -1177,7 +1177,7 @@ table {
 }
 
 .site-title a {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -1343,7 +1343,6 @@ table {
 }
 .header-menu ul ul {
   background-color: #59928c;
-  /* secondary color */
   display: none;
   margin: 0;
   padding: 13px 0;
@@ -1412,7 +1411,6 @@ table {
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 8px solid #59928c;
-    /* secondary color */
     position: absolute;
     top: -8px;
     right: 20px;
@@ -1553,8 +1551,7 @@ table {
 ----------------------------------------------- */
 /* Footer Columns */
 .site-footer {
-  background: #59928c;
-  /* secondary color */
+  background: #26393d;
   color: #fff;
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.9375em;
@@ -1581,8 +1578,7 @@ table {
 
 /* Footer Info */
 .footer-info {
-  background: #26393d;
-  /* primary color */
+  background: #59928c;
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.875em;
   padding: 2.85714em 2.14286em;
@@ -1629,7 +1625,7 @@ table {
 .site-content h5,
 .site-content h6,
 .site-content .entry-title a:not(:hover) {
-  color: #353535;
+  color: #252525;
 }
 
 /* Entry Title */
@@ -1646,8 +1642,7 @@ table {
 
 /* Entry Meta */
 .entry-meta {
-  color: #bbb;
-  /* secondary text color */
+  color: #686868;
   font-size: 0.6875em;
   letter-spacing: 2px;
   margin-top: 5px;
@@ -1690,8 +1685,8 @@ table {
 }
 
 #comments ol.commentlist {
-  border-bottom: 2px solid #f2f2f2;
-  border-color: rgba(220, 220, 220, 0.4);
+  border-bottom: 2px solid #ddd;
+  border-color: rgba(37, 37, 37, 0.4);
   margin: 0 0 30px 0;
   padding: 0 0 30px 0;
 }
@@ -1739,8 +1734,7 @@ table {
 }
 
 #comments .comment-body .comment-metadata {
-  color: #999999;
-  color: rgba(26, 26, 26, 0.4);
+  color: #686868;
   font-size: 0.75em;
 }
 
@@ -1751,6 +1745,15 @@ table {
 
 #comments .comment-body p {
   margin-bottom: 1.2em;
+  /* @TODO paragraph spacing */
+}
+
+#comments .comment-body p:last-child {
+  margin-bottom: 0;
+}
+
+#comments .comment-body .reply {
+  margin-top: 10px;
 }
 
 /* Admin Comment */
@@ -1765,8 +1768,7 @@ table {
 
 /* Children */
 #comments ul.children {
-  border-left: 1px solid #eeeeee;
-  border-color: rgba(220, 220, 220, 0.4);
+  border-left: 1px solid #ddd;
   margin: 40px 0 20px 70px;
   padding: 0 0 0 20px;
 }

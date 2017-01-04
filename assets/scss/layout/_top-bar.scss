@@ -3,8 +3,8 @@
 
 .site-top-bar {
 
-	background-color: #182e30; /* darkenned primary color */
-	color: #fff;
+	background-color: $color-bg-top-bar;
+	color: $color-text-light;
 	font-size: em($font-size-top-bar);
 	padding: .8em 40px;
 	position: relative;
@@ -59,7 +59,7 @@
 		}
 		a:hover,
 		a:focus {
-			background-color: rgba(0,0,0,.2);
+			background-color: rgba($color-bg-black, 0.2);
 		}
 
 	}

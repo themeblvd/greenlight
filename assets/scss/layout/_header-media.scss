@@ -22,10 +22,10 @@
 		margin-top: -40px; /* offset for top bar */
 	}
 	.site-header-media.darken {
-		background-color: #000;
+		background-color: $color-bg-black;
 	}
 	.site-header-media.lighten {
-		background-color: #fff;
+		background-color: $color-bg-white;
 	}
 	.site-header-media.darken.fw img,
 	.site-header-media.lighten.fw img {
@@ -43,7 +43,7 @@
 	}
 	.site-header-media .entry-title,
 	.site-header-media .entry-meta {
-		color: #fff;
+		color: $color-text-light;
 	}
 	.site-header-media .entry-title {
 		font-size: em($font-size-header-media-title);

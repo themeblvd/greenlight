@@ -12,7 +12,7 @@
 .site-content h5,
 .site-content h6,
 .site-content .entry-title a:not(:hover) {
-	color: #353535;
+	color: $color-text-dark;
 }
 
 /* Entry Title */
@@ -28,7 +28,7 @@
 
 /* Entry Meta */
 .entry-meta {
-	color: #bbb; /* secondary text color */
+	color: $color-text-secondary;
 	font-size: em($font-size-post-meta);
 	letter-spacing: 2px;
 	margin-top: 5px;

@@ -12,7 +12,7 @@ button,
 input,
 select,
 textarea {
-    color: #252525;
+    color: $color-text-base;
     font-family: $font-fam-base;
     font-weight: $font-weight-base;
     font-size: $font-size-base;
@@ -29,6 +29,7 @@ textarea {
 }
 h1, h2, h3, h4, h5, h6 {
 	clear: both;
+	color: $color-text-dark;
 	font-weight: $font-weight-header;
 	line-height: $font-lh-header;
 	margin-top: rem(5px);
@@ -54,35 +55,37 @@ h6 {
     font-size: em($font-size-base);
 }
 a {
-	color: #1abc9c;
+	color: $color-text-link;
 	text-decoration: none;
 }
 a:hover,
 a:focus {
-	color: #16a085;
+	color: darken($color-text-link, 10%);
 }
 p {
-    margin-bottom: em(24px);
+    margin-bottom: em(24px); /* @TODO paragraph spacing */
 }
 dfn, cite, em, i {
     font-style: italic;
 }
 blockquote {
-    border-left: 4px solid rgba(37, 37, 37, 0.1);
-    color: #686868;
-    font-size: 125%;
+    border-left: 4px solid rgba($color-border-dark, 0.1);
+    color: $color-text-secondary;
+    font-size: 1.25em;
     font-style: italic;
-    line-height: 1.4;
-    margin: 0 1.5em;
-    margin: 1em 0;
-    padding-left: 1em;
+    line-height: $font-lh-header;
+    margin: 0 .5em 24px .5em; /* @TODO paragraph spacing */
+    padding: .5em 0 .5em 1em;
+}
+blockquote p:last-child {
+	margin-bottom: 0;
 }
 address {
     margin: 0 0 1.5em;
 }
 pre {
-    background-color: rgba(225, 225, 225, 0.5);
-    border: 1px solid rgba(37, 37, 37, 0.1);
+    background-color: $color-bg-code;
+    border: 1px solid rgba($color-border-dark, 0.1);
     border-radius: 2px;
     font-family: $font-fam-code;
     font-size: em($font-size-pre);
@@ -98,8 +101,8 @@ code, kbd, tt, var {
 }
 code {
     padding: 0.125rem 0.25rem;
-    background-color: rgba(225, 225, 225, 0.5);
-    border: 1px solid rgba(37, 37, 37, 0.1);
+    background-color: $color-bg-code;
+    border: 1px solid rgba($color-border-dark, 0.1);
     -webkit-border-radius: 2px;
     border-radius: 2px;
 }
@@ -109,11 +112,11 @@ pre code {
     padding: 0;
 }
 abbr, acronym {
-    border-bottom: 1px dotted rgba(37, 37, 37, 0.1);
+    border-bottom: 1px dotted rgba($color-border-dark, 0.1);
     cursor: help;
 }
 mark, ins {
-    background-color: rgba(255, 249, 192, 0.5);
+    background-color: rgba($color-bg-highlight, 0.5);
     text-decoration: none;
 }
 big {
