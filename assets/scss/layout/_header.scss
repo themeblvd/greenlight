@@ -198,8 +198,8 @@
 .header-menu > ul > li > a {
 	font-size: em($font-size-header-menu-mobile);
 	display: block;
-	letter-spacing: .0625em;
-	line-height: 1.25em;
+	letter-spacing: $letter-spacing;
+	line-height: $font-lh-header-menu;
 	padding: .5em 0;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -264,7 +264,7 @@
 .header-menu ul ul a {
 	display: block;
 	font-size: em($font-size-header-menu-dropdown);
-	line-height: 1.4;
+	line-height: $font-lh-header-menu-dropdown;
 	padding: 8px 22px;
 	text-decoration: none;
 }

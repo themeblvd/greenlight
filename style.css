@@ -414,7 +414,6 @@ form label {
   font-weight: bold;
   height: auto;
   left: 5px;
-  line-height: normal;
   padding: 15px 23px 14px;
   text-decoration: none;
   top: 5px;
@@ -1317,8 +1316,8 @@ table {
 .header-menu > ul > li > a {
   font-size: 0.9375em;
   display: block;
-  letter-spacing: .0625em;
-  line-height: 1.25em;
+  letter-spacing: 1px;
+  line-height: 1.25;
   padding: .5em 0;
   text-decoration: none;
   text-transform: uppercase;
