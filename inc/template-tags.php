@@ -583,7 +583,7 @@ function greenlight_the_category() {
  * @param bool $display Whether to display or return content.
  * @return string HTML content for output.
  */
-function greenlight_paginate_links( $display = false ) {
+function greenlight_paginate_links( $display = true ) {
 
 	global $wp_query, $wp_rewrite;
 
