@@ -90,7 +90,7 @@
 	position: absolute;
 	top: -9999px;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.greenlight-loader {
 		background-color: rgba($black, 0.5);
 		border-radius: 2px;
@@ -157,7 +157,7 @@
 .greenlight-scroll-to {
 	display: none;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.greenlight-scroll-to {
 	    background: transparent;
 	    border-radius: 0;

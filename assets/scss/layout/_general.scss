@@ -28,7 +28,7 @@
 #primary {
 	padding: 0 0 50px 0;
 }
-@media (min-width: 62em) {
+@include min-width(md) {
 
 	/* Sidebar Right */
 	.layout-sidebar-right #primary {

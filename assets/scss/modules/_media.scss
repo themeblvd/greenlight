@@ -56,7 +56,10 @@ img {
 .greenlight-parallax .parallax-figure {
 	margin: 0;
 }
-@media (min-width: 68.8125em) {
+.greenlight-parallax .parallax-figure img {
+	width: 100%;
+}
+@include min-width(lg) {
 	.greenlight-parallax {
 		position: relative;
 		overflow: hidden;
@@ -87,6 +90,7 @@ img {
 		transform: translateX(-50%);
 		-webkit-transition: opacity .3s ease-in-out;
 		transition: opacity .3s ease-in-out;
+		width: auto;
 	}
 	.greenlight-parallax.on .parallax-figure img {
 		opacity: 1;
@@ -96,7 +100,7 @@ img {
 		opacity: .6;
 	}
 }
-@media (max-width: 68.75em) {
+@include max-width(lg) {
 	.greenlight-parallax .parallax-figure img {
 		-webkit-transform: none !important;
 		transform: none !important;

@@ -35,7 +35,7 @@
 	font-size: em($font-size-btn-xxxl);
 	padding: em(28px, $font-size-btn-xxxl) em(64px, $font-size-btn-xxxl);
 }
-@media (max-width: 480px) {
+@include max-width(xs) {
 	.btn + .btn {
 		margin-top: .3125em;
 	}

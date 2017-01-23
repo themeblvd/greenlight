@@ -98,7 +98,7 @@
 }
 
 /* Mobile */
-@media (max-width: 767px) {
+@include max-width(sm) {
 	#comments {
 		padding: 30px;
 	}
@@ -144,7 +144,7 @@
 #respond input[type="url"] {
 	width: 50%;
 }
-@media (max-width: 767px) {
+@include max-width(sm) {
 	#respond input[type="email"],
 	#respond input[type="text"],
 	#respond input[type="url"] {
@@ -166,7 +166,7 @@
 .comment #respond .comment-reply-title {
 	font-size: em($font-size-comments);
 }
-@media (max-width: 767px) {
+@include max-width(sm) {
 	.comment #respond,
 	.comment .children #respond {
 		margin-left: 0;

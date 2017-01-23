@@ -11,7 +11,7 @@
 	-webkit-transition: background-color .2s ease-in-out;
 	transition: background-color .2s ease-in-out;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.site-header.search-on {
 		background-color: $color-bg-header-search;
 	}
@@ -26,7 +26,7 @@
 .header-branding {
 	position: relative;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-branding {
 		float: left;
 	}
@@ -38,7 +38,7 @@
 		transform: translate(0, -50%);
 	}
 }
-@media (max-width: 68.75em) {
+@include max-width(lg) {
 	.header-menu {
 		margin-top: 30px; /* matches .site-header padding */
 	}
@@ -51,7 +51,7 @@
 }
 
 /* Transparent Header (used with header media) */
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	/* @noflip */
 	.has-trans-header .site-header {
 		background-color: rgba($color-bg-header, .4);
@@ -91,7 +91,7 @@
 }
 
 /* Search */
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-search {
 		display: none;
 		opacity: 0;
@@ -130,12 +130,12 @@
 .header-search .search-input:focus {
 	border-color: rgba($color-bg-black, 0.5);
 }
-@media (min-width: 48em) {
+@include min-width(sm) {
 	.header-search .search-input {
 		padding: 20px 20px 20px 54px;
 	}
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-search .search-input,
 	.header-search .search-input:focus {
 		background-color: transparent;
@@ -147,13 +147,13 @@
 .header-search .searchform .search-wrap:before {
 	color: $color-text-light;
 }
-@media (min-width: 48em) {
+@include min-width(sm) {
 	.header-search .searchform .search-wrap:before {
 		font-size: em($font-size-lg);
 		left: 20px;
 	}
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-search .searchform .search-wrap:before {
 		left: 0;
 	}
@@ -180,7 +180,7 @@
 .header-menu a:focus {
 	color: $color-text-light;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-menu > ul {
 		margin: 0 -5px;
 	}
@@ -189,7 +189,7 @@
 	position: relative;
 	padding: 5px 0;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-menu > ul > li {
 		float: left;
 		padding: 0 5px;
@@ -204,7 +204,7 @@
 	text-decoration: none;
 	text-transform: uppercase;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-menu > ul > li > a {
 		font-size: em($font-size-header-menu);
 		padding: 1.5em .75em;
@@ -214,7 +214,7 @@
 	float: right;
 	margin-right: 1em;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-menu > ul > li > a > .sub-indicator {
 		margin-right: 0;
 		margin-left: .8em;
@@ -236,7 +236,7 @@
 .header-menu ul ul li.focus > ul {
 	display: block;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-menu ul ul {
 		box-shadow: 0 0 4px rgba(0,0,0,.1);
 		display: block;
@@ -271,7 +271,7 @@
 .header-menu ul ul .sub-indicator {
 	display: none;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.header-menu ul ul .sub-indicator {
 		display: block;
 		float: right;
@@ -293,7 +293,7 @@
 }
 
 /* Menu Icons */
-@media (max-width: 68.75em) {
+@include max-width(lg) {
 	.header-menu .menu-item-search {
 		display: none;
 	}
@@ -303,7 +303,7 @@
 .site-menu-toggle {
 	display: none;
 }
-@media (max-width: 68.75em) {
+@include max-width(lg) {
 	.site-menu-toggle {
 		display: block;
 		position: absolute;
@@ -317,7 +317,7 @@
 }
 
 /* Mobile Menu/Search Visibility */
-@media (max-width: 68.75em) {
+@include max-width(lg) {
 	.header-search,
 	.header-menu-container {
 		display: none;

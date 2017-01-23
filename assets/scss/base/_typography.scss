@@ -18,13 +18,13 @@ textarea {
     font-size: $font-size-base;
     line-height: $font-lh-base;
 }
-@media (max-width: 47.9375em) {
+@include max-width(sm) {
     body,
     button,
     input,
     select,
     textarea {
-        font-size: em($font-size-sm);
+        font-size: em($font-size-mobile);
     }
 }
 h1, h2, h3, h4, h5, h6 {

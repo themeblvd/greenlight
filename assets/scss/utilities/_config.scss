@@ -1,4 +1,14 @@
 // ==========================================================================
+// Breakpoints
+// ==========================================================================
+
+$breakpoint-xs 						: 415px;
+$breakpoint-sm 						: 768px;
+$breakpoint-md 						: 992px;
+$breakpoint-lg						: 1100px;
+$breakpoint-xl 						: 1600px;
+
+// ==========================================================================
 // Fonts
 // ==========================================================================
 
@@ -20,6 +30,8 @@ $font-size-xxxs						: 11px;
 $font-size-micro					: 10px;
 
 // Font Size Usage
+$font-size-mobile					: $font-size-sm;
+
 $font-size-code						: $font-size-sm;
 $font-size-pre						: $font-size-md;
 

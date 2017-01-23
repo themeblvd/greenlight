@@ -4,9 +4,8 @@
 
 .site-header-media img {
 	display: block;
-	width: 100%;
 }
-@media (min-width: 68.8125em) {
+@include min-width(lg) {
 	.site-header-media {
 		position: relative;
 		z-index: 1;
@@ -57,8 +56,9 @@
 		margin-top: em($font-size-header-media-meta, $font-size-header-media-meta);
 	}
 }
-@media (max-width: 68.75em) {
+@include max-width(lg) {
 	.site-header-media .entry-header {
+		margin-bottom: 0;
 		padding-top: em(40px);
 		padding-bottom: em(40px);
 	}
