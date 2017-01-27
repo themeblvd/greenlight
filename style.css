@@ -446,6 +446,7 @@ form label {
 ----------------------------------------------- */
 /* Images */
 img {
+  display: block;
   height: auto;
   /* Make sure images are scaled correctly. */
   max-width: 100%;
@@ -455,9 +456,55 @@ img {
 /* Captions */
 .wp-caption {
   max-width: 100%;
+  text-align: center;
 }
 
-/* @TODO */
+.wp-caption.alignnone,
+.wp-caption.aligncenter {
+  margin-bottom: 40px;
+}
+
+/* @noflip */
+.wp-caption.alignleft {
+  margin: 5px 20px 20px 0;
+}
+
+/* @noflip */
+.wp-caption.alignright {
+  margin: 5px 0 20px 20px;
+}
+
+.wp-caption img {
+  display: block;
+  border: 0 none;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+.wp-caption-text,
+.wp-caption-dd {
+  font-size: 0.875em;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.wp-caption .wp-caption-text {
+  background: #f2f2f2;
+  padding: 20px;
+  margin: 0;
+}
+
+.wp-caption.thumbnail .wp-caption-text {
+  padding: 10px;
+}
+
+.has-caption {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
 /* Galleries */
 .gallery {
   margin-bottom: 1.5em;
