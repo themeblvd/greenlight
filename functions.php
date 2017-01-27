@@ -458,14 +458,6 @@ function greenlight_scripts() {
 		'4.7.0'
 	);
 
-	// Add grid system styles.
-	wp_enqueue_style(
-		'greenlight-grid',
-		esc_url( get_template_directory_uri() . "/assets/css/grid{$rtl}{$suffix}.css" ),
-		array(),
-		GREENLIGHT_VERSION
-	);
-
 	// Add primary theme styles.
 	wp_enqueue_style(
 		$stylesheet,
