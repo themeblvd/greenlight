@@ -4,6 +4,7 @@
 
 .site-header-media img {
 	display: block;
+	min-width: 100%;
 }
 @include min-width(lg) {
 	.site-header-media {

@@ -1796,6 +1796,7 @@ table {
 ----------------------------------------------- */
 .site-header-media img {
   display: block;
+  min-width: 100%;
 }
 
 @media (min-width: 68.75em) {
