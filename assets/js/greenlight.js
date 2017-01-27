@@ -36,6 +36,14 @@ jQuery(document).ready(function($) {
 
     });
 
+	// ---------------------------------------------------------
+	// Mobile Panel
+	// ---------------------------------------------------------
+
+	$('#top').find('.top-bar-text').clone().addClass('copy').appendTo( $('.site-header > .wrap') );
+	$('#top').find('.social-menu').clone().addClass('copy').appendTo( $('.site-header > .wrap') );
+	$('#branding').find('.top-bar-text > ul').removeClass('list-inline').addClass('list-unstyled');
+
     // ---------------------------------------------------------
 	// Navigation
 	// ---------------------------------------------------------

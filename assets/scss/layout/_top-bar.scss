@@ -64,4 +64,11 @@
 
 	}
 
+	/* Hide when mobile menu comes in. */
+	@include max-width(lg) {
+		& {
+			display: none;
+		}
+	}
+
 }

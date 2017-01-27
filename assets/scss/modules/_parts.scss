@@ -26,7 +26,7 @@
 }
 .searchform .search-input {
 	outline: none;
-	padding: em(6px) em(10px) em(6px) em(30px);
+	padding: em(6px, $font-size-mobile) em(10px, $font-size-mobile) em(6px, $font-size-mobile) em(34px, $font-size-mobile);
 }
 .searchform .search-input:focus {
 	border-color: rgba($color-border-dark, 0.3);

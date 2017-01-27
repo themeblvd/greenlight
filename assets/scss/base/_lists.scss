@@ -24,12 +24,16 @@ dd {
     margin: 0 1.5em em($spacing-paragraph);
 }
 
+/* Unstyled Lists */
+.list-unstyled {
+	@include list-unstyled;
+}
+
 /* Inline List */
 .list-inline {
 
-	list-style: none;
+	@include list-unstyled;
 	margin: 0 -5px;
-	padding-left: 0;
 
 	li {
 		display: inline-block;
