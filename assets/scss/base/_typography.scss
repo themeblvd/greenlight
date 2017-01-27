@@ -63,7 +63,7 @@ a:focus {
 	color: darken($color-text-link, 10%);
 }
 p {
-    margin-bottom: em(24px); /* @TODO paragraph spacing */
+    margin-bottom: em($spacing-paragraph);
 }
 dfn, cite, em, i {
     font-style: italic;
@@ -74,14 +74,14 @@ blockquote {
     font-size: 1.25em;
     font-style: italic;
     line-height: $font-lh-quote;
-    margin: 0 .5em 24px .5em; /* @TODO paragraph spacing */
+    margin: 0 .5em em($spacing-paragraph) .5em;
     padding: .5em 0 .5em 1em;
 }
 blockquote p:last-child {
 	margin-bottom: 0;
 }
 address {
-    margin: 0 0 1.5em;
+    margin: 0 0 em($spacing-paragraph);
 }
 pre {
     background-color: $color-bg-code;
@@ -90,7 +90,7 @@ pre {
     font-family: $font-fam-code;
     font-size: em($font-size-pre);
     line-height: $font-lh-base;
-    margin-bottom: 1.6em;
+    margin-bottom: em($spacing-paragraph);
     max-width: 100%;
     overflow: auto;
     padding: 1em;

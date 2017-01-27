@@ -56,7 +56,7 @@
 	font-size: em($font-size-comments);
 }
 #comments .comment-body p {
-	margin-bottom: 1.2em; /* @TODO paragraph spacing */
+	margin-bottom: em($spacing-paragraph);
 }
 #comments .comment-body p:last-child {
 	margin-bottom: 0;

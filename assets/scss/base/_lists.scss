@@ -4,8 +4,8 @@
 
 ul,
 ol {
-    margin: 0 0 1.5em 0;
-	padding-left: em(40px);
+    margin: 0 0 em($spacing-paragraph) 0;
+	padding-left: em($spacing-list);
 }
 ul {
     list-style: disc;
@@ -21,7 +21,7 @@ dt {
     font-weight: bold;
 }
 dd {
-    margin: 0 1.5em 1.5em;
+    margin: 0 1.5em em($spacing-paragraph);
 }
 
 /* Inline List */

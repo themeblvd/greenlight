@@ -17,8 +17,13 @@ $grid-columns						: 12;
 $grid-gutters						: 15px;
 
 // ==========================================================================
-// Fonts
+// Typography
 // ==========================================================================
+
+// Typo Spacing
+$spacing-paragraph					: 24px;
+$spacing-list						: 40px;
+$spacing-letter 					: 1px;
 
 // Font Families
 $font-fam-base						: Geneva, Tahoma, sans-serif;
@@ -42,6 +47,7 @@ $font-size-mobile					: $font-size-sm;
 
 $font-size-code						: $font-size-sm;
 $font-size-pre						: $font-size-md;
+$font-size-caption					: $font-size-sm;
 
 $font-size-top-bar 					: $font-size-xs;
 $font-size-top-search				: $font-size-xl;
@@ -78,6 +84,7 @@ $font-size-btn-xxxl					: $font-size-base;
 
 // Font Line Heights
 $font-lh-base 						: 1.6;
+$font-lh-caption					: 1.4;
 $font-lh-header 					: 1.4;
 $font-lh-header-lg 					: 1.2;
 $font-lh-quote						: 1.4;
@@ -88,9 +95,6 @@ $font-lh-btn 						: 1.42857143;
 // Font Weights
 $font-weight-base					: 300;
 $font-weight-header					: 600;
-
-// Letter Spacing
-$letter-spacing 					: 1px;
 
 // ==========================================================================
 // Colors

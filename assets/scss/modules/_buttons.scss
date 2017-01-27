@@ -5,7 +5,7 @@
 .btn {
 	display: inline-block;
     font-size: em($font-size-btn);
-    letter-spacing: $letter-spacing;
+    letter-spacing: $spacing-letter;
     line-height: $font-lh-btn;
     padding: em(12px, $font-size-btn) em(24px, $font-size-btn);
     text-decoration: none;

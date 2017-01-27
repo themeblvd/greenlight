@@ -16,7 +16,7 @@ img {
 }
 .wp-caption.alignnone,
 .wp-caption.aligncenter {
- 	margin-bottom: 40px;
+ 	margin-bottom: em($spacing-paragraph);
 }
 
 /* @noflip */
@@ -37,8 +37,8 @@ img {
 }
 .wp-caption-text,
 .wp-caption-dd {
-	font-size: em(14px);
-	line-height: 1.4;
+	font-size: em($font-size-caption);
+	line-height: $font-lh-caption;
 	text-align: center;
 }
 .wp-caption .wp-caption-text {
@@ -56,7 +56,7 @@ img {
 
 /* Galleries */
 .gallery {
-	margin-bottom: 1.5em;
+	margin-bottom: em($spacing-paragraph);
 }
 .gallery-item {
 	display: inline-block;

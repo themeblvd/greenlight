@@ -4,7 +4,7 @@
 
 table {
     border-collapse: collapse;
-    margin: 0 0 1.5em;
+    margin: 0 0 em($spacing-paragraph);
     width: 100%;
 }
 .hentry table th,

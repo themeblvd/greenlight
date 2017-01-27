@@ -59,13 +59,13 @@ textarea {
     width: 100%;
 }
 fieldset {
-    padding: 0.5em 1.5em;
+    padding: 0.5em em($spacing-paragraph);
     border-color: rgba($color-border-dark, 0.1);
 }
 legend {
     padding: 0 1em;
     text-transform: uppercase;
-    letter-spacing: $letter-spacing;
+    letter-spacing: $spacing-letter;
 }
 form label {
     font-weight: bold;
